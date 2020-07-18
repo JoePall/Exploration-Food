@@ -21,5 +21,9 @@ function queryAPI(searchText, healthRestrictions,  callback) {
 
 // Handles response
 function handleAPIQuery(response) {
-
+    response.hits.forEach(hit => {
+        var name = hit.recipe.label;
+        var imgURL = hit.recipe.image;
+        
+    });
 }
