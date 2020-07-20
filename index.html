@@ -14,40 +14,36 @@
 </head>
 
 <body>
-    <h1>New Recipe Explorer</h1>
+    <div class="container is-widescreen">
+        <div class="content">
+            <h1>Exploration Food <i class="fas fa-space-shuttle"></i></h1>
 
-    <!-- Filter Icon -->
-
-    <!-- Search Icon -->
-
-
-    <form class="field">
-        <div class="field">
-            <label class="label">Search</label>
-            <div class="control">
-                <input class="input" type="text" placeholder="Search for a recipe...">
-            </div>
-            <i class="fa fa-search" aria-hidden="true"></i>
-            <i class="fa fa-filter" aria-hidden="true"></i>
+            <form id="search-bar" class="field">
+                <div class="field columns buttons are-large are-primary are-light">
+                    <label class="label">Search</label>
+                    <input id="search-text" class="input is-10 is-rounded" type="text"
+                        placeholder="Search for a recipe...">
+                    <button id="search" type="button" class="button">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                    <button id="filter" type="button" class="button">
+                        <i class="fa fa-filter" aria-hidden="true"></i>
+                    </button>
+                    <button type="reset" class="button is-danger is-outlined">
+                        <i class="fas fa-undo"></i>
+                    </button>
+                </div>
+                <div id="filter-content">
+                    <!-- Add Allergy Selection here -->
+                    <!-- Add Cuisine Selection here -->
+                </div>
+            </form>
         </div>
-        <div class="control">
-            <div class="select">
-                <select id="Allergies">
-                    <!-- options go here -->
-                    <!-- <option>value</option> -->
-                </select>
-            </div>
-        </div>
-        <div class="field is-grouped">
-            <div class="control">
-                <button class="button is-link">Submit</button>
-            </div>
-            <div class="control">
-                <button class="button is-link is-light">Cancel</button>
-            </div>
-        </div>
-    </form>
+    </div>
+
     <script>
+        var filter = false;
+        
         var allergies = {
             Dairy: "dairy-free",
             Egg: "egg-free",
@@ -59,16 +55,62 @@
             Soy: "soy-free"
         };
 
-        var keys = Object.keys(allergies);
-        $(keys).each(key => {
-            $("#Allergies").append($("<option>").text(keys[key].replace("_", " ")).val(allergies[keys[key]]));
+        var cuisine = {
+            Mexican: "mexican",
+            Italian: "italian",
+            Asian: "asian"
+        };
+
+        function getCheckboxGroupHTML(name, object) {
+            var result = $("<section>").addClass("control");
+
+            result.append($("<h3>").text(name));
+
+            var keys = Object.keys(object);
+            $(keys).each(key => {
+                var label = $("<label>").addClass("checkbox " + name);
+
+                label.append($("<input>").attr("type", "checkbox").val(object[keys[key]]));
+                label.append($("<p>").text(keys[key].replace("_", " ")));
+
+                result.append(label);
+            });
+
+            return result;
+        }
+
+        $("#filter").click(event => {
+            event.preventDefault();
+
+            if (filter) {
+                $("#filter-content").empty();
+            }
+            else {
+                $("#filter-content").append(getCheckboxGroupHTML("Allergies", allergies))
+                    .append(getCheckboxGroupHTML("Cuisine", cuisine));
+            }
+            filter = !filter;
         });
 
-        // var mealType = [Breakfast, Lunch, Dinner, Snack, Teatime];
+        $("#search").click(event => {
+            event.preventDefault();
+            
+            var searchText = $("#search-text").text();
 
-        // var cuisineType = [American, Asian, Chinese, French, Indian, Italian, Japanese, Mexican];
+            console.log("Allergies");
+            $.each($(".Allergies>input:checked"), (i, item) => {
+                console.log($(item).val());
+            });
 
+            console.log("Cuisine");
+            $.each($(".Cuisine>input:checked"), (i, item) => {
+                console.log($(item).val());
+            });
 
+            
+            //queryEdamamAPI(, "egg-free");
+
+        });
     </script>
 </body>
 

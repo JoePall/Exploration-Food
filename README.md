@@ -1,17 +1,17 @@
-As a person with allergies and / or a picky eater that gets bored easily with old recipies
-I want to have easy access to new and exciting recipies that adhere to my allergies and food prefrences
-So that I can enjoy make new dishes without having to modify the recipie
+As a person with allergies and / or a picky eater that gets bored easily with old Recipes
+I want to have easy access to new and exciting Recipes that adhere to my allergies and food prefrences
+So that I can enjoy make new dishes without having to modify the Recipe
 
 (temp name)Picky for a Purpose
 
-Selective recipie designed to match the needs of all diets and food restrictions. 
+Selective Recipe designed to match the needs of all diets and food restrictions. 
 Great for those with allergies, religious restrictions, or are simply particular about thier food.
-Will present users with an exciting new recipie generated based on thier personalized profile!
+Will present users with an exciting new Recipe generated based on thier personalized profile!
 
 nav
 profile
-new recipies
-saved recipies
+new Recipes
+saved Recipes
 
 PROFILE PAGE
 Name
@@ -38,8 +38,8 @@ Exclude Food for Your Picky Eaters :)  bar
         -bannanna 
         -bluberries
 
-NEW RECIPIE PAGE
-RANDOM RECIPIE ABOVE
+NEW Recipe PAGE
+RANDOM Recipe ABOVE
 Search by food 
 
 Meal Choice bar
@@ -49,34 +49,34 @@ Meal Choice bar
     -desert
     -snack food
 
-food by location 
+Cuisine
     -mexican
     -chinese
 
-        RANDOM RECIPIE BUTTON
-// RECIPIE = a short description of the dish, the ingrediant list, a photo, and URL(probably want to attach url to photo)
+        RANDOM Recipe BUTTON
+// Recipe = a short description of the dish, the ingrediant list, a photo, and URL(probably want to attach url to photo)
 
 //when user selects prefrences those prefrences are stored in var or somewhere
-// when user hit generate random recipie button 
+// when user hit generate random Recipe button 
 // those stored prefrences are used to search API
 // AND saved in local storage
 
 // when user returns to the page thier saved prefrencesare retrieved from local storage
-//and selected on the page and a recipie is generated automatically
+//and selected on the page and a Recipe is generated automatically
 
 // error protection user must select some prefrences or a pop up is presented "must choose at least 1 prefference"
 
 //when user chooses allergy prefrence those are Included 
 // when user chooses meal prefrence those are Included
 // when user chooses prefrences under food groups those prefrences are Excluded
-// when user hits generate random recipie button 
-//Then Only recipies that meet ALL criteria above are generated
-// If there are no recipies that meet ALL criteria show "Sorry no Recipies Found -- try changing prefrences"
+// when user hits generate random Recipe button 
+//Then Only Recipes that meet ALL criteria above are generated
+// If there are no Recipes that meet ALL criteria show "Sorry no Recipes Found -- try changing prefrences"
 
-//When generate random recipie button is hit by user
-// ONE recipie is shown above  
+//When generate random Recipe button is hit by user
+// ONE Recipe is shown above  
 //if the user hits generate random button again 
-// a new recipie is shown
+// a new Recipe is shown
 
 //when user loads page if there is no name stored in local storage
 // input field for name is displayed 
@@ -86,7 +86,7 @@ food by location
 
 Optional/Future Improvement
 //find the time of day and automatically change meal choice based on time [that can be overridden by user]
-//give the user the option to save recipies on seperate html page 'saved recipies'
+//give the user the option to save Recipes on seperate html page 'saved Recipes'
 
 
 working on your own branch 
