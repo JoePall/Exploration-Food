@@ -61,6 +61,14 @@
             Asian: "asian"
         };
 
+        var mealType = {
+            Breakfast: "breakfast",
+            Lunch: "lunch",
+            Dinner: "dinner",
+            Snack: "snack",
+            Teatime: "teatime"
+        };
+
         function getCheckboxGroupHTML(name, object) {
             var result = $("<section>").addClass("control");
 
@@ -87,7 +95,8 @@
             }
             else {
                 $("#filter-content").append(getCheckboxGroupHTML("Allergies", allergies))
-                    .append(getCheckboxGroupHTML("Cuisine", cuisine));
+                    .append(getCheckboxGroupHTML("Cuisine", cuisine))
+                    .append(getCheckboxGroupHTML("Meal Type", mealType));
             }
             filter = !filter;
         });
@@ -105,6 +114,11 @@
             console.log("Cuisine");
             $.each($(".Cuisine>input:checked"), (i, item) => {
                 console.log($(item).val());
+
+            console.log("mealType");
+            $.each($(".mealType>input:checked"), (i, item) => {
+                console.log($(item).val());
+            })
             });
 
             
