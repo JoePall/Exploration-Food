@@ -1,3 +1,13 @@
+load()
+function load(){
+    var storedPref = JSON.parse(localStorage.getItem("preferances"))
+    if(storedPref === null){
+
+    }
+    else{
+        console.log(storedPref)
+    }
+}
 /**
  * Creates an edamam API query from the parameters provided.
  * @constructor
@@ -9,11 +19,11 @@ function queryEdamamAPI(searchText, healthRestrictions) {
     var queryURL = "https://api.edamam.com/search?q=" + searchText + 
         "&app_id=921c6383&" +
         "app_key=4b501eb01b6e08e86753e67c31502cae"; 
+        //add apiPartComplete to query
         // not allowed... "&health=" + healthRestrictions;
         console.log(queryURL);
     $.getJSON(queryURL, handleEdamamAPIQuery);
 }
-
 /**
  * Handles the response from an edamam query. 
  * @constructor

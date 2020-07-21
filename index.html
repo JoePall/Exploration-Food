@@ -21,14 +21,18 @@
             <form id="search-bar" class="field">
                 <div class="field columns buttons are-large are-primary are-light">
                     <label class="label">Search</label>
+
                     <input id="search-text" class="input is-10 is-rounded" type="text"
                         placeholder="Search for a recipe...">
+
                     <button id="search" type="button" class="button">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
+
                     <button id="filter" type="button" class="button">
                         <i class="fa fa-filter" aria-hidden="true"></i>
                     </button>
+
                     <button type="reset" class="button is-danger is-outlined">
                         <i class="fas fa-undo"></i>
                     </button>
@@ -97,15 +101,27 @@
             
             var searchText = $("#search-text").text();
 
+            var masterPref = []
+
             console.log("Allergies");
+            var allergyPref = []
             $.each($(".Allergies>input:checked"), (i, item) => {
-                console.log($(item).val());
+                allergyPref.push($(item).val())
+                console.log(allergyPref)
             });
+            masterPref.push(allergyPref)
+            console.log(masterPref)
 
             console.log("Cuisine");
+            var cuisinePref = []
             $.each($(".Cuisine>input:checked"), (i, item) => {
-                console.log($(item).val());
+                cuisinePref.push($(item).val())
+                console.log(cuisinePref)
             });
+            masterPref.push(cuisinePref)
+            console.log(masterPref)
+            
+            localStorage.setItem("preferances", JSON.stringify(masterPref))
 
             
             //queryEdamamAPI(, "egg-free");
