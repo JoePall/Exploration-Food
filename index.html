@@ -22,7 +22,7 @@
                 <div class="field columns buttons are-large are-primary are-light">
                     <label class="label">Search</label>
                     <input id="search-text" class="input is-10 is-rounded" type="text" placeholder="Search for a recipe...">
-                    <button id="search" type="button" class="button">
+                    <button id="search" type="button" class="submit">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
 
@@ -43,27 +43,8 @@
     </div>
 
     <!---Recipe Tiles HTML--->
-    <div class="tile is-ancestor">
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <p class="title">Recipe Name</p>
-                <p class="subtitle">Ingredients</p>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <p class="title">Recipe Name</p>
-                <div id="recipeName" class="title"></div>
-                <p class="subtitle">Ingredients</p>
-                <div id="ingredientsList" class="subtitle"></div>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
+    <div id="recipe-container" class="tile is-ancestor">
+        <!-- Recipe goes here -->
     </div>
     <div class="tile is-parent">
         <article class="tile is-child notification is-primary">
@@ -202,7 +183,7 @@
         $("#search").click(event => {
             event.preventDefault();
 
-            var searchText = $("#search-text").text();
+            var searchText = $("#search-text").val();
 
             var masterPref = []
 
@@ -236,10 +217,35 @@
             console.log(masterPref)
             localStorage.setItem("preferances", JSON.stringify(masterPref))
 
-
-            //queryEdamamAPI(, "egg-free");
-
+            queryAPI(searchText, "", "", "", "", generateRecipeHTML);
         });
+
+        function generateRecipeHTML(recipe) {
+            //TODO: Need to add center class to     👇
+            var result = $("<section>").addClass("tile is-5 is-parent");
+
+            var article = $("<article>").addClass("tile is-child notification is-primary");
+
+            article.append($("<p>").addClass("title").text(recipe.title));
+            article.append($("<p>").addClass("subtitle").html(recipe.summary));
+
+            var figure = $("<figure>").addClass("image is-4by3");
+            figure.append($("<img>").attr("src", recipe.imgUrl));
+            article.append(figure);
+
+            result.append(article);
+            // recipeSource: response.results[0].sourceUrl,
+            // summary: response.results[0].summary,
+            // instructions: response.results[0].analyzedInstructions,
+            // nutrition: nutrition
+            // <figure class="image ">
+            //     <img src="https://bulma.io/images/placeholders/640x480.png">
+            // </figure>
+
+            $("#recipe-container").append(result);
+        }
+
+        $("#search-text").focus();
     </script>
 </body>
 

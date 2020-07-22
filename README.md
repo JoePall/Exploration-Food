@@ -56,12 +56,12 @@ Cuisine
         RANDOM Recipe BUTTON
 // Recipe = a short description of the dish, the ingrediant list, a photo, and URL(probably want to attach url to photo)
 
-//when user selects prefrences those prefrences are stored in var or somewhere
+//COMPLETE when user selects prefrences those prefrences are stored in var or somewhere
 // when user hit generate random Recipe button 
 // those stored prefrences are used to search API
-// AND saved in local storage
+// COMPLETE AND saved in local storage
 
-// when user returns to the page thier saved prefrencesare retrieved from local storage
+// COMPLETE when user returns to the page thier saved prefrencesare retrieved from local storage
 //and selected on the page and a Recipe is generated automatically
 
 // error protection user must select some prefrences or a pop up is presented "must choose at least 1 prefference"
@@ -78,13 +78,14 @@ Cuisine
 //if the user hits generate random button again 
 // a new Recipe is shown
 
+
+Optional/Future Improvement
 //when user loads page if there is no name stored in local storage
 // input field for name is displayed 
 //if there is a name stored in local storage
 //then display that name in html
 //error protection AND a button that says "not you?" is presented underneath name
 
-Optional/Future Improvement
 //find the time of day and automatically change meal choice based on time [that can be overridden by user]
 //give the user the option to save Recipes on seperate html page 'saved Recipes'
 
