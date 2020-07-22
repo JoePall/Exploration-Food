@@ -147,15 +147,15 @@
 
         $("#filter").click(event => {
             event.preventDefault();
-            load()
             if (filter) {
                 $("#filter-content").empty();
             } else {
                 $("#filter-content").append(getCheckboxGroupHTML("Allergies", allergies))
-                    .append(getCheckboxGroupHTML("Cuisine", cuisine))
-                    .append(getCheckboxGroupHTML("Meal Type", mealType));
+                .append(getCheckboxGroupHTML("Cuisine", cuisine))
+                .append(getCheckboxGroupHTML("Meal-Type", mealType));
             }
             filter = !filter;
+            load()
         });
 
         $("#search").click(event => {
@@ -185,8 +185,9 @@
 
             console.log("mealType");
             var mealPref = []
-            $.each($(".mealType>input:checked"), (i, item) => {
-                mealPref.push($(item).value())
+            $.each($(".Meal-Type>input:checked"), (i, item) => {
+                console.log($(item).val())
+                mealPref.push($(item).val())
                 console.log(mealPref)
             })
             masterPref.push(mealPref)

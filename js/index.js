@@ -6,10 +6,16 @@ function load(){
     }
     else{
         console.log(storedPref)
-        $(".Allergies").each(function(i, item){
-            console.log(item)
-            if(storedPref.indexOf($(item).val()) !== -1){
-                console.log($(item).attr("input", "checked"))
+        $("input").each(function(i, item){
+         
+            if(storedPref[0].indexOf($(item).val()) !== -1){
+                $(item).attr("checked", true)
+            }
+            else if(storedPref[1].indexOf($(item).val()) !== -1){
+            $(item).attr("checked", true)
+            }
+            else if(storedPref[2].indexOf($(item).val()) !== -1){
+               $(item).attr("checked", true)
             }
         })
     }
