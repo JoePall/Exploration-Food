@@ -44,59 +44,8 @@
     </div>
 
     <!---Recipe Tiles HTML--->
-
-
-    <div class="tile is-ancestor">
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <div id="recipeName"></div>
-                <p class="title">Recipe Name</p>
-                <div id="ingredientsList"></div>
-                <p class="subtitle">Ingredients</p>
-                <div id="image-source"></div>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <div id="recipeName"></div>
-                <p class="title">Recipe Name</p>
-                <div id="ingredientsList"></div>
-                <p class="subtitle">Ingredients</p>
-                <div id="image-source"></div>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <div id="recipeName"></div>
-                <p class="title">Recipe Name</p>
-                <div id="ingredientsList"></div>
-                <p class="subtitle">Ingredients</p>
-                <div id="image-source"></div>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <div id="recipeName"></div>
-                <p class="title">Recipe Name</p>
-                <div id="ingredientsList"></div>
-                <p class="subtitle">Ingredients</p>
-                <div id="image-source"></div>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-    </div>
-    <div id="recipe-container" class="tile is-ancestor">
+    <section id="recipies"></section>
+            
   
    
 
@@ -258,7 +207,7 @@
 
         function generateRecipeHTML(recipe) {
             //TODO: Need to add center class to     👇
-            var result = $("<section>").addClass("tile is-5 is-parent");
+            var result = $("<section>").addClass("tile is-5 is-parent").appendTo($("#recipies"));
 
             var article = $("<article>").addClass("tile is-child notification is-primary");
 
