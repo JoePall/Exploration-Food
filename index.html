@@ -44,105 +44,10 @@
     </div>
 
     <!---Recipe Tiles HTML--->
-
-
-    <div class="tile is-ancestor">
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <div id="recipeName"></div>
-                <p class="title">Recipe Name</p>
-                <div id="ingredientsList"></div>
-                <p class="subtitle">Ingredients</p>
-                <div id="image-source"></div>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <div id="recipeName"></div>
-                <p class="title">Recipe Name</p>
-                <div id="ingredientsList"></div>
-                <p class="subtitle">Ingredients</p>
-                <div id="image-source"></div>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <div id="recipeName"></div>
-                <p class="title">Recipe Name</p>
-                <div id="ingredientsList"></div>
-                <p class="subtitle">Ingredients</p>
-                <div id="image-source"></div>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <div id="recipeName"></div>
-                <p class="title">Recipe Name</p>
-                <div id="ingredientsList"></div>
-                <p class="subtitle">Ingredients</p>
-                <div id="image-source"></div>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-    </div>
-    <div id="recipe-container" class="tile is-ancestor">
-        <!-- Recipe goes here -->
-    </div>
-    <div class="tile is-ancestor">
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <p class="title">Recipe Name</p>
-                <p class="subtitle">Ingredients</p>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <p class="title">Recipe Name</p>
-                <div id="recipeName" class="title"></div>
-                <p class="subtitle">Ingredients</p>
-                <div id="ingredientsList" class="subtitle"></div>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-
-        <div id="recipe-container" class="tile is-ancestor">
-            <!-- Recipe goes here -->
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <p class="title">Recipe Name</p>
-                <p class="subtitle">Ingredients</p>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <p class="title">Recipe Name</p>
-                <p class="subtitle">Ingredients</p>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-    </div>
+    <section id="recipies"></section>
+            
+  
+   
 
     <script>
         var filter = false;
@@ -182,46 +87,46 @@
         };
 
         //ingredients to exclude
-        var exclude_starch = {
+        var exclude = {
+            starch:{
             rice: "2044",
             corn: "11168",
             potatoes: "11362",
             brussel_sprouts: "11098",
-            bread: "18064"
-        }
+            bread: "18064"},
 
-        var exclude_vegetables = {
-            brussel_sprouts: "11098",
-            green_onions: "11291",
-            pearl_onions: "10111282",
-            cilantro: "11165",
-            beets: "11080"
-        }
+            vegetables: {
+                brussel_sprouts: "11098",
+                green_onions: "11291",
+                pearl_onions: "10111282",
+                cilantro: "11165",
+                beets: "11080",
+            },
 
-        var exclude_fruit = {
+            fruit: {
             banana: "9040",
             blueberries: "9050",
             navel_oranges: "9202",
             kiwis: "9148"
+            },
 
+            dairy: {
+                blue_cheese: "1004",
+                mayonnaise: "4025",
+                milk: "1077",
+                cheese: "1041009",   
+            },
+
+            meat: {
+                oysters: "15167",
+                anchovies: "15001",
+                beef: "23572",
+                lamb: "10017224",
+                pork: "10010219"
+            }
         }
 
-        var exclude_dairy = {
-            blue_cheese: "1004",
-            mayonnaise: "4025",
-            milk: "1077",
-            cheese: "1041009",
 
-        }
-        var exclude_meat = {
-            oysters: "15167",
-            anchovies: "15001",
-            beef: "23572",
-            lamb: "10017224",
-            pork: "10010219"
-
-
-        }
 
         function getCheckboxGroupHTML(name, object) {
             var result = $("<section>").addClass("control");
@@ -246,15 +151,21 @@
             if (filter) {
                 $("#filter-content").empty();
             } else {
-                $("#filter-content").append(getCheckboxGroupHTML("Allergies", allergies))
-                    .append(getCheckboxGroupHTML("Cuisine", cuisine))
-                    .append(getCheckboxGroupHTML("Meal Type", mealType))
-                    .append(getCheckboxGroupHTML("Meal Type", mealType))
-                    .append(getCheckboxGroupHTML("Exclude Starch", exclude_starch))
-                    .append(getCheckboxGroupHTML("Exclude Vegetables", exclude_vegetables))
-                    .append(getCheckboxGroupHTML("Exclude Fruit", exclude_fruit))
-                    .append(getCheckboxGroupHTML("Exclude Dairy", exclude_dairy))
-                    .append(getCheckboxGroupHTML("Exclude Meat", exclude_meat));
+                $("#filter-content")
+                .append("<h1>Allergies<h1>").append("<hr>")
+                    //make space between h1 and hr 0px somehow
+                .append(getCheckboxGroupHTML("", allergies))
+                .append("<h1>Exclude<h1>").append("<hr>")
+                    // same
+                .append(getCheckboxGroupHTML("Starch", exclude.starch))
+                .append(getCheckboxGroupHTML("Vegetables", exclude.vegetables))
+                .append(getCheckboxGroupHTML("Fruit", exclude.fruit))
+                .append(getCheckboxGroupHTML("Dairy", exclude.dairy))
+                .append(getCheckboxGroupHTML("Meat", exclude.meat))
+                .append("<h1>Include<h1>").append("<hr>")
+                    // same
+                .append(getCheckboxGroupHTML("Cuisine", cuisine))
+                .append(getCheckboxGroupHTML("Meal-Type", mealType));
             }
             filter = !filter;
             load()
@@ -302,7 +213,7 @@
 
         function generateRecipeHTML(recipe) {
             //TODO: Need to add center class to     👇
-            var result = $("<section>").addClass("tile is-5 is-parent");
+            var result = $("<section>").addClass("tile is-5 is-parent").appendTo($("#recipies"));
 
             var article = $("<article>").addClass("tile is-child notification is-primary");
 
