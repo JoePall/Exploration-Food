@@ -34,15 +34,9 @@
                             <i class="fa fa-filter" aria-hidden="true"></i>
                         </button>
 
-<<<<<<< HEAD
                         <button id="save-search" type="button" class="button is-info is-outlined" title="Save this Search">
                             <i class="fa fa-save"></i>
                         </button>
-=======
-                    <button id="filter" type="button" class="button">
-                        <i class="fa fa-filter" title="preferance conrol" aria-hidden="true"></i>
-                    </button>
->>>>>>> d6cef0b0a65a1680f06d42bad8caacc268b7996e
 
                         <button type="reset" class="button is-danger is-outlined" title="Reset Search">
                             <i class="fas fa-undo"></i>
@@ -97,46 +91,46 @@
         };
 
         //ingredients to exclude
-        var exclude_starch = {
+        var exclude = {
+            starch:{
             rice: "2044",
             corn: "11168",
             potatoes: "11362",
             brussel_sprouts: "11098",
-            bread: "18064"
-        }
+            bread: "18064"},
 
-        var exclude_vegetables = {
-            brussel_sprouts: "11098",
-            green_onions: "11291",
-            pearl_onions: "10111282",
-            cilantro: "11165",
-            beets: "11080"
-        }
+            vegetables: {
+                brussel_sprouts: "11098",
+                green_onions: "11291",
+                pearl_onions: "10111282",
+                cilantro: "11165",
+                beets: "11080",
+            },
 
-        var exclude_fruit = {
+            fruit: {
             banana: "9040",
             blueberries: "9050",
             navel_oranges: "9202",
             kiwis: "9148"
+            },
 
+            dairy: {
+                blue_cheese: "1004",
+                mayonnaise: "4025",
+                milk: "1077",
+                cheese: "1041009",   
+            },
+
+            meat: {
+                oysters: "15167",
+                anchovies: "15001",
+                beef: "23572",
+                lamb: "10017224",
+                pork: "10010219"
+            }
         }
 
-        var exclude_dairy = {
-            blue_cheese: "1004",
-            mayonnaise: "4025",
-            milk: "1077",
-            cheese: "1041009",
 
-        }
-        var exclude_meat = {
-            oysters: "15167",
-            anchovies: "15001",
-            beef: "23572",
-            lamb: "10017224",
-            pork: "10010219"
-
-
-        }
 
         function getCheckboxGroupHTML(name, object) {
             var result = $("<section>").addClass("control");
