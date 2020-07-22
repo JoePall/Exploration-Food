@@ -1,21 +1,17 @@
-
-function load(){
+function load() {
     var storedPref = JSON.parse(localStorage.getItem("preferances"))
-    if(storedPref === null){
+    if (storedPref === null) {
 
-    }
-    else{
+    } else {
         console.log(storedPref)
-        $("input").each(function(i, item){
-         
-            if(storedPref[0].indexOf($(item).val()) !== -1){
+        $("input").each(function(i, item) {
+
+            if (storedPref[0].indexOf($(item).val()) !== -1) {
                 $(item).attr("checked", true)
-            }
-            else if(storedPref[1].indexOf($(item).val()) !== -1){
-            $(item).attr("checked", true)
-            }
-            else if(storedPref[2].indexOf($(item).val()) !== -1){
-               $(item).attr("checked", true)
+            } else if (storedPref[1].indexOf($(item).val()) !== -1) {
+                $(item).attr("checked", true)
+            } else if (storedPref[2].indexOf($(item).val()) !== -1) {
+                $(item).attr("checked", true)
             }
         })
     }
@@ -47,8 +43,7 @@ function queryAPI(searchText, cuisine, diet, intolerances, type, callback) {
 
     if (apiKey) {
         queryURL += "&number=1&apiKey=" + apiKey;
-    }
-    else {
+    } else {
         alert("You don't have an api key!");
     }
     $.getJSON(queryURL, response => handleAPIQuery(response, callback));
