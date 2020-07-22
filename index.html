@@ -162,7 +162,8 @@
             } else {
                 $("#filter-content").append(getCheckboxGroupHTML("Allergies", allergies))
                     .append(getCheckboxGroupHTML("Cuisine", cuisine))
-                    .append(getCheckboxGroupHTML("Meal Type", mealType));
+                    .append(getCheckboxGroupHTML("Meal Type", mealType))
+                    .append(getCheckboxGroupHTML("Exclude", exclude));
             }
             filter = !filter;
         });
