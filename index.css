@@ -1,3 +1,7 @@
+body{
+    margin-right: auto;
+    margin-left: auto;
+}
 .checkbox {
     margin-right: 2px;
     margin-left: 2px;
