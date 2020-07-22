@@ -85,7 +85,7 @@
 
         $("#filter").click(event => {
             event.preventDefault();
-
+            load()
             if (filter) {
                 $("#filter-content").empty();
             }
@@ -120,7 +120,7 @@
             });
             masterPref.push(cuisinePref)
             console.log(masterPref)
-            
+
             localStorage.setItem("preferances", JSON.stringify(masterPref))
 
             

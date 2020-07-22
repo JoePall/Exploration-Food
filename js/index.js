@@ -1,4 +1,4 @@
-load()
+
 function load(){
     var storedPref = JSON.parse(localStorage.getItem("preferances"))
     if(storedPref === null){
@@ -6,6 +6,12 @@ function load(){
     }
     else{
         console.log(storedPref)
+        $(".Allergies").each(function(i, item){
+            console.log(item)
+            if(storedPref.indexOf($(item),val()) !== -1){
+                console.log($(item).attr("input", "checked"))
+            }
+        })
     }
 }
 /**
