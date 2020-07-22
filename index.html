@@ -20,14 +20,7 @@
             <form id="search-bar" class="field">
                 <div class="field columns buttons are-large are-primary are-light">
                     <label class="label">Search</label>
-<<<<<<< HEAD
-
-                    <input id="search-text" class="input is-10 is-rounded" type="text"
-                        placeholder="Search for a recipe...">
-
-=======
                     <input id="search-text" class="input is-10 is-rounded" type="text" placeholder="Search for a recipe...">
->>>>>>> master
                     <button id="search" type="button" class="button">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
@@ -144,21 +137,21 @@
             console.log("Cuisine");
             var cuisinePref = []
             $.each($(".Cuisine>input:checked"), (i, item) => {
-<<<<<<< HEAD
                 cuisinePref.push($(item).val())
                 console.log(cuisinePref)
-=======
-                console.log($(item).val());
 
-                console.log("mealType");
-                $.each($(".mealType>input:checked"), (i, item) => {
-                    console.log($(item).val());
-                })
->>>>>>> master
             });
             masterPref.push(cuisinePref)
-            console.log(masterPref)
 
+            console.log("mealType");
+            var mealPref = []
+            $.each($(".mealType>input:checked"), (i, item) => {
+                mealPref.push($(item).value())
+                console.log(mealPref)
+            })
+            masterPref.push(mealPref)
+            
+            console.log(masterPref)
             localStorage.setItem("preferances", JSON.stringify(masterPref))
 
 
