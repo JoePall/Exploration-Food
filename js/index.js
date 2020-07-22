@@ -39,7 +39,7 @@ function queryAPI(searchText, cuisine, diet, intolerances, type, callback) {
 
     queryURL += "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeNutrition=true&";
 
-    var apiKey = "";
+    var apiKey = "bd8a15cb55ed4be3b746a91ed5d860dd";
 
     if (apiKey) {
         queryURL += "&number=1&apiKey=" + apiKey;

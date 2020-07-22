@@ -26,17 +26,21 @@
                 <div class="field columns buttons are-large are-primary are-light">
                     <label class="label">Search</label>
                     <input id="search-text" class="input is-10 is-rounded" type="text" placeholder="Search for a recipe...">
-                    <button id="search" type="button" class="submit">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                    </button>
+                        <button id="search" type="button" class="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
 
-                    <button id="filter" type="button" class="button">
-                        <i class="fa fa-filter" aria-hidden="true"></i>
-                    </button>
+                        <button id="filter" type="button" class="button is-outlined" title="Filter your Recipe">
+                            <i class="fa fa-filter" aria-hidden="true"></i>
+                        </button>
 
-                    <button type="reset" class="button is-danger is-outlined">
-                        <i class="fas fa-undo"></i>
-                    </button>
+                        <button id="save-search" type="button" class="button is-info is-outlined" title="Save this Search">
+                            <i class="fa fa-save"></i>
+                        </button>
+
+                        <button type="reset" class="button is-danger is-outlined" title="Reset Search">
+                            <i class="fas fa-undo"></i>
+                        </button>
                 </div>
                 <div id="filter-content">
                     <!-- Add Allergy Selection here -->
@@ -45,30 +49,9 @@
             </form>
         </div>
     </div>
-
-        <div id="recipe-container" class="tile is-ancestor">
-            <!-- Recipe goes here -->
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <p class="title">Recipe Name</p>
-                <p class="subtitle">Ingredients</p>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-                <p class="title">Recipe Name</p>
-                <p class="subtitle">Ingredients</p>
-                <figure class="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                </figure>
-            </article>
-        </div>
-    </div>
-
+        <!--List of searched Recipes-->
+    <div id="recipe-container" class="tile is-ancestor">
+        
 
     <script>
         var filter = false;
@@ -230,12 +213,12 @@
 
         function generateRecipeHTML(recipe) {
             //TODO: Need to add center class to     👇
-            var result = $("<section>").addClass("tile is-5 is-parent");
+            var result = $("<section>").addClass("tile is-4 is-parent");
 
-            var article = $("<article>").addClass("tile is-child notification is-primary");
+            var article = $("<article>").addClass("subtile is-5 is-child notification");
 
-            article.append($("<p>").addClass("title").text(recipe.title));
-            article.append($("<p>").addClass("subtitle").html(recipe.summary));
+            article.append($("<p>").addClass("title is-3 is-spaced").text(recipe.title));
+            article.append($("<p>").addClass("subtitle is-6").html(recipe.summary));
 
             var figure = $("<figure>").addClass("image is-4by3");
             figure.append($("<img>").attr("src", recipe.imgUrl));
