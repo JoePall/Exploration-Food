@@ -25,9 +25,11 @@
                     <button id="search" type="button" class="button">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
+
                     <button id="filter" type="button" class="button">
                         <i class="fa fa-filter" aria-hidden="true"></i>
                     </button>
+
                     <button type="reset" class="button is-danger is-outlined">
                         <i class="fas fa-undo"></i>
                     </button>
@@ -159,16 +161,16 @@
 
         $("#filter").click(event => {
             event.preventDefault();
-
             if (filter) {
                 $("#filter-content").empty();
             } else {
                 $("#filter-content").append(getCheckboxGroupHTML("Allergies", allergies))
                     .append(getCheckboxGroupHTML("Cuisine", cuisine))
-                    .append(getCheckboxGroupHTML("Meal Type", mealType))
+                    .append(getCheckboxGroupHTML("Meal-Type", mealType))
                     .append(getCheckboxGroupHTML("Exclude", exclude));
             }
             filter = !filter;
+            load()
         });
 
         $("#search").click(event => {
@@ -176,20 +178,37 @@
 
             var searchText = $("#search-text").text();
 
+            var masterPref = []
+
             console.log("Allergies");
+            var allergyPref = []
             $.each($(".Allergies>input:checked"), (i, item) => {
-                console.log($(item).val());
+                allergyPref.push($(item).val())
+                console.log(allergyPref)
             });
+            masterPref.push(allergyPref)
+            console.log(masterPref)
 
             console.log("Cuisine");
+            var cuisinePref = []
             $.each($(".Cuisine>input:checked"), (i, item) => {
-                console.log($(item).val());
+                cuisinePref.push($(item).val())
+                console.log(cuisinePref)
 
-                console.log("mealType");
-                $.each($(".mealType>input:checked"), (i, item) => {
-                    console.log($(item).val());
-                })
             });
+            masterPref.push(cuisinePref)
+
+            console.log("mealType");
+            var mealPref = []
+            $.each($(".Meal-Type>input:checked"), (i, item) => {
+                console.log($(item).val())
+                mealPref.push($(item).val())
+                console.log(mealPref)
+            })
+            masterPref.push(mealPref)
+            
+            console.log(masterPref)
+            localStorage.setItem("preferances", JSON.stringify(masterPref))
 
 
             //queryEdamamAPI(, "egg-free");

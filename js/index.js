@@ -1,3 +1,25 @@
+
+function load(){
+    var storedPref = JSON.parse(localStorage.getItem("preferances"))
+    if(storedPref === null){
+
+    }
+    else{
+        console.log(storedPref)
+        $("input").each(function(i, item){
+         
+            if(storedPref[0].indexOf($(item).val()) !== -1){
+                $(item).attr("checked", true)
+            }
+            else if(storedPref[1].indexOf($(item).val()) !== -1){
+            $(item).attr("checked", true)
+            }
+            else if(storedPref[2].indexOf($(item).val()) !== -1){
+               $(item).attr("checked", true)
+            }
+        })
+    }
+}
 /**
  * Creates an Spoonacular API query from the parameters provided.
  * @constructor
