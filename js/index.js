@@ -1,10 +1,10 @@
 /**
- * Creates an Spoonacular API query from the parameters provided.
+ * Creates a Spoonacular API Query from the preferences provided.
  * @constructor
- * @param {string} searchText - the response from the Spoonacular query.
+ * @param {string} preferences - the response from the Spoonacular query.
  * TODO: Fill out the rest of the param details.
  */
-function queryAPI(preferences, callback) {
+function queryAPI(searchText, preferences, callback) {
     var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.searchText;
     var apiKey = "bd8a15cb55ed4be3b746a91ed5d860dd";
 
@@ -15,15 +15,15 @@ function queryAPI(preferences, callback) {
 
     if (preferences.cuisine) {
         queryURL += "&cuisine=";
-        preferences.cuisine.forEach(item => queryURL += item);
+        preferences.cuisine.forEach(item => queryURL += item.replace(" ", "%20"));
     }
     if (preferences.diet) {
         queryURL += "&diet=";
-        preferences.diet.forEach(item => queryURL += item);
+        preferences.diet.forEach(item => queryURL += item.replace(" ", "%20"));
     }
     if (preferences.intolerances) {
         queryURL += "&intolerances=";
-        preferences.intolerances.forEach(item => queryURL += item);
+        preferences.intolerances.forEach(item => queryURL += item.replace(" ", "%20"));
     }
     if (preferences.type) {
         queryURL += "&type=";

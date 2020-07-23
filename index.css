@@ -27,6 +27,10 @@ hr {
     margin-left: 2px;
 }
 
+.checkbox>p {
+    text-transform: capitalize;
+}
+
 .content h3 {
     margin-bottom: 2px;
     margin-left: -4px;
