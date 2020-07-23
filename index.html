@@ -38,6 +38,14 @@
 
                 <br>
 
+                <div class="columns">
+                    <span>Include Ingredients</span>
+                    <input id="include-ingredients" class="input" type="text" placeholder="Include Ingredients">
+                    <span>Exclude Ingredients</span>
+                    <input id="exclude-ingredients" class="input" type="text" placeholder="Exclude Ingredients">
+                </div>
+                <br>
+
                 <!-- Temp for Api input... -->
                 <div class="columns">
                     <input id="profile-name" class="input" type="text" placeholder="Profile Name">
@@ -92,12 +100,20 @@
                 $("#space-shuttle").removeAttr("style");
                 $("#recipes").animate({ opacity: "1" }, 200);
             });
+
+            //TODO: Show Save Modal
         });
+
+        function showSaveModal() {
+            
+        }
 
         function getPreferencesInput() {
             var result = {
                 apiKey: "",
                 Search: "",
+                Include_Ingredients: "",
+                Exclude_Ingredients: "",
                 Cuisine: [],
                 Intolerances: [],
                 Diet: [],
@@ -105,7 +121,8 @@
             };
 
             result.Search = $("#search-text").val();
-
+            result.Include_Ingredients = $("#include-ingredients").val();
+            result.Exclude_Ingredients = $("#exclude-ingredients").val();
             result.apiKey = $("#api-key").val();
 
             $.each($(".Cuisine>input:checked"), (i, item) =>
