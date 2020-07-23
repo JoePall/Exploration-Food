@@ -19,11 +19,11 @@
 <body>
     <div class="container is-widescreen">
         <div class="content">
+            <br><br>
             <h1>Exploration Food <i id="space-shuttle" class="fas fa-space-shuttle"></i></h1>
-
+            <h3>Go forth into the unknown and find new recipes that match your needs/preferences...</h3><br><br>
             <form id="search-bar" class="field">
                 <div class="field columns buttons are-large are-primary are-light">
-                    <!-- <label class="label">Search</label> -->
                     <input id="search-text" class="input is-10" type="text" placeholder="Search for a recipe...">
                     <button id="search" type="submit" class="button">
                         <i class="fa fa-search" aria-hidden="true"></i>
@@ -32,35 +32,40 @@
                     <button id="filter" type="button" class="button">
                         <i class="fa fa-filter" title="preference control" aria-hidden="true"></i>
                     </button>
-                    
+
+                    <button type="reset" title="Get a new Recipe" class="button is-outlined">
+                        <i class="fas fa-undo"></i>
+                    </button>
+
                     <button id="save-search" type="button" class="button is-info is-outlined" title="Save this Search">
                         <i class="fa fa-save"></i>
                     </button>
-
-                    <button type="reset" class="button is-danger is-outlined">
-                        <i class="fas fa-undo"></i>
-                    </button>
                 </div>
-                <div id="filter-content">
+
+                <!-- Temp for Api input... -->
+                <div class="columns">
+                    <input id="api-key" class="input is-10" type="text" placeholder="API Key for Spoonacular">
+                </div>
+                
+                <div id="filter-content columns">
                     <!-- Add Allergy Selection here -->
                     <!-- Add Cuisine Selection here -->
                 </div>
             </form>
+
+            <!---Recipe Tiles HTML--->
+            <section id="recipes" class="columns">
+                <!--Add Recipes here from API -->
+            </section>
         </div>
     </div>
 
-    <!---Recipe Tiles HTML--->
-    <section id="recipes">
-        <!--Add Recipes here from API -->
-    </section>
-
     <script>
-
         $(".recipe").click(event => {
             event.preventDefault();
 
             // Navigates to the recipe source
-            location.href = $(this).source;
+            location.href = $(this).val();
         });
 
         $("#filter").click(event => {
@@ -75,14 +80,24 @@
 
         $("#search").click(event => {
             event.preventDefault();
+            $("#recipes").css("opacity", "0");
 
             var preferences = getPreferencesInput();
 
-            queryAPI(preferences, generateRecipeHTML);
+            queryAPI(preferences, result => {
+                $("#recipes").empty();
+                result.forEach(recipe => generateRecipeHTML(recipe));
+            });
+
+            $("#space-shuttle").animate({ margin: "0 0 0 150px", opacity: "0" }, 200, () => {
+                $("#space-shuttle").removeAttr("style");
+                $("#recipes").animate({ opacity: "1" }, 200);
+            });
         });
 
         function getPreferencesInput() {
             var result = {
+                apiKey: "",
                 Search: "",
                 Cuisine: [],
                 Intolerances: [],
@@ -91,6 +106,8 @@
             };
 
             result.Search = $("#search-text").val();
+
+            result.apiKey = $("#api-key").val();
 
             $.each($(".Cuisine>input:checked"), (i, item) =>
                 result.Cuisine.push($(item).val()));
@@ -218,22 +235,25 @@
             });
         }
 
-        function generateRecipeHTML(recipe) {
-            //TODO: Need to add center class to     👇
-            var result = $("<section>").addClass("recipe tile is-5 is-parent").val(recipe.source);
 
-            var article = $("<article>").addClass("tile is-child notification is-primary");
+        function generateRecipeHTML(recipe) {
+            var result = $("<section>").addClass("recipe has-text-centered column tile is-3 is-parent").val(recipe.source);
+
+            var article = $("<article>").addClass("tile is-child notification is-primary ");
 
             article.append($("<p>").addClass("title").text(recipe.title));
-            article.append($("<p>").addClass("subtitle").html(recipe.summary));
 
             var figure = $("<figure>").addClass("image is-4by3");
             figure.append($("<img>").attr("src", recipe.image));
             article.append(figure);
 
+            article.append($("<br>"));
+            
+            article.append($("<p>").addClass("subtitle").html(recipe.summary));
+
             result.append(article);
 
-            $("#recipe-container").append(result);
+            $("#recipes").append(result);
         }
 
         function init() {
