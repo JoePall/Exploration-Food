@@ -21,7 +21,8 @@
             <h3>Discover new recipes that match your needs/preferences...</h3><br><br>
             <form id="search-bar" class="field">
                 <div class="field columns buttons are-large are-primary are-light">
-                    <input id="search-text" class="input is-10" type="text" placeholder="Search for a recipe...">
+                    <input id="search-text" class="input" type="text" placeholder="Search for a recipe...">
+                    <input id="api-key" class="input" type="text" placeholder="API Key for Spoonacular">
                     <button id="search" type="submit" class="button">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
@@ -33,15 +34,16 @@
                     <button type="reset" title="Get a new Recipe" class="button is-outlined">
                         <i class="fas fa-undo"></i>
                     </button>
-
-                    <button id="save-search" type="button" class="button is-info is-outlined" title="Save this Search">
-                        <i class="fa fa-save"></i>
-                    </button>
                 </div>
+
+                <br>
 
                 <!-- Temp for Api input... -->
                 <div class="columns">
-                    <input id="api-key" class="input is-10" type="text" placeholder="API Key for Spoonacular">
+                    <input id="profile-name" class="input" type="text" placeholder="Profile Name">
+                    <button id="save-search" type="button" class="button is-info is-outlined" title="Save this Search">
+                        <i class="fa fa-save"></i>
+                    </button>
                 </div>
                 
                 <div id="filter-content" class="columns">
