@@ -1,73 +1,53 @@
-function load() {
-    var storedPref = JSON.parse(localStorage.getItem("preferances"))
-    if (storedPref === null) {
-
-    } else {
-        console.log(storedPref)
-        $("input").each(function(i, item) {
-
-            if (storedPref[0].indexOf($(item).val()) !== -1) {
-                $(item).attr("checked", true)
-            } else if (storedPref[1].indexOf($(item).val()) !== -1) {
-                $(item).attr("checked", true)
-            } else if (storedPref[2].indexOf($(item).val()) !== -1) {
-                $(item).attr("checked", true)
-            } else if (storedPref[4].indexOf($(item).val()) !== -1) {
-                $(item).attr("checked", true)
-                console.log($(item))
-            }
-        })
-    }
-}
 /**
- * Creates an Spoonacular API query from the parameters provided.
+ * Creates a Spoonacular API Query from the preferences provided.
  * @constructor
- * @param {string} searchText - the response from the Spoonacular query.
+ * @param {string} preferences - the response from the Spoonacular query.
  * TODO: Fill out the rest of the param details.
  */
-function queryAPI(searchText, cuisine, diet, intolerances, type, callback) {
-    var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + searchText;
-    if (cuisine) {
-        queryURL += "&cuisine=" + cuisine;
+function queryAPI(preferences, callback) {
+    var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.Search.replace(" ", "%20");
+    
+    if (preferences.Cuisine && preferences.Cuisine.length > 0) {
+        queryURL += "&cuisine=";
+        preferences.Cuisine.forEach(item => queryURL += item.replace(" ", "%20") + ",");
+        queryURL = queryURL.slice(0, -1);
     }
-    if (diet) {
-        queryURL += "&diet=" + diet;
+    if (preferences.Diet && preferences.Diet.length > 0) {
+        queryURL += "&diet=";
+        preferences.Diet.forEach(item => queryURL += item.replace(" ", "%20") + ",");
+        queryURL = queryURL.slice(0, -1);
     }
-    if (intolerances) {
-        queryURL += "&intolerances=" + intolerances;
+    if (preferences.Intolerances && preferences.Intolerances.length > 0) {
+        queryURL += "&intolerances=";
+        preferences.Intolerances.forEach(item => queryURL += item.replace(" ", "%20") + ",");
+        queryURL = queryURL.slice(0, -1);
     }
-    if (type) {
-        queryURL += "&type=" + type;
-    }
-
-    queryURL += "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeNutrition=true&";
-
-    var apiKey = "";
-
-    if (apiKey) {
-        queryURL += "&number=1&apiKey=" + apiKey;
-    } else {
-        alert("You don't have an api key!");
-    }
-    $.getJSON(queryURL, response => handleAPIQuery(response, callback));
-}
-
-
-/**
- * Handles the response from the Spoonacular query. 
- * @constructor
- * @param {string} response - the response from the Spoonacular query.
- */
-function handleAPIQuery(response, callback) {
-    var result = {
-        title: response.results[0].title,
-        recipeSource: response.results[0].sourceUrl,
-        imgUrl: response.results[0].image,
-        summary: response.results[0].summary,
-        instructions: response.results[0].analyzedInstructions,
-        nutrition: response.results[0].nutrition,
-        ingredients: response.results[0].extendedIngredients
+    if (preferences.Meal_Type && preferences.Meal_Type.length > 0) {
+        queryURL += "&type=";
+        preferences.Meal_Type.forEach(item => queryURL += item.replace(" ", "%20") + ",");
+        queryURL = queryURL.slice(0, -1);
     }
 
-    callback(result);
+    queryURL += "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeNutrition=true&number=4&apiKey=" + preferences.apiKey;
+    
+    console.log(queryURL);
+    $.getJSON(queryURL, response => {
+        var result = [];
+        
+        response.results.forEach(item => {
+            var recipe = {
+                title: item.title,
+                source: item.sourceUrl,
+                image: item.image,
+                summary: item.summary,
+                instructions: item.analyzedInstructions,
+                nutrition: item.nutrition,
+                ingredients: item.extendedIngredients
+            };
+
+            result.push(recipe);
+        });
+        
+        callback(result);
+    });
 }
