@@ -1,7 +1,7 @@
 /**
  * Creates a Spoonacular API Query from the preferences provided.
  * @constructor
- * @param {string} preferences - the response from the Spoonacular query.
+ * @param {string} preferences - The preferences that will defin
  * TODO: Fill out the rest of the param details.
  */
 function queryAPI(preferences, callback) {
@@ -26,6 +26,12 @@ function queryAPI(preferences, callback) {
         queryURL += "&type=";
         preferences.Meal_Type.forEach(item => queryURL += item.replace(" ", "%20") + ",");
         queryURL = queryURL.slice(0, -1);
+    }
+    if (preferences.Exclude_Ingredients) {
+        queryURL += "&excludeIngredients=" + preferences.Exclude_Ingredients;
+    }
+    if (preferences.Include_Ingredients) {
+        queryURL += "&includeIngredients=" + preferences.Include_Ingredients;
     }
 
     queryURL += "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeNutrition=true&number=4&apiKey=" + preferences.apiKey;
