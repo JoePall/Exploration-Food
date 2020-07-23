@@ -44,7 +44,7 @@
                     <input id="api-key" class="input is-10" type="text" placeholder="API Key for Spoonacular">
                 </div>
                 
-                <div id="filter-content columns">
+                <div id="filter-content" class="columns">
                     <!-- Add Allergy Selection here -->
                     <!-- Add Cuisine Selection here -->
                 </div>
@@ -196,7 +196,7 @@
         };
 
         function getCheckboxGroupHTML(name, preferences) {
-            var result = $("<section>").addClass("control");
+            var result = $("<section>").addClass("control column");
 
             result.append($("<h1>").text(name.replace("_", " ")));
 
