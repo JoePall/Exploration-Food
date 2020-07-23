@@ -1,3 +1,27 @@
+body {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+a {
+    color: black !important;
+}
+
+img {
+    border-radius: 1em;
+    box-shadow: 0 0 3px 3px #00000033;
+}
+
+h1 {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+hr {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
 .checkbox {
     margin-right: 2px;
     margin-left: 2px;
@@ -11,15 +35,6 @@
 .control {
     margin-bottom: 10px;
     margin-left: 10px;
-}
-
-a {
-    color: black !important;
-}
-
-img {
-    border-radius: 1em;
-    box-shadow: 0 0 3px 3px #00000033;
 }
 
 section.tile {
