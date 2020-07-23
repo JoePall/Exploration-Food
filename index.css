@@ -12,3 +12,16 @@
     margin-bottom: 10px;
     margin-left: 10px;
 }
+
+a {
+    color: black !important;
+}
+
+img {
+    border-radius: 1em;
+    box-shadow: 0 0 3px 3px #00000033;
+}
+
+section.tile {
+    box-shadow: 0 0 7px 7px #00000033;
+}

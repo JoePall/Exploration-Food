@@ -24,7 +24,7 @@
                     <label class="label">Search</label>
                     <input id="search-text" class="input is-10 is-rounded" type="text"
                         placeholder="Search for a recipe...">
-                    <button id="search" type="button" class="submit">
+                    <button id="search" type="submit" class="button">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
 
@@ -52,157 +52,173 @@
     <script>
         var filter = false;
 
-        //intolerances
-        var allergies = {
-            Dairy: "Dairy",
-            Egg: "Egg",
-            Gluten: "Gluten",
-            Wheat: "Wheat",
-            Shellfish: "Shellfish",
-            Peanuts: "Peanut",
-            Tree_Nuts: "Tree Nut",
-            Soy: "Soy"
-        };
-        //cuisine
-        var cuisine = {
-            Mexican: "American",
-            Chinese: "Chinese",
-            French: "French",
-            German: "German",
-            Indian: "Indian",
-            Italian: "Italian",
-            Mexican: "Mexican",
-            Spanish: "Spanish"
-        };
-        //type
-        var mealType = {
-            Breakfast: "breakfast",
-            Appetizer: "appetizer",
-            Salad: "salad",
-            Main_Course: "main course",
-            Side_Dish: "side dish",
-            Snack: "snack",
-            Finger_Food: "fingerfood",
-            Beverage: "beverage"
-        };
+            //intolerances
+            var intolerances = {
+                Dairy: "Dairy",
+                Egg: "Egg",
+                Gluten: "Gluten",
+                Wheat: "Wheat",
+                Shellfish: "Shellfish",
+                Peanuts: "Peanut",
+                Tree_Nuts: "Tree Nut",
+                Soy: "Soy"
+            };
 
-        //ingredients to exclude
-        var exclude = {
-            rice: "2044",
-            corn: "11168",
-            potatoes: "11362",
-            brussel_sprouts: "11098",
-            banana: "9040",
-            blueberries: "9050",
-            green_onions: "11291",
-            pearl_onions: "10111282",
-            cilantro: "11165",
-            oysters: "15167",
-            anchovies: "15001",
-            beets: "11080",
-            blue_cheese: "1004",
-            mayonnaise: "4025"
+            //cuisine
+            var cuisine = {
+                Mexican: "American",
+                Chinese: "Chinese",
+                French: "French",
+                German: "German",
+                Indian: "Indian",
+                Italian: "Italian",
+                Mexican: "Mexican",
+                Spanish: "Spanish"
+            };
+            //type
+            var mealType = {
+                Breakfast: "breakfast",
+                Appetizer: "appetizer",
+                Salad: "salad",
+                Main_Course: "main course",
+                Side_Dish: "side dish",
+                Snack: "snack",
+                Finger_Food: "fingerfood",
+                Beverage: "beverage"
+            };
 
-        }
+            //ingredients to exclude
+            var exclude = {
+                Rice: "2044",
+                Corn: "11168",
+                Potatoes: "11362",
+                Brussel_Sprouts: "11098",
+                Banana: "9040",
+                Blueberries: "9050",
+                Green_Onions: "11291",
+                Pearl_Onions: "10111282",
+                Cilantro: "11165",
+                Oysters: "15167",
+                Anchovies: "15001",
+                Beets: "11080",
+                Blue_Cheese: "1004",
+                Mayonnaise: "4025"
 
-        function getCheckboxGroupHTML(name, object) {
-            var result = $("<section>").addClass("control");
-
-            result.append($("<h3>").text(name));
-
-            var keys = Object.keys(object);
-            $(keys).each(key => {
-                var label = $("<label>").addClass("checkbox " + name);
-
-                label.append($("<input>").attr("type", "checkbox").addClass("checkbox").val(object[keys[key]]));
-                label.append($("<p>").text(keys[key].replace("_", " ")));
-
-                result.append(label);
-            });
-
-            return result;
-        }
-
-        $("#filter").click(event => {
-            event.preventDefault();
-            if (filter) {
-                $("#filter-content").empty();
-            } else {
-                $("#filter-content").append(getCheckboxGroupHTML("Allergies", allergies))
-                    .append(getCheckboxGroupHTML("Cuisine", cuisine))
-                    .append(getCheckboxGroupHTML("Meal-Type", mealType))
-                    .append(getCheckboxGroupHTML("Exclude", exclude));
             }
-            filter = !filter;
-            load()
-        });
 
-        $("#search").click(event => {
-            event.preventDefault();
+            function getCheckboxGroupHTML(name, object, preferences) {
+                var result = $("<section>").addClass("control");
 
-            var searchText = $("#search-text").val();
+                result.append($("<h3>").text(name));
 
-            var masterPref = []
+                var keys = Object.keys(object);
+                $(keys).each(key => {
+                    var label = $("<label>").addClass("checkbox " + name);
 
-            console.log("Allergies");
-            var allergyPref = []
-            $.each($(".Allergies>input:checked"), (i, item) => {
-                allergyPref.push($(item).val())
-                console.log(allergyPref)
+                    var checkbox = $("<input>").attr("type", "checkbox").addClass("checkbox").val(object[keys[key]]);
+                    var preference = name.toLowerCase();
+                    if (keys[key] != undefined) {
+                        if (preferences[preference].includes(keys[key])) {
+                            $(checkbox).prop("checked", "true");
+                        }
+                    }
+                    label.append(checkbox);
+                    label.append($("<p>").text(keys[key].replace("_", " ")));
+
+                    result.append(label);
+                });
+
+                return result;
+            }
+
+            $(".recipe").click(event => {
+                event.preventDefault();
+
+                // Navigates to the recipe source
+                location.href = $(this).source;
             });
-            masterPref.push(allergyPref)
-            console.log(masterPref)
 
-            console.log("Cuisine");
-            var cuisinePref = []
-            $.each($(".Cuisine>input:checked"), (i, item) => {
-                cuisinePref.push($(item).val())
-                console.log(cuisinePref)
-
+            $("#filter").click(event => {
+                event.preventDefault();
+                if (filter) {
+                    $("#filter-content").show();
+                } else {
+                    $("#filter-content").hide();
+                }
+                filter = !filter;
             });
-            masterPref.push(cuisinePref)
 
-            console.log("mealType");
-            var mealPref = []
-            $.each($(".Meal-Type>input:checked"), (i, item) => {
-                console.log($(item).val())
-                mealPref.push($(item).val())
-                console.log(mealPref)
-            })
-            masterPref.push(mealPref)
-            
-            console.log(masterPref)
-            localStorage.setItem("preferances", JSON.stringify(masterPref))
+            function loadFilterHTML(preferences) {
+                $("#filter-content").empty();
 
-            queryAPI(searchText, "", "", "", "", generateRecipeHTML);
-        });
+                $("#filter-content").append(getCheckboxGroupHTML("Intolerances", intolerances, preferences))
+                    .append(getCheckboxGroupHTML("Cuisine", cuisine, preferences))
+                    .append(getCheckboxGroupHTML("Meal_Type", mealType, preferences))
+                    .append(getCheckboxGroupHTML("Exclude", exclude, preferences));
+            }
+            loadFilterHTML({
+                cuisine: [],
+                diet: [],
+                intolerances: [],
+                meal_type: [],
+                exclude: [],
+            });
 
-        function generateRecipeHTML(recipe) {
-            //TODO: Need to add center class to     👇
-            var result = $("<section>").addClass("tile is-5 is-parent");
-            
-            var article = $("<article>").addClass("tile is-child notification is-primary");
-            
-            article.append($("<p>").addClass("title").text(recipe.title));
-            article.append($("<p>").addClass("subtitle").html(recipe.summary));
-            
-            var figure = $("<figure>").addClass("image is-4by3");
-            figure.append($("<img>").attr("src", recipe.imgUrl));
-            article.append(figure);
+            $("#search").click(event => {
+                event.preventDefault();
+
+                var preferences = getPreferencesInput();
+
+                queryAPI(preferences, generateRecipeHTML);
+            });
+
+            function getPreferencesInput() {
+                var result = {
+                    searchText: "",
+                    cuisine: [],
+                    diet: [],
+                    intolerances: [],
+                    meal_type: [],
+                    exclude: [],
+                };
+
+                result.searchText = $("#search-text").val();
+
+                $.each($(".Allergies>input:checked"), (i, item) => {
+                    result.intolerances.push($(item).val());
+                });
+
+                $.each($(".Cuisine>input:checked"), (i, item) => {
+                    result.cuisine.push($(item).val());
+                });
+
+                $.each($(".Meal-Type>input:checked"), (i, item) => {
+                    result.type.push($(item).val());
+                });
+
+                return result;
+            }
+
+            function generateRecipeHTML(recipe) {
+                //TODO: Need to add center class to     👇
+                var result = $("<section>").addClass("recipe tile is-5 is-parent").val(recipe.source);
+
+                var article = $("<article>").addClass("tile is-child notification is-primary");
+
+                article.append($("<p>").addClass("title").text(recipe.title));
+                article.append($("<p>").addClass("subtitle").html(recipe.summary));
+
+                var figure = $("<figure>").addClass("image is-4by3");
+                figure.append($("<img>").attr("src", recipe.image));
+                article.append(figure);
+
+                result.append(article);
                 
-            result.append(article);
-        // recipeSource: response.results[0].sourceUrl,
-        // summary: response.results[0].summary,
-        // instructions: response.results[0].analyzedInstructions,
-        // nutrition: nutrition
-        // <figure class="image ">
-        //     <img src="https://bulma.io/images/placeholders/640x480.png">
-        // </figure>
+                $("#recipe-container").append(result);
+            }
 
-            $("#recipe-container").append(result);
-        }
+            $("#search-text").focus();
 
-        $("#search-text").focus();
     </script>
 </body>
 
