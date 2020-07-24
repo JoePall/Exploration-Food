@@ -16,7 +16,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <!--personal JS-->
     <script src="./js/index.js"></script>
-    <script src="./env/key.js"></script>
+    <script src="./.env/key.js"></script>
     <link rel="stylesheet" href="index.css">
 </head>
 
@@ -67,6 +67,7 @@
 
             <section id="recipes">
                 <!--Add Recipes here from API -->
+                <section>Hello</section>
             </section>
         </div>
 
@@ -87,11 +88,11 @@
             $(".modal").removeClass("is-active");
         });
 
-        $(".recipe").click(event => {
+        $("#recipes>section").click(event => {
             event.preventDefault();
 
             // Navigates to the recipe source
-            window.open($(this).val());
+            window.open($(event.currentTarget).val());
         });
 
         $("#filter").click(event => {
