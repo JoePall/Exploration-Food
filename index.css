@@ -18,7 +18,6 @@ h1 {
     margin-bottom: 0px;
     padding-bottom: 15px;
     text-align: center;
-
 }
 
 hr {
@@ -34,7 +33,6 @@ hr {
 .checkbox>p {
     text-transform: capitalize;
 }
-
 
 h4 {
     margin-bottom: 2px;
@@ -86,8 +84,25 @@ h4 {
     opacity: 1;
 }
 
-#recipes{
+#recipes {
     position: relative;
     left: 17.5%;
     top: 50%;
+}
+
+
+/* added to format page a bit */
+
+#search-text,
+#api-key {
+    margin-right: 5px;
+}
+
+#include-ingredients,
+#exclude-ingredients {
+    margin: 10px;
+}
+
+#exclude-ingredients {
+    margin-right: 0px;
 }
