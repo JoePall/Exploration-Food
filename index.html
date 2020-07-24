@@ -61,7 +61,7 @@
             </form>
 
             <!---Recipe Tiles HTML--->
-            <section id="recipes" class="columns">
+            <section id="recipes">
                 <!--Add Recipes here from API -->
             </section>
         </div>
@@ -267,7 +267,7 @@
 
 
         function generateRecipeHTML(recipe) {
-            var result = $("<section>").addClass("recipe has-text-centered column tile is-3 is-parent").val(recipe.source);
+            var result = $("<section>").addClass("recipe has-text-centered column tile is-8 is-parent").val(recipe.source);
 
             var article = $("<article>").addClass("tile is-child notification is-primary ");
 
@@ -278,8 +278,8 @@
             article.append(figure);
 
             article.append($("<br>"));
-
-            article.append($("<p>").addClass("subtitle").html(recipe.summary));
+          
+            article.append($("<p>").addClass("subtitle is-6").html(recipe.summary));
 
             result.append(article);
 
@@ -296,7 +296,6 @@
             };
 
             loadFilterHTML(test);
-            $("#filter-content").addClass("is-hidden");
             $("#search-text").focus();
         }
         init();
