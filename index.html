@@ -1,86 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="fontawesome-i2svg-active fontawesome-i2svg-complete">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Exploration Food | Discover new recipes </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="./js/index.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam&amp;display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script defer="" src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="./env/key.js"></script>
     <link rel="stylesheet" href="index.css">
 </head>
 
-
-<header>
-    <h1 class="title is-1">Exploration Food <i id="space-shuttle" class="fas fa-space-shuttle"></i></h1>
-    <h4 class="title is-4">Discover new recipes that match your needs</h4><br><br>
-</header>
-
 <body>
-    <div class="container">
-        <div class="content">
-            <br>
-
-            <form id="search-bar" class="field">
-                <div class="level-item field columns buttons are-large are-primary are-light">
-                    <input id="search-text" class="input" type="text" placeholder="Search for a recipe...">
-                    <input id="api-key" class="input" type="text" placeholder="API Key for Spoonacular">
-                    <button id="search" type="submit" class="button tooltip">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                            <span class="tooltiptext">Search Recipes</span>
-                        </button>
-
-                    <button id="filter" type="button" class="button tooltip">
-                            <i class="fa fa-filter" title="preference control" aria-hidden="true"></i>
-                            <span class="tooltiptext">Filter results</span>
-                        </button>
-
-                    <button type="reset" title="Get a new Recipe" class="button is-outlined tooltip">
-                            <i class="fas fa-undo"></i>
-                            <span class="tooltiptext">Reset page</span>
-
-                        </button>
+    <!-- Accounts -->
+    <div class="content is-clearfix">
+        <div class="is-pulled-right">
+            <button id="profiles" class="button is-rounded" type="button">
+                <i class="far fa-user"></i>
+            </button>
+        </div>
+        <div id="save-profile" class="mr-4 is-pulled-right is-hidden">
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input id="profile-name" class="input is-rounded" type="text" placeholder="Chuck Bartowski">
                 </div>
-
-                <div class="columns">
-                    <span>Include Ingredients</span>
-                    <input id="include-ingredients" class="input" type="text" placeholder="Include Ingredients">
-
-                    <span>Exclude Ingredients</span>
-                    <input id="exclude-ingredients" class="input" type="text" placeholder="Exclude Ingredients">
-                </div>
-                <br>
-
-
-                <!-- Temp for Api input... -->
-                <div class="columns">
-                    <input id="profile-name" class="input" type="text" placeholder="Profile Name">
-                    <button id="save-search" type="button" class="button is-info is-outlined tooltip" title="Save this Search">
-                        <i class="fa fa-save"></i>
-                        <span class="tooltiptext">Save prefs</span>
+                <div class="control">
+                    <button type="button" id="save" class="button is-info is-outlined is-rounded">
+                        <i class="fas fa-save"></i>
                     </button>
                 </div>
+                <div class="control">
+                    <button type="button" id="close-save-option" class="button is-danger is-outlined is-rounded">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="content">
+
+            <!-- Header -->
+            <header>
+                <h1 class="title is-1">Exploration Food <i id="space-shuttle" class="fas fa-space-shuttle"></i></h1>
+                <h4 class="title is-4">Discover new recipes that match your needs</h4><br><br>
+            </header>
+
+            <!-- Preferences and Search -->
+            <form id="search-bar" class="field is-clearfix">
+
+                <!-- Search Input -->
+                <div class="field has-addons">
+                    <div class="control is-expanded has-icons-left">
+                        <input id="search-text" class="input is-large is-rounded" type="text"
+                            placeholder="Discover new recipes...">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <div class="control">
+                        <button type="submit" id="search" class="button is-info is-large is-rounded">
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+                <!-- API Key input -->
+                <div class="field">
+                    <p class="control has-icons-left">
+                        <input id="api-key" class="input is-rounded" type="text" placeholder="API Key for Spoonacular">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-key"></i>
+                        </span>
+                    </p>
+                </div>
+
+                <!-- Ingredients (Include and Exclude) -->
+                <div class="columns">
+                    <section class="column">
+                        <div class="field">
+                            <p class="control has-icons-left">
+                                <input id="include-ingredients" class="input is-rounded" type="text"
+                                    placeholder="Include Ingredients">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                            </p>
+                        </div>
+                    </section>
+                    <section class="column">
+                        <div class="field">
+                            <p class="control has-icons-left">
+                                <input id="exclude-ingredients" class="input is-rounded" type="text"
+                                    placeholder="Exclude Ingredients">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-minus"></i>
+                                </span>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Filter and Reset Buttons -->
+                <section class="is-pulled-right">
+                    <button id="filter" type="button" class="button is-large is-rounded">
+                        <i class="fa fa-filter" title="Preference Control" aria-hidden="true"></i>
+                    </button>
+                    <button type="reset" title="Remove Preferences" class="button is-large is-rounded is-danger">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </section>
+
+                <br>
 
                 <div id="filter-content" class="columns">
-                    <!--filters generated by Jquery-->
+                    <!-- Filters generated by Jquery -->
                 </div>
 
             </form>
+
             <button id='new-recipe'>New Recipe</button>
-            <!---Recipe Tiles HTML--->
+
             <section id="recipes">
                 <!--Add Recipes here from API -->
             </section>
         </div>
     </div>
 
-    <!--personal JS-->
     <script src="./js/index.js"></script>
-
 </body>
 
 </html>

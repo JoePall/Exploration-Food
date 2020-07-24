@@ -1,17 +1,8 @@
-var recipeArr = [];
-/**
- * Creates a Spoonacular API Query from the preferences provided.
- * @constructor
- * @param {string} preferences - The preferences that will defin
- * TODO: Fill out the rest of the param details.
- */
 $("#recipes").on("click", "section", event => {
     event.preventDefault();
-    console.log(event.currentTarget)
-    section = $(event.currentTarget)
-    console.log(section.val())
-        // Navigates to the recipe source
-    window.open(section.val());
+
+    // Navigates to the recipe source
+    window.open($(event.currentTarget).val());
 });
 
 $("#filter").click(event => {
@@ -30,7 +21,7 @@ $("#search").click(event => {
 
     var preferences = getPreferencesInput();
 
-    if (preferences.apiKey === "") {
+    if (!preferences.apiKey) {
         $("#api-key").css("border-color", "#ff0000");
         $("#api-key").attr("placeholder", "Required Field - API Key");
         $("#api-key").focus();
@@ -52,19 +43,41 @@ $("#search").click(event => {
         }, 200);
     });
 
-    //TODO: Show Save Modal
+    $("#save-profile").removeClass("is-hidden");
+    $("#profile-name").focus();
 });
+
+$("#save").click(event => {
+    event.preventDefault();
+
+    var profile = [[$("#profile-name").val(), getPreferencesInput()]];
+    localStorage.setItem("Preferences");
+
+    if (!$("#save-profile").hasClass("is-hidden")) {
+        $("#save-profile").addClass("is-hidden");
+    }
+});
+
+$("#close-save-option").click(event => {
+    event.preventDefault();
+
+    if (!$("#save-profile").hasClass("is-hidden")) {
+        $("#save-profile").addClass("is-hidden");
+    }
+});
+
 var index = 0
-$("#new-recipe").on("click", function() {
+$("#new-recipe").on("click", function () {
 
     console.log(index)
     index = index++
-        $("#new-recipe").attr("data-index", index++)
+    $("#new-recipe").attr("data-index", index++)
 
     if (recipeArr[index] === undefined) {
         $("#recipes").empty()
         $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"))
-    } else {
+    }
+    else {
         console.log(index)
         console.log(recipeArr[index])
         generateRecipeHTML(recipeArr[index])
@@ -202,13 +215,14 @@ function getCheckboxGroupHTML(name, preferences) {
 
         var checkbox = $("<input>").attr("type", "checkbox").addClass("checkbox").val(items[item]);
 
+        // Checks the boxes that are in preferences
         if (preferences) {
             if (preferences[name].includes(items[item])) {
                 $(checkbox).prop("checked", "true");
             }
         }
         label.append(checkbox);
-        label.append($("<p>").text(item.replace("_", " ")));
+        label.append($("<span>").html(item.replace("_", " ")));
 
         result.append(label);
     }
@@ -228,22 +242,20 @@ function loadFilterHTML(preferences) {
 }
 
 
-function generateRecipeHTML(recipeArr) {
-    console.log(recipeArr)
-    $("#recipes").empty()
-    var result = $("<section>").addClass("recipe has-text-centered column tile is-8 is-parent").val(recipeArr.source);
+function generateRecipeHTML(recipe) {
+    var result = $("<section>").addClass("recipe has-text-centered column tile is-8 is-parent").val(recipe.source);
 
     var article = $("<article>").addClass("tile is-child notification is-primary ");
 
-    article.append($("<p>").addClass("title").text(recipeArr.title));
+    article.append($("<p>").addClass("title").text(recipe.title));
 
     var figure = $("<figure>").addClass("image is-4by3");
-    figure.append($("<img>").attr("src", recipeArr.image));
+    figure.append($("<img>").attr("src", recipe.image));
     article.append(figure);
 
     article.append($("<br>"));
 
-    article.append($("<p>").addClass("subtitle is-6").html(recipeArr.summary));
+    article.append($("<p>").addClass("subtitle is-6").html(recipe.summary));
 
     result.append(article);
 
@@ -251,19 +263,13 @@ function generateRecipeHTML(recipeArr) {
 }
 
 function init() {
-    var test = {
-        Search: "",
-        Cuisine: [queryParam.Cuisine.African],
-        Intolerances: [queryParam.Intolerances.Gluten],
-        Diet: [queryParam.Diet.Ovo_Vegetarian],
-        Meal_Type: [queryParam.Meal_Type.Breakfast]
-    };
-
-    loadFilterHTML(test);
+    loadpreferences();
     $("#search-text").focus();
+    if (typeof key !== 'undefined') {
+        $("#api-key").val(key);
+    }
 }
 init();
-loadpreferences();
 
 
 $("#save-search").click(event => {
@@ -294,7 +300,9 @@ function loadpreferences() {
         delete profile.Profilename;
         console.log("profile = ", profile);
         loadFilterHTML(profile);
-
+    }
+    else {
+        loadFilterHTML();
     }
 }
 
@@ -332,7 +340,8 @@ function queryAPI(preferences, callback) {
 
     console.log(queryURL);
     $.getJSON(queryURL, response => {
-
+        var result = [];
+        
         response.results.forEach(item => {
             var recipe = {
                 title: item.title,
@@ -344,14 +353,21 @@ function queryAPI(preferences, callback) {
                 ingredients: item.extendedIngredients
             };
 
-            recipeArr.push(recipe);
-        })
-        console.log(recipeArr)
-            //callback(results);
-    }).then(function() {
+            result.push(recipe);
+        });
 
-        $("#recipes").empty();
-        generateRecipeHTML(recipeArr[0]);
-
+        callback(result);
     });
+        // ISSUE HERE
+    //     console.log(result)
+    //     callback(result);
+    //         recipeArr.push(recipe);
+    //     })
+    //     console.log(recipeArr)
+    //         //callback(results);
+    // }).then(function() {
+
+        //     $("#recipes").empty();
+        //     generateRecipeHTML(recipeArr[0]);
+
 }
