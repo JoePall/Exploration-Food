@@ -37,6 +37,7 @@ hr {
 .content h3, h4 {
     margin-bottom: 2px;
     margin-left: -4px;
+    text-align: center;
 }
 
 .tooltip {
