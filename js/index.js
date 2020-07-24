@@ -1,6 +1,6 @@
 $("#recipes").on("click", "section", event => {
     event.preventDefault();
-    
+
     // Navigates to the recipe source
     window.open($(event.currentTarget).val());
 });
