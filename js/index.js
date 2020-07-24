@@ -1,3 +1,4 @@
+var recipeArr = [];
 /**
  * Creates a Spoonacular API Query from the preferences provided.
  * @constructor
@@ -53,6 +54,23 @@ $("#search").click(event => {
 
     //TODO: Show Save Modal
 });
+var index = 0
+$("#new-recipe").on("click", function(){
+    
+    console.log(index)
+    index = index++
+    $("#new-recipe").attr("data-index", index++)
+
+    if(recipeArr[index]=== undefined){
+        $("#recipes").empty()
+        $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"))
+    }
+    else{
+        console.log(index)
+        console.log(recipeArr[index])
+        generateRecipeHTML(recipeArr[index])
+    }
+})
 
 function showSaveModal() {
 
@@ -211,20 +229,22 @@ function loadFilterHTML(preferences) {
 }
 
 
-function generateRecipeHTML(recipe) {
-    var result = $("<section>").addClass("recipe has-text-centered column tile is-8 is-parent").val(recipe.source);
+function generateRecipeHTML(recipeArr) {
+    console.log(recipeArr)
+    $("#recipes").empty()
+    var result = $("<section>").addClass("recipe has-text-centered column tile is-8 is-parent").val(recipeArr.source);
 
     var article = $("<article>").addClass("tile is-child notification is-primary ");
 
-    article.append($("<p>").addClass("title").text(recipe.title));
+    article.append($("<p>").addClass("title").text(recipeArr.title));
 
     var figure = $("<figure>").addClass("image is-4by3");
-    figure.append($("<img>").attr("src", recipe.image));
+    figure.append($("<img>").attr("src", recipeArr.image));
     article.append(figure);
 
     article.append($("<br>"));
 
-    article.append($("<p>").addClass("subtitle is-6").html(recipe.summary));
+    article.append($("<p>").addClass("subtitle is-6").html(recipeArr.summary));
 
     result.append(article);
 
@@ -313,7 +333,6 @@ function queryAPI(preferences, callback) {
 
     console.log(queryURL);
     $.getJSON(queryURL, response => {
-        var result = [];
 
         response.results.forEach(item => {
             var recipe = {
@@ -326,9 +345,15 @@ function queryAPI(preferences, callback) {
                 ingredients: item.extendedIngredients
             };
 
-            result.push(recipe);
-        });
-        console.log(result)
-        callback(result);
-    });
+            recipeArr.push(recipe);
+        })
+        console.log(recipeArr)
+        //callback(results);
+    }).then(function(){
+        
+        $("#recipes").empty();
+        generateRecipeHTML(recipeArr[0]);
+
+    }
+    );
 }
