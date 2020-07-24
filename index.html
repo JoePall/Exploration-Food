@@ -40,16 +40,17 @@
                         <button type="reset" title="Get a new Recipe" class="button is-outlined">
                             <i class="fas fa-undo"></i>
                         </button>
-                      </div>
-                    
+                      </div>  
 
                 <div class="columns">
                     <span>Include Ingredients</span>
                     <input id="include-ingredients" class="input" type="text" placeholder="Include Ingredients">
+
                     <span>Exclude Ingredients</span>
                     <input id="exclude-ingredients" class="input" type="text" placeholder="Exclude Ingredients">
                 </div>
                 <br>
+
 
                 <!-- Temp for Api input... -->
                 <div class="columns">
@@ -59,7 +60,7 @@
                         <span class="tooltiptext">Save prefs</span>
                     </button>
                 </div>
-
+                
                 <div id="filter-content" class="columns">
                     <!-- Add Allergy Selection here -->
                     <!-- Add Cuisine Selection here -->
@@ -72,6 +73,10 @@
             </section>
         </div>
     </div>
+
+    <!--personal JS-->
+    <script src="./js/index.js"></script>
+
 
     <script>
         $(".recipe").click(event => {
