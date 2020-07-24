@@ -14,33 +14,37 @@
     <link rel="stylesheet" href="index.css">
 </head>
 
-            
-    <header> 
-        <h1 class="title is-1">Exploration Food <i id="space-shuttle" class="fas fa-space-shuttle"></i></h1>
-        <h4 class="title is-4">Discover new recipes that match your needs</h4><br><br>
-    </header> 
 
-        <body>
-            <div class="container">
-            <div class="content">
-                    <br>
-                  
-                  <form id="search-bar" class="field">
-                    <div class="level-item field columns buttons are-large are-primary are-light">
-                        <input id="search-text" class="input" type="text" placeholder="Search for a recipe...">
-                        <input id="api-key" class="input" type="text" placeholder="API Key for Spoonacular">
-                        <button id="search" type="submit" class="button">
+<header>
+    <h1 class="title is-1">Exploration Food <i id="space-shuttle" class="fas fa-space-shuttle"></i></h1>
+    <h4 class="title is-4">Discover new recipes that match your needs</h4><br><br>
+</header>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <br>
+
+            <form id="search-bar" class="field">
+                <div class="level-item field columns buttons are-large are-primary are-light">
+                    <input id="search-text" class="input" type="text" placeholder="Search for a recipe...">
+                    <input id="api-key" class="input" type="text" placeholder="API Key for Spoonacular">
+                    <button id="search" type="submit" class="button tooltip">
                             <i class="fa fa-search" aria-hidden="true"></i>
+                            <span class="tooltiptext">Search Recipes</span>
                         </button>
 
-                        <button id="filter" type="button" class="button">
+                    <button id="filter" type="button" class="button tooltip">
                             <i class="fa fa-filter" title="preference control" aria-hidden="true"></i>
+                            <span class="tooltiptext">Filter results</span>
                         </button>
 
-                        <button type="reset" title="Get a new Recipe" class="button is-outlined">
+                    <button type="reset" title="Get a new Recipe" class="button is-outlined tooltip">
                             <i class="fas fa-undo"></i>
+                            <span class="tooltiptext">Reset page</span>
+
                         </button>
-                      </div>  
+                </div>
 
                 <div class="columns">
                     <span>Include Ingredients</span>
@@ -60,7 +64,7 @@
                         <span class="tooltiptext">Save prefs</span>
                     </button>
                 </div>
-                
+
                 <div id="filter-content" class="columns">
                     <!-- Add Allergy Selection here -->
                     <!-- Add Cuisine Selection here -->
