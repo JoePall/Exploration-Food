@@ -13,13 +13,13 @@
     <link rel="stylesheet" href="index.css">
 </head>
 
-<body>
-    <div class="container">
-        <div class="content">
-            <br><br>
-            <h1 class="title is-1">Exploration Food <i id="space-shuttle" class="fas fa-space-shuttle"></i></h1>
-                <h4 class="title is-4">Discover new recipes that match your needs/preferences...</h4><br><br>
-                <form id="search-bar" class="field">
+            
+            <header> 
+                <h1 class="title is-1">Exploration Food <i id="space-shuttle" class="fas fa-space-shuttle"></i></h1>
+                 <h4 class="title is-4">Discover new recipes that match your needs/preferences...</h4><br><br>
+            </header> 
+                  
+                  <form id="search-bar" class="field">
                     <div class="level-item field columns buttons are-large are-primary are-light">
                         <input id="search-text" class="input" type="text" placeholder="Search for a recipe...">
                         <input id="api-key" class="input" type="text" placeholder="API Key for Spoonacular">
@@ -34,8 +34,11 @@
                         <button type="reset" title="Get a new Recipe" class="button is-outlined">
                             <i class="fas fa-undo"></i>
                         </button>
-                </div>
-
+                      </div>
+                    
+        <body>
+          <div class="container">
+          <div class="content">
                 <br>
 
                 <div class="columns">
@@ -49,8 +52,9 @@
                 <!-- Temp for Api input... -->
                 <div class="columns">
                     <input id="profile-name" class="input" type="text" placeholder="Profile Name">
-                    <button id="save-search" type="button" class="button is-info is-outlined" title="Save this Search">
+                    <button id="save-search" type="button" class="button is-info is-outlined tooltip" title="Save this Search">
                         <i class="fa fa-save"></i>
+                        <span class="tooltiptext">Save prefs</span>
                     </button>
                 </div>
 
@@ -278,7 +282,7 @@
             article.append(figure);
 
             article.append($("<br>"));
-          
+
             article.append($("<p>").addClass("subtitle is-6").html(recipe.summary));
 
             result.append(article);
