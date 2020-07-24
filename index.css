@@ -2,6 +2,7 @@ body {
     margin-right: auto;
     margin-left: auto;
     padding: 25px;
+    font-family: 'Be Vietnam', sans-serif;
 }
 
 a {
@@ -35,7 +36,7 @@ hr {
 }
 
 
-.content h4 {
+h4 {
     margin-bottom: 2px;
     margin-left: -4px;
     text-align: center;
@@ -83,4 +84,10 @@ hr {
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+#recipes{
+    position: relative;
+    left: 17.5%;
+    top: 50%;
 }
