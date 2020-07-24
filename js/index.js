@@ -1,10 +1,8 @@
 $("#recipes").on("click", "section", event => {
     event.preventDefault();
-    console.log(event.currentTarget)
-    section = $(event.currentTarget)
-    console.log(section.val())
+    
     // Navigates to the recipe source
-    window.open(section.val());
+    window.open($(event.currentTarget).val());
 });
 
 $("#filter").click(event => {
@@ -68,6 +66,27 @@ $("#close-save-option").click(event => {
     }
 });
 
+var index = 0
+$("#new-recipe").on("click", function () {
+
+    console.log(index)
+    index = index++
+    $("#new-recipe").attr("data-index", index++)
+
+    if (recipeArr[index] === undefined) {
+        $("#recipes").empty()
+        $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"))
+    }
+    else {
+        console.log(index)
+        console.log(recipeArr[index])
+        generateRecipeHTML(recipeArr[index])
+    }
+})
+
+function showSaveModal() {
+
+}
 
 function getPreferencesInput() {
     var result = {
@@ -269,8 +288,7 @@ $("#save-search").click(event => {
 function loadpreferences() {
     console.log("in load preferences...");
     var profile = JSON.parse(localStorage.getItem("Preferences"));
-
-    if (profile) {
+    if (profile !== null) {
         console.log("profile = ", profile);
         console.log("profilename = " + profile.Profilename);
         $("#profile-name").val(profile.Profilename);
@@ -322,7 +340,6 @@ function queryAPI(preferences, callback) {
 
     console.log(queryURL);
     $.getJSON(queryURL, response => {
-        var result = [];
 
         response.results.forEach(item => {
             var recipe = {
