@@ -6,7 +6,7 @@
  */
 function queryAPI(preferences, callback) {
     var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.Search.replace(" ", "%20");
-    
+
     if (preferences.Cuisine && preferences.Cuisine.length > 0) {
         queryURL += "&cuisine=";
         preferences.Cuisine.forEach(item => queryURL += item.replace(" ", "%20") + ",");
@@ -39,7 +39,7 @@ function queryAPI(preferences, callback) {
     console.log(queryURL);
     $.getJSON(queryURL, response => {
         var result = [];
-        
+
         response.results.forEach(item => {
             var recipe = {
                 title: item.title,
@@ -53,7 +53,7 @@ function queryAPI(preferences, callback) {
 
             result.push(recipe);
         });
-        
+
         callback(result);
     });
 }
