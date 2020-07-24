@@ -1,6 +1,7 @@
 body {
     margin-right: auto;
     margin-left: auto;
+    padding: 25px;
 }
 
 a {
@@ -14,7 +15,9 @@ img {
 
 h1 {
     margin-bottom: 0px;
-    padding-bottom: 0px;
+    padding-bottom: 15px;
+    text-align: center;
+
 }
 
 hr {
@@ -31,9 +34,11 @@ hr {
     text-transform: capitalize;
 }
 
-.content h3 {
+
+.content h4 {
     margin-bottom: 2px;
     margin-left: -4px;
+    text-align: center;
 }
 
 .control {
