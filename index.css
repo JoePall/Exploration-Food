@@ -23,11 +23,11 @@ hr {
 }
 
 .checkbox {
-    margin-right: 2px;
-    margin-left: 2px;
+    margin-right: 7px;
+    margin-left: 7px;
 }
 
-.checkbox>p {
+.checkbox>span {
     text-transform: capitalize;
 }
 
