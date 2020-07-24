@@ -61,7 +61,8 @@ $("#new-recipe").on("click", function(){
     index = index++
     $("#new-recipe").attr("data-index", index++)
 
-    if(recipeArr.indexOf(index) === -1){
+    if(recipeArr[index]=== undefined){
+        $("#recipes").empty()
         $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"))
     }
     else{
