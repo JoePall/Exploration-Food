@@ -53,7 +53,7 @@
                         <i class="fa fa-save"></i>
                     </button>
                 </div>
-                
+
                 <div id="filter-content" class="columns">
                     <!-- Add Allergy Selection here -->
                     <!-- Add Cuisine Selection here -->
@@ -96,16 +96,21 @@
                 result.forEach(recipe => generateRecipeHTML(recipe));
             });
 
-            $("#space-shuttle").animate({ margin: "0 0 0 150px", opacity: "0" }, 200, () => {
+            $("#space-shuttle").animate({
+                margin: "0 0 0 150px",
+                opacity: "0"
+            }, 200, () => {
                 $("#space-shuttle").removeAttr("style");
-                $("#recipes").animate({ opacity: "1" }, 200);
+                $("#recipes").animate({
+                    opacity: "1"
+                }, 200);
             });
 
             //TODO: Show Save Modal
         });
 
         function showSaveModal() {
-            
+
         }
 
         function getPreferencesInput() {
@@ -124,6 +129,9 @@
             result.Include_Ingredients = $("#include-ingredients").val();
             result.Exclude_Ingredients = $("#exclude-ingredients").val();
             result.apiKey = $("#api-key").val();
+            console.log("result.apiKey = " + result.apiKey);
+            console.log("result.Include_Ingredients = " + result.Include_Ingredients);
+            console.log("result.Exclude_Ingredients = " + result.Exclude_Ingredients);
 
             $.each($(".Cuisine>input:checked"), (i, item) =>
                 result.Cuisine.push($(item).val()));
@@ -137,6 +145,12 @@
             $.each($(".Diet>input:checked"), (i, item) =>
                 result.Diet.push($(item).val()));
 
+            console.log("result.Cuisine = " + result.Cuisine);
+            console.log("result.Intolerances = " + result.Intolerances);
+            console.log("result.Meal_Type = " + result.Meal_Type);
+            console.log("result.Diet = " + result.Diet);
+
+            console.log("result" + JSON.stringify(result));
             return result;
         }
 
@@ -264,7 +278,7 @@
             article.append(figure);
 
             article.append($("<br>"));
-            
+
             article.append($("<p>").addClass("subtitle").html(recipe.summary));
 
             result.append(article);
@@ -286,7 +300,40 @@
             $("#search-text").focus();
         }
         init();
+        loadpreferences();
 
+
+        $("#save-search").click(event => {
+            event.preventDefault();
+            var profilename = $("#profile-name").val();
+            console.log("profilename = " + profilename);
+            var result = getPreferencesInput();
+            console.log("result = ", result)
+            result.Profilename = profilename;
+            var preferences = result;
+            console.log("preferences" + JSON.stringify(preferences));
+            localStorage.setItem("Preferences", JSON.stringify(preferences));
+
+        });
+
+        function loadpreferences() {
+            console.log("in load preferences...");
+            var profile = JSON.parse(localStorage.getItem("Preferences"));
+            if (profile !== null) {
+                console.log("profile = ", profile);
+                console.log("profilename = " + profile.Profilename);
+                $("#profile-name").val(profile.Profilename);
+                $("#api-key").val(profile.apiKey);
+                $("#include-ingredients").val(profile.Include_Ingredients);
+                $("#exclude-ingredients").val(profile.Exclude_Ingredients);
+                var intolerancesarray = profile.Intolerances;
+                console.log("intolerancesarray = " + intolerancesarray);
+                delete profile.Profilename;
+                console.log("profile = ", profile);
+                loadFilterHTML(profile);
+
+            }
+        }
     </script>
 </body>
 
