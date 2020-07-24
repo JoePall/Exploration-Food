@@ -340,7 +340,8 @@ function queryAPI(preferences, callback) {
 
     console.log(queryURL);
     $.getJSON(queryURL, response => {
-
+        var result = [];
+        
         response.results.forEach(item => {
             var recipe = {
                 title: item.title,
@@ -354,7 +355,19 @@ function queryAPI(preferences, callback) {
 
             result.push(recipe);
         });
-        console.log(result)
+
         callback(result);
     });
+        // ISSUE HERE
+    //     console.log(result)
+    //     callback(result);
+    //         recipeArr.push(recipe);
+    //     })
+    //     console.log(recipeArr)
+    //         //callback(results);
+    // }).then(function() {
+
+        //     $("#recipes").empty();
+        //     generateRecipeHTML(recipeArr[0]);
+
 }

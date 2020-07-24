@@ -16,7 +16,8 @@ img {
 
 h1 {
     margin-bottom: 0px;
-    padding-bottom: 0px;
+    padding-bottom: 15px;
+    text-align: center;
 }
 
 hr {
@@ -33,15 +34,10 @@ hr {
     text-transform: capitalize;
 }
 
-.content h3 {
+.content h3, h4 {
     margin-bottom: 2px;
     margin-left: -4px;
 }
-/* 
-.control {
-    margin-bottom: 10px;
-    margin-left: 10px;
-} */
 
 .tooltip {
     position: relative;
@@ -82,8 +78,25 @@ hr {
     opacity: 1;
 }
 
-#recipes{
+#recipes {
     position: relative;
     left: 17.5%;
     top: 50%;
+}
+
+
+/* added to format page a bit */
+
+#search-text,
+#api-key {
+    margin-right: 5px;
+}
+
+#include-ingredients,
+#exclude-ingredients {
+    margin: 10px;
+}
+
+#exclude-ingredients {
+    margin-right: 0px;
 }
