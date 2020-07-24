@@ -9,17 +9,16 @@ $("#recipes").on("click", "section", event => {
     console.log(event.currentTarget)
     section = $(event.currentTarget)
     console.log(section.val())
-    // Navigates to the recipe source
+        // Navigates to the recipe source
     window.open(section.val());
 });
 
 $("#filter").click(event => {
     event.preventDefault();
-    
+
     if ($("#filter-content").hasClass("is-hidden")) {
         $("#filter-content").removeClass("is-hidden");
-    }
-    else {
+    } else {
         $("#filter-content").addClass("is-hidden");
     }
 });
@@ -27,9 +26,16 @@ $("#filter").click(event => {
 $("#search").click(event => {
     event.preventDefault();
     $("#recipes").css("opacity", "0");
-    
+
     var preferences = getPreferencesInput();
-    
+
+    if (preferences.apiKey === "") {
+        $("#api-key").css("border-color", "#ff0000");
+        $("#api-key").attr("placeholder", "Required Field - API Key");
+        $("#api-key").focus();
+        return;
+    }
+
     queryAPI(preferences, result => {
         $("#recipes").empty();
         result.forEach(recipe => generateRecipeHTML(recipe));
@@ -272,6 +278,7 @@ function loadpreferences() {
 
     }
 }
+
 function queryAPI(preferences, callback) {
     var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.Search.replace(" ", "%20");
 
