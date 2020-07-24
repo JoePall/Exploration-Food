@@ -91,12 +91,3 @@ hr {
 #api-key {
     margin-right: 5px;
 }
-
-#include-ingredients,
-#exclude-ingredients {
-    margin: 10px;
-}
-
-#exclude-ingredients {
-    margin-right: 0px;
-}
