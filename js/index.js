@@ -244,15 +244,13 @@ function generateRecipeHTML(recipe) {
 }
 
 function init() {
-
-    // loadFilterHTML();
+    loadpreferences();
     $("#search-text").focus();
-    if (key) {
+    if (typeof key !== 'undefined') {
         $("#api-key").val(key);
     }
 }
 init();
-loadpreferences();
 
 
 $("#save-search").click(event => {
