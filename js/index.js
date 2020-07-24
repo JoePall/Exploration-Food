@@ -272,6 +272,7 @@ function loadpreferences() {
 
     }
 }
+
 function queryAPI(preferences, callback) {
     var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.Search.replace(" ", "%20");
 
