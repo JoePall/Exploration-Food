@@ -35,16 +35,20 @@
 
                     <input id="api-key" class="input" type="text" placeholder="API Key for Spoonacular">
 
-                    <button id="search" type="submit" class="button">
+                  <button id="search" type="submit" class="button tooltip">
+
                         <i class="fa fa-search" aria-hidden="true"></i>
+                        <span class="tooltiptext">Search recipes</span>
                     </button>
 
-                    <button id="filter" type="button" class="button">
+                    <button id="filter" type="button" class="button tooltip">
                         <i class="fa fa-filter" title="preference control" aria-hidden="true"></i>
+                        <span class="tooltiptext">Filter search</span>
                     </button>
 
-                    <button type="reset" title="Get a new Recipe" class="button is-outlined">
+                    <button type="reset" title="Get a new Recipe" class="button is-outlined tooltip">
                         <i class="fas fa-undo"></i>
+                        <span class="tooltiptext">Reset page</span>
                     </button>
                 </div>
 
@@ -61,8 +65,9 @@
 
                 <div class="columns">
                     <input id="profile-name" class="input" type="text" placeholder="Profile Name">
-                    <button id="save-search" type="button" class="button is-info is-outlined" title="Save this Search">
+                    <button id="save-search" type="button" class="button is-info is-outlined tooltip" title="Save this Search">
                         <i class="fa fa-save"></i>
+                        <span class="tooltiptext">Save prefs</span>
                     </button>
                 </div>
 
@@ -291,7 +296,7 @@
             article.append(figure);
 
             article.append($("<br>"));
-          
+
             article.append($("<p>").addClass("subtitle is-6").html(recipe.summary));
 
             result.append(article);
