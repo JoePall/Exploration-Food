@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class="container is-widescreen">
+    <div class="container is-fluid is-widescreen">
         <div class="content">
             <br><br>
             <h1>Exploration Food <i id="space-shuttle" class="fas fa-space-shuttle"></i></h1>
@@ -46,13 +46,6 @@
                 </div>
                 <br>
 
-                <!-- Temp for Api input... -->
-                <div class="columns">
-                    <input id="profile-name" class="input" type="text" placeholder="Profile Name">
-                    <button id="save-search" type="button" class="button is-info is-outlined" title="Save this Search">
-                        <i class="fa fa-save"></i>
-                    </button>
-                </div>
                 
                 <div id="filter-content" class="columns">
                     <!-- Add Allergy Selection here -->
@@ -64,6 +57,17 @@
             <section id="recipes" class="columns">
                 <!--Add Recipes here from API -->
             </section>
+        </div>
+
+        <div id="save-modal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <input id="profile-name" class="input" type="text" placeholder="Profile Name">
+                <button id="save-search" type="button" class="button is-info is-outlined" title="Save this Search">
+                    <i class="fa fa-save"></i>
+                </button>
+            </div>
+            <button class="modal-close is-large" aria-label="close"></button>
         </div>
     </div>
 
@@ -101,8 +105,12 @@
                 $("#recipes").animate({ opacity: "1" }, 200);
             });
 
-            //TODO: Show Save Modal
+            
         });
+
+        function generateSaveModalHTML() {
+
+        }
 
         function showSaveModal() {
             
@@ -253,7 +261,7 @@
 
 
         function generateRecipeHTML(recipe) {
-            var result = $("<section>").addClass("recipe has-text-centered column tile is-3 is-parent").val(recipe.source);
+            var result = $("<section>").addClass("recipe has-text-centered is-multiline column tile is-3 is-parent").val(recipe.source);
 
             var article = $("<article>").addClass("tile is-child notification is-primary ");
 
