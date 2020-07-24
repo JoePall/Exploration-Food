@@ -1,9 +1,3 @@
-/**
- * Creates a Spoonacular API Query from the preferences provided.
- * @constructor
- * @param {string} preferences - the response from the Spoonacular query.
- * TODO: Fill out the rest of the param details.
- */
 function queryAPI(preferences, callback) {
     var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.Search.replace(" ", "%20");
     
