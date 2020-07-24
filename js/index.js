@@ -55,17 +55,16 @@ $("#search").click(event => {
     //TODO: Show Save Modal
 });
 var index = 0
-$("#new-recipe").on("click", function(){
-    
+$("#new-recipe").on("click", function() {
+
     console.log(index)
     index = index++
-    $("#new-recipe").attr("data-index", index++)
+        $("#new-recipe").attr("data-index", index++)
 
-    if(recipeArr[index]=== undefined){
+    if (recipeArr[index] === undefined) {
         $("#recipes").empty()
         $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"))
-    }
-    else{
+    } else {
         console.log(index)
         console.log(recipeArr[index])
         generateRecipeHTML(recipeArr[index])
@@ -348,12 +347,11 @@ function queryAPI(preferences, callback) {
             recipeArr.push(recipe);
         })
         console.log(recipeArr)
-        //callback(results);
-    }).then(function(){
-        
+            //callback(results);
+    }).then(function() {
+
         $("#recipes").empty();
         generateRecipeHTML(recipeArr[0]);
 
-    }
-    );
+    });
 }
