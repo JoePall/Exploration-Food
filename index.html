@@ -78,11 +78,13 @@
     </div>
 
     <script>
-        $(".recipe").click(event => {
+        $("#recipes").on("click", "section", event => {
             event.preventDefault();
-
+            console.log(event.currentTarget)
+            section = $(event.currentTarget)
+            console.log(section.val())
             // Navigates to the recipe source
-            window.open($(this).val());
+            window.open(section.val());
         });
 
         $("#filter").click(event => {
