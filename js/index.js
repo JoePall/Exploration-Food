@@ -319,8 +319,9 @@ $("#save-search").click(event => {
 
 $("#open-profiles").click(event => {
     event.preventDefault();
+    $("#profiles").empty();
     $("#profile-modal").addClass("is-active");
-    if (test) console.log("in load preferences...");
+    if (test) console.log("in open-profiles...");
     var preferencesarray = JSON.parse(localStorage.getItem("Preferences"));
     if (test) console.log("preferencearray = ", preferencesarray);
     if (test) console.log("preferencearray.length = " + preferencesarray.length);
@@ -334,22 +335,21 @@ $("#open-profiles").click(event => {
 
 
 function loadpreferences() {
-
-    // if (profile !== null) {
-    //     if (test) console.log("profile = ", profile);
-    //     if (test) console.log("profilename = " + profile.Profilename);
-    //     $("#profile-name").val(profile.Profilename);
-    //     $("#api-key").val(profile.apiKey);
-    //     $("#include-ingredients").val(profile.Include_Ingredients);
-    //     $("#exclude-ingredients").val(profile.Exclude_Ingredients);
-    //     var intolerancesarray = profile.Intolerances;
-    //     if (test) console.log("intolerancesarray = " + intolerancesarray);
-    //     delete profile.Profilename;
-    //     if (test) console.log("profile = ", profile);
-    //     loadFilterHTML(profile);
-    // } else {
-    //     loadFilterHTML();
-    // }
+    //     if (profile !== null) {
+    //         if (test) console.log("profile = ", profile);
+    //         if (test) console.log("profilename = " + profile.Profilename);
+    //         $("#profile-name").val(profile.Profilename);
+    //         $("#api-key").val(profile.apiKey);
+    //         $("#include-ingredients").val(profile.Include_Ingredients);
+    //         $("#exclude-ingredients").val(profile.Exclude_Ingredients);
+    //         var intolerancesarray = profile.Intolerances;
+    //         if (test) console.log("intolerancesarray = " + intolerancesarray);
+    //         delete profile.Profilename;
+    //         if (test) console.log("profile = ", profile);
+    //         loadFilterHTML(profile);
+    //     } else {
+    //         loadFilterHTML();
+    //     }
 }
 
 function queryAPI(preferences, callback) {
