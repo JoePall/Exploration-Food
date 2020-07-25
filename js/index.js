@@ -303,7 +303,6 @@ function init() {
 }
 init();
 
-
 $("#save-search").click(event => {
     event.preventDefault();
 
@@ -327,27 +326,21 @@ $("#open-profiles").click(event => {
     event.preventDefault();
     $("#profile-modal").addClass("is-active");
     
-    var profiles = JSON.parse(localStorage.getItem("Preferences"));
+    var profiles = JSON.parse(localStorage.getItem("profiles"));
 
-
-    if (test) console.log("preferencearray = ", preferencesarray);
-    if (test) console.log("preferencearray.length = " + preferencesarray.length);
-    for (let i = 0; i < preferencesarray.length; i++) {
-        var profile = preferencesarray[i];
-        if (test) console.log("profile = ", profile);
-        if (test) console.log("profile.Profilename = " + profile.Profilename);
-        $("#profiles").append($("<h2>").text(profile.Profilename).val(profile));
-    }
+    $("#profiles").empty();
+    profiles.forEach(profile => {
+        var result = $("<section>").addClass("profile-item");
+        result.append($("<h2>").text(profile[0]).val(profile[1]));
+        $("#profiles").append(result);
+    });
 });
 
 
-$("#profiles>h2").click(event => {
+$("#profiles>section").click(event => {
     var profile = $(event.currentTarget).val();
 
     if (profile !== null) {
-        if (test) console.log("profile = ", profile);
-        if (test) console.log("profilename = " + profile.Profilename);
-        $("#profile-name").val(profile.Profilename);
         $("#api-key").val(profile.apiKey);
         $("#include-ingredients").val(profile.Include_Ingredients);
         $("#exclude-ingredients").val(profile.Exclude_Ingredients);
