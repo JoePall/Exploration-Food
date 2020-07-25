@@ -24,14 +24,15 @@
                     <!-- Accounts -->
                     <div class="content is-clearfix">
                         <div class="is-pulled-right">
-                            <button id="open-profiles" class="button is-rounded" type="button">
+                            <button id="open-profiles" class="button is-rounded tooltip" type="button">
                                 <i class="far fa-user"></i>
+                                <span class="tooltiptext">Open Profiles</span>
                             </button>
                         </div>
                         <div id="save-profile" class="mr-4 is-pulled-right is-hidden">
                             <div class="field has-addons">
                                 <div class="control is-expanded">
-                                    <input id="profile-name" class="input is-rounded" type="text"
+                                    <input id="profile-name" class="input is-rounded " type="text"
                                         placeholder="Chuck Bartowski">
                                 </div>
                                 <div class="control">
@@ -117,21 +118,30 @@
                 </div>
 
                 <!-- Filter and Reset Buttons -->
-                <section class="field is-pulled-right">
-                    <button id="filter" type="button" class="button is-large is-rounded tooltip">
+                <section class="field is-pulled-left">
+                    <button id="filter" type="button" class="button is-large is-primary is-outlined is-rounded tooltip">
                         <i class="fa fa-filter" title="Preference Control" aria-hidden="true"></i>
-                        <span class="tooltiptext">Filter prefs</span>
+                        <span class="tooltiptext">Filter Preferences</span>
                     </button>
-                    <button type="reset" title="Remove Preferences"
-                        class="button is-large is-rounded is-outlined is-danger tooltip">
-                        <i class="fas fa-trash-alt"></i>
-                        <span class="tooltiptext">Clear Page</span>
-                    </button>
-                    <button id="new-recipe" type="button" title="Refresh"
+                    <button id="history" type="button" title="History"
                         class="button is-large is-rounded is-outlined is-primary tooltip">
-                        <i class="fas fa-undo"></i>
-                        <span class="tooltiptext">New Recipe</span>
+                        <i class="fas fa-history"></i>
+                        <span class="tooltiptext">Show History</span>
                     </button>
+                </section>
+
+                <section class="field is-pulled-right">
+                    <button id="previous-recipe" type="button" title="Previous"
+                        class="button is-large is-rounded is-outlined is-info tooltip">
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="tooltiptext">Previous Recipe</span>
+                    </button>
+                    <button id="next-recipe" type="button" title="Next Recipe"
+                        class="button is-large is-rounded is-outlined is-info tooltip">
+                        <i class="fas fa-arrow-right"></i>
+                        <span class="tooltiptext">Next Recipe</span>
+                    </button>
+
                 </section>
 
             </form>
@@ -154,7 +164,7 @@
                     <button id="close-modal" class="delete" aria-label="close"></button>
                 </header>
                 <section id="profiles" class="modal-card-body">
-                    
+
                 </section>
             </div>
         </div>
