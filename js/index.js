@@ -3,7 +3,7 @@
 //TODO: Add Toggle (Dine In | Meal Service | Dine Out)
 
 var test = false;
-var recipeArr = []; 
+var recipeArr = [];
 
 $("#recipes").click(event => {
     event.preventDefault();
@@ -22,7 +22,7 @@ $("#filter").click(event => {
 
 $("#search").click(event => {
     event.preventDefault();
-    
+
     // Fades out the previous recipes result
     $("#recipes").animate({
         opacity: "0"
@@ -92,9 +92,17 @@ function displayNewRecipe() {
     }
 }
 
-function showSaveModal() {
+$("#open-profiles").click(event => {
+    var result = [];
 
-}
+    var profile = $("<h2>").text("PUT NAME HERE").val("PUT PREFERENCES OBJECT HERE");
+    
+    $("#modal").addClass("is-active");
+});
+
+$("#modal-close").click(event => {
+    $("#modal").removeClass("is-active");
+});
 
 function getPreferencesInput() {
     var result = {
@@ -285,7 +293,7 @@ $("#save-search").click(event => {
 
     // Closes the save profile input section
     $("#save-profile").addClass("is-hidden");
-    
+
     var profilename = $("#profile-name").val();
     if (test) console.log("profilename = " + profilename);
     var result = getPreferencesInput();
