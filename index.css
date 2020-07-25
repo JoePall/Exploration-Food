@@ -98,3 +98,7 @@ h4 {
 .is-pulled-right {
     padding: 10px;
 }
+
+#profiles>section {
+    cursor: pointer;
+}
