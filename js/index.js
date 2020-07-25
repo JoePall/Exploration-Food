@@ -30,6 +30,14 @@ $("#search").click(event => {
         opacity: "0"
     }, 200);
 
+    // Loading spinner for search button
+    const search = document.getElementById('search');
+	search.addEventListener('click', () => {
+    search.classList.add('is-loading');
+    search.removeClass('is-loading');
+	});
+
+
     var preferences = getPreferencesInput();
 
     // Highlights missing api key and places user back to that input
