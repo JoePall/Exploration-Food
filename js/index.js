@@ -42,6 +42,7 @@ $("#search").click(event => {
     queryAPI(preferences, result => {
         $("#recipes").empty();
 
+        recipeArr = [];
         result.forEach(recipe => recipeArr.push(recipe));
 
         newRecipe();
@@ -72,6 +73,7 @@ $("#close-save-option").click(event => {
 //TODO: index should be stored in localStorage to avoid global variables
 var index = 0
 $("#new-recipe").on("click", function () {
+    index = 0;
     newRecipe();
 })
 
@@ -79,9 +81,9 @@ function newRecipe() {
     if (test) console.log(index);
     index = index++;
     $("#new-recipe").attr("data-index", index++);
+    $("#recipes").empty();
 
     if (recipeArr[index] === undefined) {
-        $("#recipes").empty();
         $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"));
     } else {
         if (test) console.log(index);
@@ -314,6 +316,7 @@ function loadpreferences() {
         loadFilterHTML();
     }
 }
+
 function queryAPI(preferences, callback) {
     var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.Search.replace(" ", "%20");
 
@@ -344,7 +347,7 @@ function queryAPI(preferences, callback) {
         queryURL += "&includeIngredients=" + preferences.Include_Ingredients;
     }
 
-    queryURL += "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeNutrition=true&number=4&apiKey=" + preferences.apiKey;
+    queryURL += "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeNutrition=true&number=25&apiKey=" + preferences.apiKey;
 
     if (test) console.log(queryURL);
     $.getJSON(queryURL, response => {
@@ -366,16 +369,4 @@ function queryAPI(preferences, callback) {
 
         callback(result);
     });
-    // ISSUE HERE
-    //     if (test) console.log(result);
-    //     callback(result);
-    //         recipeArr.push(recipe);
-    //     })
-    //     if (test) console.log(recipeArr);
-    //         //callback(results);
-    // }).then(function() {
-
-    //     $("#recipes").empty();
-    //     generateRecipeHTML(recipeArr[0]);
-
 }
