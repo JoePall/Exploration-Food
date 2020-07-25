@@ -1,8 +1,9 @@
 body {
     margin-right: auto;
     margin-left: auto;
-    padding: 25px;
+    padding: 0px;
     font-family: 'Be Vietnam', sans-serif;
+    background-color: #474b4f;
 }
 
 a {
@@ -18,6 +19,11 @@ h1 {
     margin-bottom: 0px;
     padding-bottom: 15px;
     text-align: center;
+    color: #fff;
+}
+
+.content h1{
+    color: #fff;
 }
 
 hr {
@@ -83,6 +89,14 @@ hr {
     position: relative;
     left: 17.5%;
     top: 50%;
+}
+
+.field:not(:last-child){
+    padding: 15px;
+}
+
+.is-pulled-right {
+    padding: 10px;
 }
 
 

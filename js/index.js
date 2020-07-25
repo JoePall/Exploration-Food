@@ -248,7 +248,7 @@ function loadFilterHTML(preferences) {
 function generateRecipeHTML(recipe) {
     var result = $("<section>").addClass("recipe has-text-centered column tile is-8 is-parent").val(recipe.source);
 
-    var article = $("<article>").addClass("tile is-child notification is-primary ");
+    var article = $("<article>").addClass("tile is-child notification is-success ");
 
     article.append($("<p>").addClass("title").text(recipe.title));
 
