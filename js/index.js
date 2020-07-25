@@ -92,21 +92,24 @@ function displayNewRecipe() {
     }
 }
 
+//$("")
+
 $("#open-profiles").click(event => {
-    var result = "";
+    event.preventDefault();
+    // var result = "";
 
-    var profiles = JSON.parse(localStorage.getItem("Preferences"));
-    profiles.forEach(profile => {
-        result.append($("<h2>").text(profile.name).val(profile.preference));
-    });
+    // var profiles = JSON.parse(localStorage.getItem("Preferences"));
+    // profiles.forEach(profile => {
+    //     result.append($("<h2>").text(profile.name).val(profile.preference));
+    // });
     
-    $("#profiles").append(result);
+    // $("#profiles").append(result);
 
-    $("#modal").addClass("is-active");
+    $("#profile-modal").addClass("is-active");
 });
 
-$("#modal-close").click(event => {
-    $("#modal").removeClass("is-active");
+$("#close-modal").click(event => {
+    $(".modal").removeClass("is-active");
 });
 
 function getPreferencesInput() {
