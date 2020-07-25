@@ -2,6 +2,7 @@
 //TODO: Add Meal Service option?
 //TODO: Add Toggle (Dine In | Meal Service | Dine Out)
 
+var test = false;
 
 $("#recipes").click(event => {
     event.preventDefault();
@@ -55,7 +56,9 @@ $("#search").click(event => {
 $("#save").click(event => {
     event.preventDefault();
 
-    var profile = [[$("#profile-name").val(), getPreferencesInput()]];
+    var profile = [
+        [$("#profile-name").val(), getPreferencesInput()]
+    ];
     localStorage.setItem("Preferences");
 
     if (!$("#save-profile").hasClass("is-hidden")) {
@@ -72,19 +75,18 @@ $("#close-save-option").click(event => {
 });
 
 var index = 0
-$("#new-recipe").on("click", function () {
+$("#new-recipe").on("click", function() {
 
-    console.log(index)
+    if (test) console.log(index);
     index = index++
-    $("#new-recipe").attr("data-index", index++)
+        $("#new-recipe").attr("data-index", index++)
 
     if (recipeArr[index] === undefined) {
         $("#recipes").empty()
         $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"))
-    }
-    else {
-        console.log(index)
-        console.log(recipeArr[index])
+    } else {
+        if (test) console.log(index);
+        if (test) console.log(recipeArr[index]);
         generateRecipeHTML(recipeArr[index])
     }
 })
@@ -109,9 +111,9 @@ function getPreferencesInput() {
     result.Include_Ingredients = $("#include-ingredients").val();
     result.Exclude_Ingredients = $("#exclude-ingredients").val();
     result.apiKey = $("#api-key").val();
-    console.log("result.apiKey = " + result.apiKey);
-    console.log("result.Include_Ingredients = " + result.Include_Ingredients);
-    console.log("result.Exclude_Ingredients = " + result.Exclude_Ingredients);
+    if (test) console.log("result.apiKey = " + result.apiKey);
+    if (test) console.log("result.Include_Ingredients = " + result.Include_Ingredients);
+    if (test) console.log("result.Exclude_Ingredients = " + result.Exclude_Ingredients);
 
     $.each($(".Cuisine>input:checked"), (i, item) =>
         result.Cuisine.push($(item).val()));
@@ -125,12 +127,12 @@ function getPreferencesInput() {
     $.each($(".Diet>input:checked"), (i, item) =>
         result.Diet.push($(item).val()));
 
-    console.log("result.Cuisine = " + result.Cuisine);
-    console.log("result.Intolerances = " + result.Intolerances);
-    console.log("result.Meal_Type = " + result.Meal_Type);
-    console.log("result.Diet = " + result.Diet);
+    if (test) console.log("result.Cuisine = " + result.Cuisine);
+    if (test) console.log("result.Intolerances = " + result.Intolerances);
+    if (test) console.log("result.Meal_Type = " + result.Meal_Type);
+    if (test) console.log("result.Diet = " + result.Diet);
 
-    console.log("result" + JSON.stringify(result));
+    if (test) console.log("result" + JSON.stringify(result));
     return result;
 }
 
@@ -305,8 +307,7 @@ function loadpreferences() {
         delete profile.Profilename;
         console.log("profile = ", profile);
         loadFilterHTML(profile);
-    }
-    else {
+    } else {
         loadFilterHTML();
     }
 }
