@@ -16,7 +16,7 @@ $("#recipes>section").click(event => {
 
 $("#filter").click(event => {
     if ($("#filter-content").hasClass("is-hidden")) {
-        $("#filter-content").removeClass("is-hidden", 1550);
+        $("#filter-content").removeClass("is-hidden");
     } else {
         $("#filter-content").addClass("is-hidden", 550);
     }
@@ -29,6 +29,14 @@ $("#search").click(event => {
     $("#recipes").animate({
         opacity: "0"
     }, 200);
+
+    // Loading spinner for search button
+    const search = document.getElementById('search');
+	search.addEventListener('click', () => {
+    search.classList.add('is-loading');
+    search.removeClass('is-loading');
+	});
+
 
     var preferences = getPreferencesInput();
 
@@ -47,8 +55,6 @@ $("#search").click(event => {
         recipeArr = [];
         index = 0;
         result.forEach(recipe => recipeArr.push(recipe));
-
-        displayNewRecipe();
     });
 
     $("#space-shuttle").animate({
@@ -120,6 +126,7 @@ $("#close-modal").click(event => {
 
 function getPreferencesInput() {
     var result = {
+        Profilename: "",
         apiKey: "",
         Search: "",
         Include_Ingredients: "",
@@ -134,6 +141,7 @@ function getPreferencesInput() {
     result.Include_Ingredients = $("#include-ingredients").val();
     result.Exclude_Ingredients = $("#exclude-ingredients").val();
     result.apiKey = $("#api-key").val();
+    result.Profilename = $("#profile-name").val();
     if (test) console.log("result.apiKey = " + result.apiKey);
     if (test) console.log("result.Include_Ingredients = " + result.Include_Ingredients);
     if (test) console.log("result.Exclude_Ingredients = " + result.Exclude_Ingredients);
@@ -293,14 +301,15 @@ function generateRecipeHTML(recipe) {
 }
 
 function init() {
-    loadpreferences();
     $("#search-text").focus();
+
     if (typeof key !== 'undefined') {
         $("#api-key").val(key);
     }
+
+    loadFilterHTML();
 }
 init();
-
 
 $("#save-search").click(event => {
     event.preventDefault();
@@ -308,23 +317,24 @@ $("#save-search").click(event => {
     // Closes the save profile input section
     $("#save-profile").addClass("is-hidden");
 
-    var profilename = $("#profile-name").val();
-    if (test) console.log("profilename = " + profilename);
-    var result = getPreferencesInput();
-    if (test) console.log("result = ", result);
-    result.Profilename = profilename;
-    var preferences = result;
-    preferencesarray.push(preferences);
-    if (test) console.log("preferences" + JSON.stringify(preferences));
-    if (test) console.log("preferencesarray = " + JSON.stringify(preferencesarray));
-    localStorage.setItem("Preferences", JSON.stringify(preferencesarray));
+    var result = JSON.parse(localStorage.getItem("profiles"));
+    var name = $("#profile-name").val();
+    var preferences = getPreferencesInput();
 
+    if (result == null) {
+        result = [];
+    }
+
+    result.push([name, preferences]);
+
+    localStorage.setItem("profiles", JSON.stringify(result));
 });
 
 $("#open-profiles").click(event => {
     event.preventDefault();
     $("#profiles").empty();
     $("#profile-modal").addClass("is-active");
+<<<<<<< HEAD
     if (test) console.log("in open-profiles...");
     var preferencesarray = JSON.parse(localStorage.getItem("Preferences"));
     if (test) console.log("preferencearray = ", preferencesarray);
@@ -355,6 +365,36 @@ function loadpreferences() {
     //         loadFilterHTML();
     //     }
 }
+=======
+    
+    var profiles = JSON.parse(localStorage.getItem("profiles"));
+
+    $("#profiles").empty();
+    profiles.forEach(profile => {
+        var result = $("<section>").addClass("profile-item");
+        result.append($("<h2>").text(profile[0]).val(profile[1]));
+        $("#profiles").append(result);
+    });
+});
+
+
+$("#profiles>section").click(event => {
+    var profile = $(event.currentTarget).val();
+
+    if (profile !== null) {
+        $("#api-key").val(profile.apiKey);
+        $("#include-ingredients").val(profile.Include_Ingredients);
+        $("#exclude-ingredients").val(profile.Exclude_Ingredients);
+        var intolerancesarray = profile.Intolerances;
+        if (test) console.log("intolerancesarray = " + intolerancesarray);
+        delete profile.Profilename;
+        if (test) console.log("profile = ", profile);
+        loadFilterHTML(profile);
+    } else {
+        loadFilterHTML();
+    }
+});
+>>>>>>> db8629daa346b179d0beff7efd3fd439ab61b7e7
 
 function queryAPI(preferences, callback) {
     var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.Search.replace(" ", "%20");
