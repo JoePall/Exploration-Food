@@ -50,7 +50,6 @@ h4 {
 .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black;
 }
 
 .tooltip .tooltiptext {
@@ -99,13 +98,3 @@ h4 {
 .is-pulled-right {
     padding: 10px;
 }
-
-
-/* added to format page a bit */
-
-
-/* 
-#search-text,
-#api-key {
-    margin-right: 5px;
-} */
