@@ -54,12 +54,12 @@ hr {
 
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 120px;
+    width: auto;
     background-color: #555;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 5px 0;
+    padding: 12px 18px;
     position: absolute;
     z-index: 1;
     bottom: 125%;
@@ -101,8 +101,8 @@ hr {
 
 
 /* added to format page a bit */
-
+/* 
 #search-text,
 #api-key {
     margin-right: 5px;
-}
+} */

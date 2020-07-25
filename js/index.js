@@ -1,4 +1,9 @@
-$("#recipes").on("click", "section", event => {
+//TODO: Add Dine out option?
+//TODO: Add Meal Service option?
+//TODO: Add Toggle (Dine In | Meal Service | Dine Out)
+
+
+$("#recipes").click(event => {
     event.preventDefault();
 
     // Navigates to the recipe source
@@ -6,18 +11,18 @@ $("#recipes").on("click", "section", event => {
 });
 
 $("#filter").click(event => {
-    event.preventDefault();
-
     if ($("#filter-content").hasClass("is-hidden")) {
-        $("#filter-content").removeClass("is-hidden");
+        $("#filter-content").removeClass("is-hidden", 1550);
     } else {
-        $("#filter-content").addClass("is-hidden");
+        $("#filter-content").addClass("is-hidden", 550);
     }
 });
 
 $("#search").click(event => {
     event.preventDefault();
-    $("#recipes").css("opacity", "0");
+    $("#recipes").animate({
+        opacity: "0"
+    }, 200);
 
     var preferences = getPreferencesInput();
 
@@ -341,7 +346,7 @@ function queryAPI(preferences, callback) {
     console.log(queryURL);
     $.getJSON(queryURL, response => {
         var result = [];
-        
+
         response.results.forEach(item => {
             var recipe = {
                 title: item.title,
@@ -358,7 +363,7 @@ function queryAPI(preferences, callback) {
 
         callback(result);
     });
-        // ISSUE HERE
+    // ISSUE HERE
     //     console.log(result)
     //     callback(result);
     //         recipeArr.push(recipe);
@@ -367,7 +372,7 @@ function queryAPI(preferences, callback) {
     //         //callback(results);
     // }).then(function() {
 
-        //     $("#recipes").empty();
-        //     generateRecipeHTML(recipeArr[0]);
+    //     $("#recipes").empty();
+    //     generateRecipeHTML(recipeArr[0]);
 
 }
