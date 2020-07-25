@@ -20,7 +20,9 @@ $("#filter").click(event => {
 
 $("#search").click(event => {
     event.preventDefault();
-    $("#recipes").addClass("is-hidden", 250);
+    $("#recipes").animate({
+        opacity: "0"
+    }, 200);
 
     var preferences = getPreferencesInput();
 
