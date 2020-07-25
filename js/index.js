@@ -43,9 +43,10 @@ $("#search").click(event => {
         $("#recipes").empty();
 
         recipeArr = [];
+        index = 0;
         result.forEach(recipe => recipeArr.push(recipe));
 
-        newRecipe();
+        displayNewRecipe();
     });
 
     $("#space-shuttle").animate({
@@ -73,11 +74,10 @@ $("#close-save-option").click(event => {
 //TODO: index should be stored in localStorage to avoid global variables
 var index = 0
 $("#new-recipe").on("click", function () {
-    index = 0;
-    newRecipe();
+    displayNewRecipe();
 })
 
-function newRecipe() {
+function displayNewRecipe() {
     if (test) console.log(index);
     index = index++;
     $("#new-recipe").attr("data-index", index++);
