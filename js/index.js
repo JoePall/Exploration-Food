@@ -55,6 +55,8 @@ $("#search").click(event => {
         recipeArr = [];
         index = 0;
         result.forEach(recipe => recipeArr.push(recipe));
+
+        displayRecipe();
     });
 
     $("#space-shuttle").animate({
