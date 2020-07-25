@@ -2,8 +2,10 @@
 //TODO: Add Meal Service option?
 //TODO: Add Toggle (Dine In | Meal Service | Dine Out)
 
-var test = false;
+var test = true;
 var recipeArr = [];
+var recipeArr = [];
+let profilenamearray = [];
 
 $("#recipes>section").click(event => {
     event.preventDefault();
@@ -14,7 +16,7 @@ $("#recipes>section").click(event => {
 
 $("#filter").click(event => {
     if ($("#filter-content").hasClass("is-hidden")) {
-        $("#filter-content").removeClass("is-hidden", 1550);
+        $("#filter-content").removeClass("is-hidden");
     } else {
         $("#filter-content").addClass("is-hidden", 550);
     }
@@ -45,8 +47,6 @@ $("#search").click(event => {
         recipeArr = [];
         index = 0;
         result.forEach(recipe => recipeArr.push(recipe));
-
-        displayNewRecipe();
     });
 
     $("#space-shuttle").animate({
@@ -97,8 +97,6 @@ $("#history").click(event => {
 
 //TODO: index should be stored in localStorage to avoid global variables
 var index = 0
-$("#new-recipe").on("click", function () {
-})
 
 function displayRecipe() {
     if (test) console.log(index);
@@ -114,30 +112,13 @@ function displayRecipe() {
     }
 }
 
-//$("")
-
-$("#open-profiles").click(event => {
-    event.preventDefault();
-    var result = "";
-
-    var profiles = JSON.parse(localStorage.getItem("Preferences"));
-    if (profiles == "null") {
-        profiles.forEach(profile => {
-            result.append($("<h2>").text(profile.name).val(profile.preference));
-        });
-    }
-
-    $("#profiles").append(result);
-
-    $("#profile-modal").addClass("is-active");
-});
-
 $("#close-modal").click(event => {
     $(".modal").removeClass("is-active");
 });
 
 function getPreferencesInput() {
     var result = {
+        Profilename: "",
         apiKey: "",
         Search: "",
         Include_Ingredients: "",
@@ -152,6 +133,7 @@ function getPreferencesInput() {
     result.Include_Ingredients = $("#include-ingredients").val();
     result.Exclude_Ingredients = $("#exclude-ingredients").val();
     result.apiKey = $("#api-key").val();
+    result.Profilename = $("#profile-name").val();
     if (test) console.log("result.apiKey = " + result.apiKey);
     if (test) console.log("result.Include_Ingredients = " + result.Include_Ingredients);
     if (test) console.log("result.Exclude_Ingredients = " + result.Exclude_Ingredients);
@@ -311,11 +293,13 @@ function generateRecipeHTML(recipe) {
 }
 
 function init() {
-    loadpreferences();
     $("#search-text").focus();
+
     if (typeof key !== 'undefined') {
         $("#api-key").val(key);
     }
+
+    loadFilterHTML();
 }
 init();
 
@@ -326,20 +310,39 @@ $("#save-search").click(event => {
     // Closes the save profile input section
     $("#save-profile").addClass("is-hidden");
 
-    var profilename = $("#profile-name").val();
-    if (test) console.log("profilename = " + profilename);
-    var result = getPreferencesInput();
-    if (test) console.log("result = ", result);
-    result.Profilename = profilename;
-    var preferences = result;
-    if (test) console.log("preferences" + JSON.stringify(preferences));
-    localStorage.setItem("Preferences", JSON.stringify(preferences));
+    //get current preferences
+    var result = JSON.parse(localStorage.getItem("Preferences"));
+    var newProfileName = $("#profile-name").val();
+    var preferences = getPreferencesInput();
 
+    if (result == null) {
+        result = [];
+    }
+
+    result.push({ newProfileName, preferences });
+
+    localStorage.setItem("Preferences", JSON.stringify(preferences));
 });
 
-function loadpreferences() {
+$("#open-profiles").click(event => {
+    event.preventDefault();
+    $("#profile-modal").addClass("is-active");
     if (test) console.log("in load preferences...");
-    var profile = JSON.parse(localStorage.getItem("Preferences"));
+    var preferencesarray = JSON.parse(localStorage.getItem("Preferences"));
+    if (test) console.log("preferencearray = ", preferencesarray);
+    if (test) console.log("preferencearray.length = " + preferencesarray.length);
+    for (let i = 0; i < preferencesarray.length; i++) {
+        var profile = preferencesarray[i];
+        if (test) console.log("profile = ", profile);
+        if (test) console.log("profile.Profilename = " + profile.Profilename);
+        $("#profiles").append($("<h2>").text(profile.Profilename).val(profile));
+    }
+});
+
+
+$("#profiles>h2").click(event => {
+    var profile = $(event.currentTarget).val();
+
     if (profile !== null) {
         if (test) console.log("profile = ", profile);
         if (test) console.log("profilename = " + profile.Profilename);
@@ -355,7 +358,7 @@ function loadpreferences() {
     } else {
         loadFilterHTML();
     }
-}
+});
 
 function queryAPI(preferences, callback) {
     var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.Search.replace(" ", "%20");

@@ -22,7 +22,7 @@ h1 {
     color: #fff;
 }
 
-.content h1{
+.content h1 {
     color: #fff;
 }
 
@@ -40,7 +40,8 @@ hr {
     text-transform: capitalize;
 }
 
-.content h3, h4 {
+.content h3,
+h4 {
     margin-bottom: 2px;
     margin-left: -4px;
     text-align: center;
@@ -90,7 +91,7 @@ hr {
     top: 50%;
 }
 
-.field:not(:last-child){
+.field:not(:last-child) {
     padding: 15px;
 }
 
