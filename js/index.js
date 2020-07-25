@@ -5,7 +5,7 @@
 var test = false;
 var recipeArr = [];
 
-$("#recipes").click(event => {
+$("#recipes>section").click(event => {
     event.preventDefault();
 
     // Navigates to the recipe source
@@ -92,16 +92,24 @@ function displayNewRecipe() {
     }
 }
 
-$("#open-profiles").click(event => {
-    var result = [];
+//$("")
 
-    var profile = $("<h2>").text("PUT NAME HERE").val("PUT PREFERENCES OBJECT HERE");
+$("#open-profiles").click(event => {
+    event.preventDefault();
+    // var result = "";
+
+    // var profiles = JSON.parse(localStorage.getItem("Preferences"));
+    // profiles.forEach(profile => {
+    //     result.append($("<h2>").text(profile.name).val(profile.preference));
+    // });
     
-    $("#modal").addClass("is-active");
+    // $("#profiles").append(result);
+
+    $("#profile-modal").addClass("is-active");
 });
 
-$("#modal-close").click(event => {
-    $("#modal").removeClass("is-active");
+$("#close-modal").click(event => {
+    $(".modal").removeClass("is-active");
 });
 
 function getPreferencesInput() {
