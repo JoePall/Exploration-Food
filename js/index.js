@@ -3,6 +3,7 @@
 //TODO: Add Toggle (Dine In | Meal Service | Dine Out)
 
 var test = false;
+var recipeArr = []; 
 
 $("#recipes").click(event => {
     event.preventDefault();
@@ -21,12 +22,15 @@ $("#filter").click(event => {
 
 $("#search").click(event => {
     event.preventDefault();
+    
+    // Fades out the previous recipes result
     $("#recipes").animate({
         opacity: "0"
     }, 200);
 
     var preferences = getPreferencesInput();
 
+    // Highlights missing api key and places user back to that input
     if (!preferences.apiKey) {
         $("#api-key").css("border-color", "#ff0000");
         $("#api-key").attr("placeholder", "Required Field - API Key");
@@ -34,9 +38,13 @@ $("#search").click(event => {
         return;
     }
 
+    recipeArr = [];
     queryAPI(preferences, result => {
         $("#recipes").empty();
-        result.forEach(recipe => generateRecipeHTML(recipe));
+
+        result.forEach(recipe => recipeArr.push(recipe));
+
+        newRecipe();
     });
 
     $("#space-shuttle").animate({
@@ -53,19 +61,6 @@ $("#search").click(event => {
     $("#profile-name").focus();
 });
 
-$("#save").click(event => {
-    event.preventDefault();
-
-    var profile = [
-        [$("#profile-name").val(), getPreferencesInput()]
-    ];
-    localStorage.setItem("Preferences");
-
-    if (!$("#save-profile").hasClass("is-hidden")) {
-        $("#save-profile").addClass("is-hidden");
-    }
-});
-
 $("#close-save-option").click(event => {
     event.preventDefault();
 
@@ -74,22 +69,26 @@ $("#close-save-option").click(event => {
     }
 });
 
+//TODO: index should be stored in localStorage to avoid global variables
 var index = 0
-$("#new-recipe").on("click", function() {
+$("#new-recipe").on("click", function () {
+    newRecipe();
+})
 
+function newRecipe() {
     if (test) console.log(index);
-    index = index++
-        $("#new-recipe").attr("data-index", index++)
+    index = index++;
+    $("#new-recipe").attr("data-index", index++);
 
     if (recipeArr[index] === undefined) {
-        $("#recipes").empty()
-        $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"))
+        $("#recipes").empty();
+        $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"));
     } else {
         if (test) console.log(index);
         if (test) console.log(recipeArr[index]);
-        generateRecipeHTML(recipeArr[index])
+        generateRecipeHTML(recipeArr[index]);
     }
-})
+}
 
 function showSaveModal() {
 
@@ -281,6 +280,10 @@ init();
 
 $("#save-search").click(event => {
     event.preventDefault();
+
+    // Closes the save profile input section
+    $("#save-profile").addClass("is-hidden");
+    
     var profilename = $("#profile-name").val();
     if (test) console.log("profilename = " + profilename);
     var result = getPreferencesInput();
@@ -311,7 +314,6 @@ function loadpreferences() {
         loadFilterHTML();
     }
 }
-
 function queryAPI(preferences, callback) {
     var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.Search.replace(" ", "%20");
 
