@@ -93,10 +93,15 @@ function displayNewRecipe() {
 }
 
 $("#open-profiles").click(event => {
-    var result = [];
+    var result = "";
 
-    var profile = $("<h2>").text("PUT NAME HERE").val("PUT PREFERENCES OBJECT HERE");
+    var profiles = JSON.parse(localStorage.getItem("Preferences"));
+    profiles.forEach(profile => {
+        result.append($("<h2>").text(profile.name).val(profile.preference));
+    });
     
+    $("#profiles").append(result);
+
     $("#modal").addClass("is-active");
 });
 
