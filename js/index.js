@@ -2,8 +2,10 @@
 //TODO: Add Meal Service option?
 //TODO: Add Toggle (Dine In | Meal Service | Dine Out)
 
-var test = false;
+var test = true;
 var recipeArr = [];
+var recipeArr = [];
+let profilenamearray = [];
 
 $("#recipes").click(event => {
     event.preventDefault();
@@ -73,7 +75,7 @@ $("#close-save-option").click(event => {
 
 //TODO: index should be stored in localStorage to avoid global variables
 var index = 0
-$("#new-recipe").on("click", function () {
+$("#new-recipe").on("click", function() {
     displayNewRecipe();
 })
 
@@ -94,19 +96,19 @@ function displayNewRecipe() {
 
 //$("")
 
-$("#open-profiles").click(event => {
-    event.preventDefault();
-    // var result = "";
+// $("#open-profiles").click(event => {
+//     event.preventDefault();
+//     // var result = "";
 
-    // var profiles = JSON.parse(localStorage.getItem("Preferences"));
-    // profiles.forEach(profile => {
-    //     result.append($("<h2>").text(profile.name).val(profile.preference));
-    // });
-    
-    // $("#profiles").append(result);
+//     // var profiles = JSON.parse(localStorage.getItem("Preferences"));
+//     // profiles.forEach(profile => {
+//     //     result.append($("<h2>").text(profile.name).val(profile.preference));
+//     // });
 
-    $("#profile-modal").addClass("is-active");
-});
+//     // $("#profiles").append(result);
+
+//     $("#profile-modal").addClass("is-active");
+// });
 
 $("#close-modal").click(event => {
     $(".modal").removeClass("is-active");
@@ -308,29 +310,46 @@ $("#save-search").click(event => {
     if (test) console.log("result = ", result);
     result.Profilename = profilename;
     var preferences = result;
+    preferencesarray.push(preferences);
     if (test) console.log("preferences" + JSON.stringify(preferences));
-    localStorage.setItem("Preferences", JSON.stringify(preferences));
+    if (test) console.log("preferencesarray = " + JSON.stringify(preferencesarray));
+    localStorage.setItem("Preferences", JSON.stringify(preferencesarray));
 
 });
 
-function loadpreferences() {
+$("#open-profiles").click(event => {
+    event.preventDefault();
+    $("#profile-modal").addClass("is-active");
     if (test) console.log("in load preferences...");
-    var profile = JSON.parse(localStorage.getItem("Preferences"));
-    if (profile !== null) {
+    var preferencesarray = JSON.parse(localStorage.getItem("Preferences"));
+    if (test) console.log("preferencearray = ", preferencesarray);
+    if (test) console.log("preferencearray.length = " + preferencesarray.length);
+    for (let i = 0; i < preferencesarray.length; i++) {
+        var profile = preferencesarray[i];
         if (test) console.log("profile = ", profile);
-        if (test) console.log("profilename = " + profile.Profilename);
-        $("#profile-name").val(profile.Profilename);
-        $("#api-key").val(profile.apiKey);
-        $("#include-ingredients").val(profile.Include_Ingredients);
-        $("#exclude-ingredients").val(profile.Exclude_Ingredients);
-        var intolerancesarray = profile.Intolerances;
-        if (test) console.log("intolerancesarray = " + intolerancesarray);
-        delete profile.Profilename;
-        if (test) console.log("profile = ", profile);
-        loadFilterHTML(profile);
-    } else {
-        loadFilterHTML();
+        if (test) console.log("profile.Profilename = " + profile.Profilename);
+        $("#profiles").append($("<h2>").text(profile.Profilename).val(profile));
     }
+});
+
+
+function loadpreferences() {
+
+    // if (profile !== null) {
+    //     if (test) console.log("profile = ", profile);
+    //     if (test) console.log("profilename = " + profile.Profilename);
+    //     $("#profile-name").val(profile.Profilename);
+    //     $("#api-key").val(profile.apiKey);
+    //     $("#include-ingredients").val(profile.Include_Ingredients);
+    //     $("#exclude-ingredients").val(profile.Exclude_Ingredients);
+    //     var intolerancesarray = profile.Intolerances;
+    //     if (test) console.log("intolerancesarray = " + intolerancesarray);
+    //     delete profile.Profilename;
+    //     if (test) console.log("profile = ", profile);
+    //     loadFilterHTML(profile);
+    // } else {
+    //     loadFilterHTML();
+    // }
 }
 
 function queryAPI(preferences, callback) {
