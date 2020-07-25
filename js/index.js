@@ -7,7 +7,7 @@ var recipeArr = [];
 var recipeArr = [];
 let profilenamearray = [];
 
-$("#recipes").click(event => {
+$("#recipes>section").click(event => {
     event.preventDefault();
 
     // Navigates to the recipe source
@@ -73,16 +73,36 @@ $("#close-save-option").click(event => {
     }
 });
 
+$("#previous-recipe").click(event => {
+    if (index > 0) {
+        index--;
+    }
+    else {
+        $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"));
+    }
+    displayRecipe();
+});
+
+$("#next-recipe").click(event => {
+    if (index < recipeArr.length) {
+        index++;
+    }
+    else {
+        $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"));
+    }
+    displayRecipe();
+});
+
+$("#history").click(event => {
+
+});
+
 //TODO: index should be stored in localStorage to avoid global variables
 var index = 0
-$("#new-recipe").on("click", function() {
-    displayNewRecipe();
-})
 
-function displayNewRecipe() {
+function displayRecipe() {
     if (test) console.log(index);
-    index = index++;
-    $("#new-recipe").attr("data-index", index++);
+    $("#new-recipe").attr("data-index", index);
     $("#recipes").empty();
 
     if (recipeArr[index] === undefined) {
@@ -93,22 +113,6 @@ function displayNewRecipe() {
         generateRecipeHTML(recipeArr[index]);
     }
 }
-
-//$("")
-
-// $("#open-profiles").click(event => {
-//     event.preventDefault();
-//     // var result = "";
-
-//     // var profiles = JSON.parse(localStorage.getItem("Preferences"));
-//     // profiles.forEach(profile => {
-//     //     result.append($("<h2>").text(profile.name).val(profile.preference));
-//     // });
-
-//     // $("#profiles").append(result);
-
-//     $("#profile-modal").addClass("is-active");
-// });
 
 $("#close-modal").click(event => {
     $(".modal").removeClass("is-active");
@@ -382,7 +386,7 @@ function queryAPI(preferences, callback) {
         queryURL += "&includeIngredients=" + preferences.Include_Ingredients;
     }
 
-    queryURL += "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeNutrition=true&number=25&apiKey=" + preferences.apiKey;
+    queryURL += "&instructionsRequired=true&fillIngredients=false&addRecipeInformation=false&addRecipeNutrition=false&number=1&apiKey=" + preferences.apiKey;
 
     if (test) console.log(queryURL);
     $.getJSON(queryURL, response => {
