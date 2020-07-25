@@ -310,25 +310,26 @@ $("#save-search").click(event => {
     // Closes the save profile input section
     $("#save-profile").addClass("is-hidden");
 
-    //get current preferences
-    var result = JSON.parse(localStorage.getItem("Preferences"));
-    var newProfileName = $("#profile-name").val();
+    var result = JSON.parse(localStorage.getItem("profiles"));
+    var name = $("#profile-name").val();
     var preferences = getPreferencesInput();
 
     if (result == null) {
         result = [];
     }
 
-    result.push({ newProfileName, preferences });
+    result.push([name, preferences]);
 
-    localStorage.setItem("Preferences", JSON.stringify(preferences));
+    localStorage.setItem("profiles", JSON.stringify(result));
 });
 
 $("#open-profiles").click(event => {
     event.preventDefault();
     $("#profile-modal").addClass("is-active");
-    if (test) console.log("in load preferences...");
-    var preferencesarray = JSON.parse(localStorage.getItem("Preferences"));
+    
+    var profiles = JSON.parse(localStorage.getItem("Preferences"));
+
+
     if (test) console.log("preferencearray = ", preferencesarray);
     if (test) console.log("preferencearray.length = " + preferencesarray.length);
     for (let i = 0; i < preferencesarray.length; i++) {
