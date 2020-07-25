@@ -217,7 +217,7 @@ function getCheckboxGroupHTML(name, preferences) {
 
     var items = queryParam[name];
     for (var item in items) {
-        console.log(item);
+        if (test) console.log(item);
         var label = $("<label>").addClass("checkbox " + name);
 
         var checkbox = $("<input>").attr("type", "checkbox").addClass("checkbox").val(items[item]);
@@ -282,30 +282,30 @@ init();
 $("#save-search").click(event => {
     event.preventDefault();
     var profilename = $("#profile-name").val();
-    console.log("profilename = " + profilename);
+    if (test) console.log("profilename = " + profilename);
     var result = getPreferencesInput();
-    console.log("result = ", result)
+    if (test) console.log("result = ", result);
     result.Profilename = profilename;
     var preferences = result;
-    console.log("preferences" + JSON.stringify(preferences));
+    if (test) console.log("preferences" + JSON.stringify(preferences));
     localStorage.setItem("Preferences", JSON.stringify(preferences));
 
 });
 
 function loadpreferences() {
-    console.log("in load preferences...");
+    if (test) console.log("in load preferences...");
     var profile = JSON.parse(localStorage.getItem("Preferences"));
     if (profile !== null) {
-        console.log("profile = ", profile);
-        console.log("profilename = " + profile.Profilename);
+        if (test) console.log("profile = ", profile);
+        if (test) console.log("profilename = " + profile.Profilename);
         $("#profile-name").val(profile.Profilename);
         $("#api-key").val(profile.apiKey);
         $("#include-ingredients").val(profile.Include_Ingredients);
         $("#exclude-ingredients").val(profile.Exclude_Ingredients);
         var intolerancesarray = profile.Intolerances;
-        console.log("intolerancesarray = " + intolerancesarray);
+        if (test) console.log("intolerancesarray = " + intolerancesarray);
         delete profile.Profilename;
-        console.log("profile = ", profile);
+        if (test) console.log("profile = ", profile);
         loadFilterHTML(profile);
     } else {
         loadFilterHTML();
@@ -344,7 +344,7 @@ function queryAPI(preferences, callback) {
 
     queryURL += "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeNutrition=true&number=4&apiKey=" + preferences.apiKey;
 
-    console.log(queryURL);
+    if (test) console.log(queryURL);
     $.getJSON(queryURL, response => {
         var result = [];
 
@@ -365,11 +365,11 @@ function queryAPI(preferences, callback) {
         callback(result);
     });
     // ISSUE HERE
-    //     console.log(result)
+    //     if (test) console.log(result);
     //     callback(result);
     //         recipeArr.push(recipe);
     //     })
-    //     console.log(recipeArr)
+    //     if (test) console.log(recipeArr);
     //         //callback(results);
     // }).then(function() {
 
