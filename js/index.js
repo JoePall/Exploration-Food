@@ -3,18 +3,13 @@
 //TODO: Add Toggle (Dine In | Meal Service | Dine Out)
 
 var test = true;
-var recipeArr = [];
+var recipe = [];
 var recipeArr = [];
 let profilenamearray = [];
 
-$("#recipes>section").click(event => {
-    event.preventDefault();
-
-    // Navigates to the recipe source
-    window.open($(event.currentTarget).val());
-});
 
 $("#filter").click(event => {
+    event.preventDefault();
     if ($("#filter-content").hasClass("is-hidden")) {
         $("#filter-content").removeClass("is-hidden");
     } else {
@@ -24,22 +19,22 @@ $("#filter").click(event => {
 
 $("#search").click(event => {
     event.preventDefault();
-
+    
     // Fades out the previous recipes result
     $("#recipes").animate({
         opacity: "0"
     }, 200);
-
+    
     // Loading spinner for search button
     const search = document.getElementById('search');
 	search.addEventListener('click', () => {
-    search.classList.add('is-loading');
-    search.removeClass('is-loading');
+        search.classList.add('is-loading');
+        //search.removeClass('is-loading');
 	});
-
-
+    
+    
     var preferences = getPreferencesInput();
-
+    
     // Highlights missing api key and places user back to that input
     if (!preferences.apiKey) {
         $("#api-key").css("border-color", "#ff0000");
@@ -47,7 +42,14 @@ $("#search").click(event => {
         $("#api-key").focus();
         return;
     }
-
+    
+    $("#recipes").click(event => {
+        event.preventDefault();
+        console.log("click")
+        console.log($(event.currentTarget).val())
+        // Navigates to the recipe source
+        window.open($(event.currentTarget).val());
+    });
     recipeArr = [];
     queryAPI(preferences, result => {
         $("#recipes").empty();
@@ -283,7 +285,8 @@ function loadFilterHTML(preferences) {
 
 
 function generateRecipeHTML(recipe) {
-    var result = $("<section>").addClass("recipe has-text-centered column tile is-8 is-parent").val(recipe.source);
+    
+    var result = $("<section>").addClass("recipe has-text-centered column tile is-8 is-parent");
 
     var article = $("<article>").addClass("tile is-child notification is-success ");
 
@@ -299,7 +302,7 @@ function generateRecipeHTML(recipe) {
 
     result.append(article);
 
-    $("#recipes").append(result);
+    $("#recipes").append(result).val(recipe.source);
 }
 
 function init() {
@@ -399,7 +402,7 @@ function queryAPI(preferences, callback) {
     if (test) console.log(queryURL);
     $.getJSON(queryURL, response => {
         var result = [];
-
+       
         response.results.forEach(item => {
             var recipe = {
                 title: item.title,
