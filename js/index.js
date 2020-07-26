@@ -394,7 +394,7 @@ function queryAPI(preferences, callback) {
         queryURL += "&includeIngredients=" + preferences.Include_Ingredients;
     }
 
-    queryURL += "&instructionsRequired=true&fillIngredients=false&addRecipeInformation=false&addRecipeNutrition=false&number=1&apiKey=" + preferences.apiKey;
+    queryURL += "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeNutrition=true&number=20&apiKey=" + preferences.apiKey;
 
     if (test) console.log(queryURL);
     $.getJSON(queryURL, response => {
