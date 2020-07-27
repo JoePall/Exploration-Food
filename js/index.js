@@ -347,6 +347,7 @@ $("#open-profiles").click(event => {
 
     var profiles = JSON.parse(localStorage.getItem("profiles"));
 
+    if (profiles == null) return;
     $("#profiles").empty();
     profiles.forEach(profile => {
         var result = $("<section>").addClass("profile-item").val(JSON.stringify(profile[1]));
