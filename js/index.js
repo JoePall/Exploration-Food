@@ -113,6 +113,7 @@ var index = 0
 function displayRecipe() {
     if (test) console.log(index);
     $("#new-recipe").attr("data-index", index);
+    $("#search").removeClass('is-loading');
     $("#recipes").empty();
 
     if (recipeArr[index] === undefined) {
