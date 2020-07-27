@@ -343,28 +343,21 @@ $("#open-profiles").click(event => {
 
     $("#profiles").empty();
     profiles.forEach(profile => {
-        var result = $("<section>").addClass("profile-item");
-        result.append($("<h2>").text(profile[0]).val(profile[1]));
+        var result = $("<section>").addClass("profile-item").val(JSON.stringify(profile[1]));
+        result.append($("<h2>").text(profile[0]));
         $("#profiles").append(result);
     });
 });
 
 
-$("#profiles>section").click(event => {
+$("#profiles").on("click", "section", event => {
+    
     var profile = $(event.currentTarget).val();
-
-    if (profile !== null) {
-        $("#api-key").val(profile.apiKey);
-        $("#include-ingredients").val(profile.Include_Ingredients);
-        $("#exclude-ingredients").val(profile.Exclude_Ingredients);
-        var intolerancesarray = profile.Intolerances;
-        if (test) console.log("intolerancesarray = " + intolerancesarray);
-        delete profile.Profilename;
-        if (test) console.log("profile = ", profile);
-        loadFilterHTML(profile);
-    } else {
-        loadFilterHTML();
-    }
+     profile = JSON.parse(profile)
+     console.log(profile)
+    loadFilterHTML(profile);
+    console.log("click -profile")
+    $("#profile-modal").removeClass("is-active");
 });
 
 function queryAPI(preferences, callback) {
