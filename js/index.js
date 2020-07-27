@@ -47,7 +47,7 @@ $("#search").click(event => {
         event.preventDefault();
         console.log("click")
         console.log($(event.currentTarget).val())
-        // Navigates to the recipe source
+            // Navigates to the recipe source
         window.open($(event.currentTarget).val());
     });
     recipeArr = [];
@@ -60,6 +60,8 @@ $("#search").click(event => {
 
         displayRecipe();
     });
+
+    save_history();
 
     $("#space-shuttle").animate({
         margin: "0 0 0 150px",
@@ -86,8 +88,7 @@ $("#close-save-option").click(event => {
 $("#previous-recipe").click(event => {
     if (index > 0) {
         index--;
-    }
-    else {
+    } else {
         $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"));
     }
     displayRecipe();
@@ -96,8 +97,7 @@ $("#previous-recipe").click(event => {
 $("#next-recipe").click(event => {
     if (index < recipeArr.length) {
         index++;
-    }
-    else {
+    } else {
         $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"));
     }
     displayRecipe();
@@ -280,6 +280,18 @@ function loadFilterHTML(preferences) {
         $("#api-key").val(preferences.apiKey);
     }
 
+    if (preferences != null) {
+        $("#search-text").val(preferences.Search);
+    }
+
+    if (preferences != null) {
+        $("#include-ingredients").val(preferences.Include_Ingredients);
+    }
+
+    if (preferences != null) {
+        $("#exclude-ingredients").val(preferences.Exclude_Ingredients);
+    }
+
 
     var groupNames = ["Intolerances", "Cuisine", "Diet", "Meal_Type"]
     groupNames.forEach(name => {
@@ -321,6 +333,70 @@ function init() {
     loadFilterHTML();
 }
 init();
+
+function save_history() {
+
+    var result = JSON.parse(localStorage.getItem("histories"));
+
+    if (result == null) {
+        result = [];
+    }
+
+    let montharray = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    var preferences = getPreferencesInput();
+    if (test) console.log("preferences = ", preferences);
+
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    let monthTxt = montharray[month]
+    let day = date.getDate();
+    let hours = date.getHours();
+    if (hours < 0) {
+        hours = hours + 24;
+    }
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+
+
+    var datevar = monthTxt + "-" + day + "-" + year + " " + hours.toString().padStart(2, '0') + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
+    datevar = datevar + " - " + preferences.Search
+    if (test) console.log("Date and Time plus search term = " + datevar);
+
+    result.push([datevar, preferences]);
+
+    localStorage.setItem("histories", JSON.stringify(result));
+
+}
+
+$("#open-history").click(event => {
+    event.preventDefault();
+    $("#history-modal").addClass("is-active");
+
+    var histories = JSON.parse(localStorage.getItem("histories"));
+    if (test) console.log("histories = ", histories);
+
+    if (histories == null) return;
+    $("#histories").empty();
+    histories.forEach(history => {
+        var result = $("<section>").addClass("history-item").val(JSON.stringify(history[1]));
+        if (test) console.log("history[1] = ", history[1]);
+        result.append($("<h2>").text(history[0]));
+        if (test) console.log("history[0] = " + history[0])
+        $("#histories").append(result);
+        if (test) console.log("result = " + JSON.stringify(result));
+    });
+});
+
+$("#histories").on("click", "section", event => {
+
+    var history = $(event.currentTarget).val();
+    history = JSON.parse(history)
+    console.log(history)
+    loadFilterHTML(history);
+    console.log("click-profile")
+    $("#history-modal").removeClass("is-active");
+});
 
 $("#save-search").click(event => {
     event.preventDefault();
