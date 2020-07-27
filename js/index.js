@@ -19,22 +19,22 @@ $("#filter").click(event => {
 
 $("#search").click(event => {
     event.preventDefault();
-    
+
     // Fades out the previous recipes result
     $("#recipes").animate({
         opacity: "0"
     }, 200);
-    
+
     // Loading spinner for search button
     const search = document.getElementById('search');
-	search.addEventListener('click', () => {
+    search.addEventListener('click', () => {
         search.classList.add('is-loading');
         //search.removeClass('is-loading');
-	});
-    
-    
+    });
+
+
     var preferences = getPreferencesInput();
-    
+
     // Highlights missing api key and places user back to that input
     if (!preferences.apiKey) {
         $("#api-key").css("border-color", "#ff0000");
@@ -42,7 +42,7 @@ $("#search").click(event => {
         $("#api-key").focus();
         return;
     }
-    
+
     $("#recipes").click(event => {
         event.preventDefault();
         console.log("click")
@@ -276,6 +276,11 @@ function getCheckboxGroupHTML(name, preferences) {
 function loadFilterHTML(preferences) {
     $("#filter-content").empty();
 
+    if (preferences != null) {
+        $("#api-key").val(preferences.apiKey);
+    }
+
+
     var groupNames = ["Intolerances", "Cuisine", "Diet", "Meal_Type"]
     groupNames.forEach(name => {
         $("#filter-content")
@@ -286,7 +291,7 @@ function loadFilterHTML(preferences) {
 
 
 function generateRecipeHTML(recipe) {
-    
+
     var result = $("<section>").addClass("recipe has-text-centered column tile is-8 is-parent");
 
     var article = $("<article>").addClass("tile is-child notification is-success ");
@@ -339,7 +344,7 @@ $("#save-search").click(event => {
 $("#open-profiles").click(event => {
     event.preventDefault();
     $("#profile-modal").addClass("is-active");
-    
+
     var profiles = JSON.parse(localStorage.getItem("profiles"));
 
     $("#profiles").empty();
@@ -352,10 +357,10 @@ $("#open-profiles").click(event => {
 
 
 $("#profiles").on("click", "section", event => {
-    
+
     var profile = $(event.currentTarget).val();
-     profile = JSON.parse(profile)
-     console.log(profile)
+    profile = JSON.parse(profile)
+    console.log(profile)
     loadFilterHTML(profile);
     console.log("click -profile")
     $("#profile-modal").removeClass("is-active");
@@ -396,7 +401,7 @@ function queryAPI(preferences, callback) {
     if (test) console.log(queryURL);
     $.getJSON(queryURL, response => {
         var result = [];
-       
+
         response.results.forEach(item => {
             var recipe = {
                 title: item.title,
