@@ -19,11 +19,7 @@ h1 {
     margin-bottom: 0px;
     padding-bottom: 15px;
     text-align: center;
-    color: #fff;
-}
-
-.content h1 {
-    color: #fff;
+    color: #fff !important;
 }
 
 hr {
@@ -40,12 +36,11 @@ hr {
     text-transform: capitalize;
 }
 
-.content h3,
-h4 {
+.content h3, h4 {
     margin-bottom: 2px;
-    margin-left: -4px;
     text-align: center;
 }
+
 
 .tooltip {
     position: relative;
@@ -73,8 +68,8 @@ h4 {
     content: "";
     position: absolute;
     top: 100%;
-    left: 50%;
-    margin-left: -5px;
+    left: 50% !important;
+    margin-left: -50% !important;
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
@@ -92,12 +87,10 @@ h4 {
 }
 
 .field:not(:last-child) {
-    padding: 15px;
+    padding-top: 15px;
 }
 
-.is-pulled-right {
-    padding: 10px;
-}
+/*
 
 #profiles>section {
     cursor: pointer;
@@ -139,4 +132,4 @@ h4 {
 .tooltip2:hover .tooltiptext2 {
     visibility: visible;
     opacity: 1;
-}
+} */
