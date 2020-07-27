@@ -125,7 +125,7 @@ function displayRecipe() {
     }
 }
 
-$("#close-modal").click(event => {
+$(".close-modal").click(event => {
     $(".modal").removeClass("is-active");
 });
 
