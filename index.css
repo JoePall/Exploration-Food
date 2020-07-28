@@ -15,7 +15,12 @@ img {
     box-shadow: 0 0 3px 3px #00000033;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: #fff !important;
 }
 
@@ -94,7 +99,8 @@ h4 {
     padding-top: 15px;
 }
 
-.is-pulled-right, .is-pulled-left {
+.is-pulled-right,
+.is-pulled-left {
     padding-top: 1em;
 }
 
@@ -106,7 +112,9 @@ h4 {
     padding-right: 1em;
 }
 
-#profiles>section, #histories>section, button {
+#profiles>section,
+#histories>section,
+button {
     cursor: pointer;
 }
 
@@ -140,7 +148,7 @@ h4 {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: #555 transparent transparent transparent;
+    border-color: transparent transparent black transparent;
 }
 
 .tooltip2:hover .tooltiptext2 {
