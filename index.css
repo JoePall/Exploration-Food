@@ -1,9 +1,9 @@
-body {
+html {
+    background-color: #474b4f;
     margin-right: auto;
     margin-left: auto;
     padding: 0px;
     font-family: 'Be Vietnam', sans-serif;
-    background-color: #474b4f;
 }
 
 a {
@@ -15,15 +15,14 @@ img {
     box-shadow: 0 0 3px 3px #00000033;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    color: #fff !important;
+}
+
 h1 {
     margin-bottom: 0px;
     padding-bottom: 15px;
     text-align: center;
-    color: #fff;
-}
-
-.content h1 {
-    color: #fff;
 }
 
 hr {
@@ -92,14 +91,22 @@ h4 {
 }
 
 .field:not(:last-child) {
-    padding: 15px;
+    padding-top: 15px;
+}
+
+.is-pulled-right, .is-pulled-left {
+    padding-top: 1em;
 }
 
 .is-pulled-right {
-    padding: 10px;
+    padding-right: 1em;
 }
 
-#profiles>section {
+.is-pulled-left {
+    padding-right: 1em;
+}
+
+#profiles>section, #histories>section, button {
     cursor: pointer;
 }
 
@@ -133,7 +140,7 @@ h4 {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent black transparent;
+    border-color: #555 transparent transparent transparent;
 }
 
 .tooltip2:hover .tooltiptext2 {

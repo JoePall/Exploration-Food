@@ -73,7 +73,9 @@ $("#search").click(event => {
         }, 200);
     });
 
-    $("#save-profile").removeClass("is-hidden");
+
+    $(".is-in-recipe").addClass("is-hidden");
+    $(".is-in-search").removeClass("is-hidden");
     $("#profile-name").focus();
 });
 
@@ -103,7 +105,7 @@ $("#next-recipe").click(event => {
     displayRecipe();
 });
 
-$("#history").click(event => {
+$("#histories").click(event => {
 
 });
 
@@ -115,6 +117,8 @@ function displayRecipe() {
     $("#new-recipe").attr("data-index", index);
     $("#search").removeClass('is-loading');
     $("#recipes").empty();
+    $(".is-in-recipe").removeClass("is-hidden");
+    $(".is-in-search").addClass("is-hidden");
 
     if (recipeArr[index] === undefined) {
         $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"));
@@ -125,7 +129,7 @@ function displayRecipe() {
     }
 }
 
-$("#close-modal").click(event => {
+$(".close-modal").click(() => {
     $(".modal").removeClass("is-active");
 });
 
@@ -381,7 +385,7 @@ $("#open-history").click(event => {
     histories.forEach(history => {
         var result = $("<section>").addClass("history-item").val(JSON.stringify(history[1]));
         if (test) console.log("history[1] = ", history[1]);
-        result.append($("<h2>").text(history[0]));
+        result.append($("<h2>").addClass("has-text-black is-size-4 pt-3").text(history[0]));
         if (test) console.log("history[0] = " + history[0])
         $("#histories").append(result);
         if (test) console.log("result = " + JSON.stringify(result));
@@ -427,7 +431,7 @@ $("#open-profiles").click(event => {
     $("#profiles").empty();
     profiles.forEach(profile => {
         var result = $("<section>").addClass("profile-item").val(JSON.stringify(profile[1]));
-        result.append($("<h2>").text(profile[0]));
+        result.append($("<h2>").addClass("has-text-black is-size-4 pt-3").text(profile[0]));
         $("#profiles").append(result);
     });
 });
