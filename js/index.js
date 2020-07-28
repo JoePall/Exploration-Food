@@ -398,7 +398,7 @@ $("#histories").on("click", "section", event => {
     preference = JSON.parse(preference);
 
     $("#history-modal").removeClass("is-active");
-    searchAPI(preference)
+    loadFilterHTML(preference);
 });
 
 $("#save-search").click(event => {
@@ -476,7 +476,7 @@ function queryAPI(preferences, callback, failed) {
         queryURL += "&includeIngredients=" + preferences.Include_Ingredients;
     }
 
-    queryURL += "&instructionsRequired=" + + "true"
+    queryURL += "&instructionsRequired=" + "true"
         "&fillIngredients=" + "false"
         "&addRecipeInformation=" + "false"
         "&addRecipeNutrition=" + "false"
