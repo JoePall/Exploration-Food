@@ -3,10 +3,8 @@
 //TODO: Add Toggle (Dine In | Meal Service | Dine Out)
 
 var test = true;
-var recipe = [];
 var recipeArr = [];
-let profilenamearray = [];
-
+var index = 0
 
 $("#filter").click(event => {
     event.preventDefault();
@@ -17,49 +15,40 @@ $("#filter").click(event => {
     }
 });
 
+$("#recipe").click(event => {
+    event.preventDefault();
+
+    // Navigates to the recipe source
+    window.open($(event.currentTarget).val());
+});
+
+$("#open-search").click(event => {
+    event.preventDefault();
+    newSearch();
+});
+
+function newSearch() {
+    $(".is-in-recipe").addClass("is-hidden");
+    $(".is-in-search").removeClass("is-hidden");
+}
+
 $("#search").click(event => {
     event.preventDefault();
 
-    // Fades out the previous recipes result
-    $("#recipes").animate({
-        opacity: "0"
-    }, 200);
-
     // Loading spinner for search button
-    const search = document.getElementById('search');
-    search.addEventListener('click', () => {
-        search.classList.add('is-loading');
-        //search.removeClass('is-loading');
-    });
-
+    $("#search").addClass('is-loading');
 
     var preferences = getPreferencesInput();
 
     // Highlights missing api key and places user back to that input
     if (!preferences.apiKey) {
-        $("#api-key").css("border-color", "#ff0000");
-        $("#api-key").attr("placeholder", "Required Field - API Key");
-        $("#api-key").focus();
+        $("#api-key").css("border-color", "#ff0000")
+            .attr("placeholder", "Required Field - API Key")
+            .focus();
         return;
     }
 
-    $("#recipes").click(event => {
-        event.preventDefault();
-        if (test) console.log("click")
-        if (test) console.log($(event.currentTarget).val())
-            // Navigates to the recipe source
-        window.open($(event.currentTarget).val());
-    });
-    recipeArr = [];
-    queryAPI(preferences, result => {
-        $("#recipes").empty();
-
-        recipeArr = [];
-        index = 0;
-        result.forEach(recipe => recipeArr.push(recipe));
-
-        displayRecipe();
-    });
+    searchAPI(preferences);
 
     save_history();
 
@@ -68,16 +57,34 @@ $("#search").click(event => {
         opacity: "0"
     }, 200, () => {
         $("#space-shuttle").removeAttr("style");
-        $("#recipes").animate({
-            opacity: "1"
-        }, 200);
     });
-
 
     $(".is-in-recipe").addClass("is-hidden");
     $(".is-in-search").removeClass("is-hidden");
     $("#profile-name").focus();
 });
+
+function searchAPI(preferences) {
+    queryAPI(preferences, result => {
+        $("#search").removeClass('is-loading');
+
+        if (result == null) {
+            //TODO: Display "no results found" message to user
+            return;
+        }
+
+        $(".is-in-recipe").removeClass("is-hidden");
+        $(".is-in-search").addClass("is-hidden");
+
+        recipeArr = result;
+        index = 0;
+
+        displayRecipes();
+    }, () => {
+        $("#search").removeClass('is-loading');
+        $("#message").text("Search returned no results");
+    });
+}
 
 $("#close-save-option").click(event => {
     event.preventDefault();
@@ -88,45 +95,63 @@ $("#close-save-option").click(event => {
 });
 
 $("#previous-recipe").click(event => {
-    if (index > 0) {
-        index--;
-    } else {
-        $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"));
+    index--;
+    if (index == 0) {
+        $("#previous-recipe").attr('disabled', true);
     }
-    displayRecipe();
+
+    $("#next-recipe").attr('disabled', false);
+    displayRecipes();
 });
 
 $("#next-recipe").click(event => {
-    if (index < recipeArr.length) {
-        index++;
-    } else {
-        $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"));
+    index++;
+    if (index == recipeArr.length - ($("#display-number").val() + 1)) {
+        $("#next-recipe").attr('disabled', true);
     }
-    displayRecipe();
+
+    $("#previous-recipe").attr('disabled', false);
+    displayRecipes();
 });
 
-$("#histories").click(event => {
-
-});
-
-//TODO: index should be stored in localStorage to avoid global variables
-var index = 0
-
-function displayRecipe() {
-    if (test) console.log(index);
-    $("#new-recipe").attr("data-index", index);
+function displayRecipes() {
     $("#search").removeClass('is-loading');
     $("#recipes").empty();
-    $(".is-in-recipe").removeClass("is-hidden");
-    $(".is-in-search").addClass("is-hidden");
+    var number = $("#display-number").val();
 
-    if (recipeArr[index] === undefined) {
-        $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"));
-    } else {
-        if (test) console.log(index);
-        if (test) console.log(recipeArr[index]);
-        generateRecipeHTML(recipeArr[index]);
+    if (number == 1) {
+        $("#recipes").append(generateRecipeHTML(recipeArr[0]));
+        $("#recipes>section").removeClass("is-4");
+        return;
     }
+
+    for (let i = 0; i < number; i++) {
+        var position = (i + index);
+
+        if (position < recipeArr.length) {
+            $("#recipes").append(generateRecipeHTML(recipeArr[position]));
+        }
+    }
+}
+
+function generateRecipeHTML(recipe) {
+    var result = $("<section>").addClass("column recipe has-text-centered tile is-mobile");
+
+    var article = $("<article>").addClass("tile is-child notification is-success ");
+
+    article.append($("<p>").addClass("title").text(recipe.title));
+
+    var figure = $("<figure>").addClass("image is-4by3");
+    figure.append($("<img>").attr("src", recipe.image));
+    article.append(figure);
+
+    article.append($("<br>"));
+
+    article.append($("<p>").addClass("subtitle is-6").html(recipe.summary));
+
+    result.append(article);
+
+    return result;
 }
 
 $(".close-modal").click(() => {
@@ -136,6 +161,7 @@ $(".close-modal").click(() => {
 function getPreferencesInput() {
     var result = {
         Profilename: "",
+        displayNumber: 1,
         apiKey: "",
         Search: "",
         Include_Ingredients: "",
@@ -147,6 +173,7 @@ function getPreferencesInput() {
     };
 
     result.Search = $("#search-text").val();
+    result.displayNumber = $("#display-number").val();
     result.Include_Ingredients = $("#include-ingredients").val();
     result.Exclude_Ingredients = $("#exclude-ingredients").val();
     result.apiKey = $("#api-key").val();
@@ -281,21 +308,14 @@ function loadFilterHTML(preferences) {
     $("#filter-content").empty();
 
     if (preferences != null) {
-        $("#api-key").val(preferences.apiKey);
-    }
+        if (preferences.apiKey != null) {
+            $("#api-key").val(preferences.apiKey);
+        }
 
-    if (preferences != null) {
         $("#search-text").val(preferences.Search);
-    }
-
-    if (preferences != null) {
         $("#include-ingredients").val(preferences.Include_Ingredients);
-    }
-
-    if (preferences != null) {
         $("#exclude-ingredients").val(preferences.Exclude_Ingredients);
     }
-
 
     var groupNames = ["Intolerances", "Cuisine", "Diet", "Meal_Type"]
     groupNames.forEach(name => {
@@ -303,28 +323,6 @@ function loadFilterHTML(preferences) {
             .append(getCheckboxGroupHTML(name, preferences))
             .append("<br><hr><br>"); //Divider
     });
-}
-
-
-function generateRecipeHTML(recipe) {
-
-    var result = $("<section>").addClass("recipe has-text-centered column tile is-8 is-parent");
-
-    var article = $("<article>").addClass("tile is-child notification is-success ");
-
-    article.append($("<p>").addClass("title").text(recipe.title));
-
-    var figure = $("<figure>").addClass("image is-4by3");
-    figure.append($("<img>").attr("src", recipe.image));
-    article.append(figure);
-
-    article.append($("<br>"));
-
-    article.append($("<p>").addClass("subtitle is-6").html(recipe.summary));
-
-    result.append(article);
-
-    $("#recipes").append(result).val(recipe.source);
 }
 
 function init() {
@@ -396,16 +394,11 @@ $("#open-history").click(event => {
 });
 
 $("#histories").on("click", "section", event => {
+    var preference = $(event.currentTarget).val();
+    preference = JSON.parse(preference);
 
-    var history = $(event.currentTarget).val();
-    history = JSON.parse(history)
-    if (test) console.log(history)
-    loadFilterHTML(history);
-    if (test) console.log("click-profile")
     $("#history-modal").removeClass("is-active");
-    $(".is-in-recipe").addClass("is-hidden");
-    $(".is-in-search").removeClass("is-hidden");
-
+    searchAPI(preference)
 });
 
 $("#save-search").click(event => {
@@ -453,7 +446,7 @@ $("#profiles").on("click", "section", event => {
     $("#profile-modal").removeClass("is-active");
 });
 
-function queryAPI(preferences, callback) {
+function queryAPI(preferences, callback, failed) {
     var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.Search.replace(" ", "%20");
 
     if (preferences.Cuisine && preferences.Cuisine.length > 0) {
@@ -483,26 +476,36 @@ function queryAPI(preferences, callback) {
         queryURL += "&includeIngredients=" + preferences.Include_Ingredients;
     }
 
-    queryURL += "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeNutrition=true&number=20&apiKey=" + preferences.apiKey;
+    queryURL += "&instructionsRequired=" + + "true"
+        "&fillIngredients=" + "false"
+        "&addRecipeInformation=" + "false"
+        "&addRecipeNutrition=" + "false"
+        "&number=" + "20"
+        "&apiKey=" + preferences.apiKey;
 
     if (test) console.log(queryURL);
     $.getJSON(queryURL, response => {
-        var result = [];
+        if (response.results.length > 0) {
+            var result = [];
 
-        response.results.forEach(item => {
-            var recipe = {
-                title: item.title,
-                source: item.sourceUrl,
-                image: item.image,
-                summary: item.summary,
-                instructions: item.analyzedInstructions,
-                nutrition: item.nutrition,
-                ingredients: item.extendedIngredients
-            };
+            response.results.forEach(item => {
+                var recipe = {
+                    title: item.title,
+                    source: item.sourceUrl,
+                    image: item.image,
+                    summary: item.summary,
+                    instructions: item.analyzedInstructions,
+                    nutrition: item.nutrition,
+                    ingredients: item.extendedIngredients
+                };
 
-            result.push(recipe);
-        });
+                result.push(recipe);
+            });
 
-        callback(result);
+            callback(result);
+        }
+        else {
+            failed();
+        }
     });
 }

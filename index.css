@@ -6,6 +6,10 @@ html {
     font-family: 'Be Vietnam', sans-serif;
 }
 
+form {
+    margin: 1em;
+}
+
 a {
     color: black !important;
 }
@@ -51,56 +55,15 @@ h4 {
     text-align: center;
 }
 
-.tooltip {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: auto;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 12px 18px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-
 #recipes {
-    position: relative;
-    left: 17.5%;
-    top: 50%;
+margin: auto;
 }
 
 .field:not(:last-child) {
     padding-top: 15px;
 }
 
-.is-pulled-right,
-.is-pulled-left {
+.hero-head {
     padding-top: 1em;
 }
 
@@ -112,18 +75,16 @@ h4 {
     padding-right: 1em;
 }
 
-#profiles>section,
-#histories>section,
-button {
+#profiles>section, #histories>section, button {
     cursor: pointer;
 }
 
-.tooltip2 {
+.tooltip {
     position: relative;
     display: inline-block;
 }
 
-.tooltip2 .tooltiptext2 {
+.tooltip>span {
     visibility: hidden;
     width: auto;
     background-color: #555;
@@ -132,7 +93,45 @@ button {
     border-radius: 6px;
     padding: 12px 18px;
     position: absolute;
-    z-index: 1;
+    z-index: 4;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip>span::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover>span {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip-page-top {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-page-top>span {
+    visibility: hidden;
+    width: auto;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 12px 18px;
+    position: absolute;
+    z-index: 4;
     top: 125%;
     left: 50%;
     margin-left: -60px;
@@ -140,7 +139,7 @@ button {
     transition: opacity 0.3s;
 }
 
-.tooltip2 .tooltiptext2::after {
+.tooltip-page-top>span::after {
     content: " ";
     position: absolute;
     bottom: 100%;
@@ -148,10 +147,10 @@ button {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent black transparent;
+    border-color: transparent transparent #555 transparent;
 }
 
-.tooltip2:hover .tooltiptext2 {
+.tooltip-page-top:hover>span {
     visibility: visible;
     opacity: 1;
 }
