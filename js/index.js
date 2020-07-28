@@ -59,7 +59,6 @@ $("#search").click(event => {
         $("#space-shuttle").removeAttr("style");
     });
 
-
     $(".is-in-recipe").addClass("is-hidden");
     $(".is-in-search").removeClass("is-hidden");
     $("#profile-name").focus();
@@ -107,7 +106,7 @@ $("#previous-recipe").click(event => {
 
 $("#next-recipe").click(event => {
     index++;
-    if ((index + $("#display-number").val()) == recipeArr.length - 1) {
+    if (index == recipeArr.length - ($("#display-number").val() + 1)) {
         $("#next-recipe").attr('disabled', true);
     }
 
@@ -361,9 +360,12 @@ function save_history() {
     let minutes = date.getMinutes();
     let seconds = date.getSeconds();
 
-
+    checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    if (test) console.log("checkboxes = " + checkboxes.length);
     var datevar = monthTxt + "-" + day + "-" + year + " " + hours.toString().padStart(2, '0') + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
-    datevar = datevar + " - " + preferences.Search
+    datevar = datevar + " - " + preferences.Search + " - " + checkboxes.length
+
+
     if (test) console.log("Date and Time plus search term = " + datevar);
 
     result.push([datevar, preferences]);
@@ -394,7 +396,7 @@ $("#open-history").click(event => {
 $("#histories").on("click", "section", event => {
     var preference = $(event.currentTarget).val();
     preference = JSON.parse(preference);
-    
+
     $("#history-modal").removeClass("is-active");
     searchAPI(preference)
 });
@@ -438,9 +440,9 @@ $("#profiles").on("click", "section", event => {
 
     var profile = $(event.currentTarget).val();
     profile = JSON.parse(profile)
-    console.log(profile)
+    if (test) console.log(profile)
     loadFilterHTML(profile);
-    console.log("click -profile")
+    if (test) console.log("click -profile")
     $("#profile-modal").removeClass("is-active");
 });
 
@@ -474,7 +476,12 @@ function queryAPI(preferences, callback, failed) {
         queryURL += "&includeIngredients=" + preferences.Include_Ingredients;
     }
 
-    queryURL += "&instructionsRequired=true&fillIngredients=true&addRecipeInformation=true&addRecipeNutrition=true&number=20&apiKey=" + preferences.apiKey;
+    queryURL += "&instructionsRequired=" + + "true"
+        "&fillIngredients=" + "false"
+        "&addRecipeInformation=" + "false"
+        "&addRecipeNutrition=" + "false"
+        "&number=" + "20"
+        "&apiKey=" + preferences.apiKey;
 
     if (test) console.log(queryURL);
     $.getJSON(queryURL, response => {
