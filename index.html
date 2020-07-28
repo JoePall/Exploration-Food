@@ -23,17 +23,23 @@
 
                     <!-- Accounts -->
                     <div class="content is-clearfix">
+                        <div class="is-pulled-left is-in-recipe is-hidden">
+                            <button id="open-search" class="button is-rounded tooltip-page-top" type="button">
+                                <i class="fas fa-search"></i>
+                                <span class="tooltiptext2">Search</span>
+                            </button>
+                        </div>
 
                         <div class="is-pulled-right">
-                            <button id="open-profiles" class="button is-rounded tooltip2" type="button">
+                            <button id="open-profiles" class="button is-rounded tooltip-page-top" type="button">
                                 <i class="far fa-user"></i>
                                 <span class="tooltiptext2">Open Profiles</span>
                             </button>
                         </div>
 
                         <div class="is-pulled-right">
-                            <button id="open-history" class="button is-rounded tooltip2" type="button">
-                                <i class="fa fa-book"></i>
+                            <button id="open-history" class="button is-rounded tooltip-page-top" type="button">
+                                <i class="fa fa-history"></i>
                                 <span class="tooltiptext2">Open History</span>
                             </button>
                         </div>
@@ -65,7 +71,8 @@
                     <!--Hero Banner Titles-->
                     <h1 class="title is-1 has-text-white">Exploration Food <i id="space-shuttle"
                             class="fas fa-space-shuttle"></i></h1>
-                    <h4 class="title is-4 has-text-white">Discover new recipes that match your needs</h4><br><br>
+                    <h4 class="title is-4 has-text-white">Discover new recipes that match your needs</h4>
+                    <h4 id="message is-4 has-text-white"></h4>
                 </div>
             </div>
         </section>
@@ -76,7 +83,7 @@
         <div class="content">
 
             <!-- Preferences and Search -->
-            <form id="search-bar" class="field is-clearfix is-in-search">
+            <form id="search-bar" class="field is-clearfix is-mobile is-in-search">
 
                 <!-- Search Input -->
                 <div class="field has-addons">
@@ -90,7 +97,18 @@
                     </div>
 
                     <div class="control">
-                        <button type="submit" id="search" class="button is-info is-large is-rounded">
+                        <div class="select is-large tooltip">
+                            <select id="display-number">
+                                <option>1</option>
+                                <option>3</option>
+                                <option>5</option>
+                            </select>
+                            <span>Display</span>
+                        </div>
+                    </div>
+
+                    <div class="control">
+                        <button type="submit" id="search" class="button is-info is-large is-rounded tooltip">
                             Search
                         </button>
                     </div>
@@ -141,13 +159,13 @@
                         <button id="filter" type="button"
                             class="button is-large is-primary is-outlined is-rounded tooltip">
                             <i class="fa fa-filter" title="Preference Control" aria-hidden="true"></i>
-                            <span class="tooltiptext">Filter Preferences</span>
+                            <span>Filter Preferences</span>
                         </button>
 
                         <button type="reset" title="Remove Preferences"
                             class="button is-large is-rounded is-outlined is-danger tooltip">
                             <i class="fas fa-trash-alt"></i>
-                            <span class="tooltiptext">Clear Page</span>
+                            <span>Clear Page</span>
                         </button>
                     </section>
                 </section>
@@ -159,21 +177,23 @@
             </form>
 
             <section class="field is-in-recipe is-clearfix is-hidden">
-                <button id="previous-recipe" type="button" title="Previous"
+                <button id="previous-recipe" type="button" disabled="true" title="Previous"
                     class="button is-large is-rounded is-pulled-left is-outlined is-info tooltip">
                     <i class="fas fa-arrow-left"></i>
-                    <span class="tooltiptext">Previous Recipe</span>
+                    <span>Previous Recipe</span>
                 </button>
                 <button id="next-recipe" type="button" title="Next Recipe"
                     class="button is-large is-rounded is-pulled-right is-outlined is-info tooltip">
                     <i class="fas fa-arrow-right"></i>
-                    <span class="tooltiptext">Next Recipe</span>
+                    <span>Next Recipe</span>
                 </button>
             </section>
 
-            <section id="recipes" class="columns">
-                <!--Add Recipes here from API -->
-            </section>
+            <div class="field">
+                <section id="recipes" class="columns is-in-recipe is-hidden">
+                    <!--Add Recipes here from API -->
+                </section>
+            </div>
         </div>
 
         <div id="profile-modal" class="modal">
