@@ -385,7 +385,7 @@ $("#open-history").click(event => {
     histories.forEach(history => {
         var result = $("<section>").addClass("history-item").val(JSON.stringify(history[1]));
         if (test) console.log("history[1] = ", history[1]);
-        result.append($("<h2>").text(history[0]));
+        result.append($("<h2>").addClass("has-text-black is-size-4 pt-3").text(history[0]));
         if (test) console.log("history[0] = " + history[0])
         $("#histories").append(result);
         if (test) console.log("result = " + JSON.stringify(result));
@@ -431,7 +431,7 @@ $("#open-profiles").click(event => {
     $("#profiles").empty();
     profiles.forEach(profile => {
         var result = $("<section>").addClass("profile-item").val(JSON.stringify(profile[1]));
-        result.append($("<h2>").text(profile[0]));
+        result.append($("<h2>").addClass("has-text-black is-size-4 pt-3").text(profile[0]));
         $("#profiles").append(result);
     });
 });

@@ -15,15 +15,14 @@ img {
     box-shadow: 0 0 3px 3px #00000033;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    color: #fff !important;
+}
+
 h1 {
     margin-bottom: 0px;
     padding-bottom: 15px;
     text-align: center;
-    color: #fff;
-}
-
-.content h1 {
-    color: #fff;
 }
 
 hr {
