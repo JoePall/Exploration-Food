@@ -38,11 +38,11 @@
                             </button>
                         </div>
 
-                        <div id="save-profile" class="mr-4 is-pulled-right is-hidden">
+                        <div id="save-profile" class="is-pulled-right is-in-recipe is-hidden">
                             <div class="field has-addons">
 
                                 <div class="control is-expanded">
-                                    <input id="profile-name" class="input is-rounded " type="text"
+                                    <input id="profile-name" class="input is-rounded" type="text"
                                         placeholder="Chuck Bartowski">
 
                                 </div>
@@ -76,7 +76,7 @@
         <div class="content">
 
             <!-- Preferences and Search -->
-            <form id="search-bar" class="field is-clearfix">
+            <form id="search-bar" class="field is-clearfix is-in-search">
 
                 <!-- Search Input -->
                 <div class="field has-addons">
@@ -144,32 +144,11 @@
                             <span class="tooltiptext">Filter Preferences</span>
                         </button>
 
-                        <button id="history" type="button" title="History"
-                            class="button is-large is-rounded is-outlined is-primary tooltip is-hidden">
-                            <i class="fas fa-history"></i>
-                            <span class="tooltiptext">Show History</span>
-                        </button>
-
                         <button type="reset" title="Remove Preferences"
                             class="button is-large is-rounded is-outlined is-danger tooltip">
                             <i class="fas fa-trash-alt"></i>
                             <span class="tooltiptext">Clear Page</span>
                         </button>
-                    </section>
-
-
-                    <section class="field is-pulled-right">
-                        <button id="previous-recipe" type="button" title="Previous"
-                            class="button is-large is-rounded is-outlined is-info tooltip">
-                            <i class="fas fa-arrow-left"></i>
-                            <span class="tooltiptext">Previous Recipe</span>
-                        </button>
-                        <button id="next-recipe" type="button" title="Next Recipe"
-                            class="button is-large is-rounded is-outlined is-info tooltip">
-                            <i class="fas fa-arrow-right"></i>
-                            <span class="tooltiptext">Next Recipe</span>
-                        </button>
-
                     </section>
                 </section>
 
@@ -178,6 +157,19 @@
                 </div>
 
             </form>
+
+            <section class="field is-in-recipe is-clearfix is-hidden">
+                <button id="previous-recipe" type="button" title="Previous"
+                    class="button is-large is-rounded is-pulled-left is-outlined is-info tooltip">
+                    <i class="fas fa-arrow-left"></i>
+                    <span class="tooltiptext">Previous Recipe</span>
+                </button>
+                <button id="next-recipe" type="button" title="Next Recipe"
+                    class="button is-large is-rounded is-pulled-right is-outlined is-info tooltip">
+                    <i class="fas fa-arrow-right"></i>
+                    <span class="tooltiptext">Next Recipe</span>
+                </button>
+            </section>
 
             <section id="recipes" class="columns">
                 <!--Add Recipes here from API -->

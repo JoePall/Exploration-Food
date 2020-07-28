@@ -1,9 +1,9 @@
-body {
+html {
+    background-color: #474b4f;
     margin-right: auto;
     margin-left: auto;
     padding: 0px;
     font-family: 'Be Vietnam', sans-serif;
-    background-color: #474b4f;
 }
 
 a {
@@ -95,11 +95,19 @@ h4 {
     padding-top: 15px;
 }
 
-.is-pulled-right {
-    padding: 10px;
+.is-pulled-right, .is-pulled-left {
+    padding-top: 1em;
 }
 
-#profiles>section {
+.is-pulled-right {
+    padding-right: 1em;
+}
+
+.is-pulled-left {
+    padding-right: 1em;
+}
+
+#profiles>section, #histories>section, button {
     cursor: pointer;
 }
 

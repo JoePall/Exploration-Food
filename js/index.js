@@ -73,7 +73,9 @@ $("#search").click(event => {
         }, 200);
     });
 
-    $("#save-profile").removeClass("is-hidden");
+
+    $(".is-in-recipe").addClass("is-hidden");
+    $(".is-in-search").removeClass("is-hidden");
     $("#profile-name").focus();
 });
 
@@ -103,7 +105,7 @@ $("#next-recipe").click(event => {
     displayRecipe();
 });
 
-$("#history").click(event => {
+$("#histories").click(event => {
 
 });
 
@@ -115,6 +117,8 @@ function displayRecipe() {
     $("#new-recipe").attr("data-index", index);
     $("#search").removeClass('is-loading');
     $("#recipes").empty();
+    $(".is-in-recipe").removeClass("is-hidden");
+    $(".is-in-search").addClass("is-hidden");
 
     if (recipeArr[index] === undefined) {
         $("<h3>Sorry, No More Recipes. Try a Different Search.</h3>").appendTo($("#recipes"));
@@ -125,7 +129,7 @@ function displayRecipe() {
     }
 }
 
-$(".close-modal").click(event => {
+$(".close-modal").click(() => {
     $(".modal").removeClass("is-active");
 });
 
