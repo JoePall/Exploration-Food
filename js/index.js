@@ -45,8 +45,8 @@ $("#search").click(event => {
 
     $("#recipes").click(event => {
         event.preventDefault();
-        console.log("click")
-        console.log($(event.currentTarget).val())
+        if (test) console.log("click")
+        if (test) console.log($(event.currentTarget).val())
             // Navigates to the recipe source
         window.open($(event.currentTarget).val());
     });
@@ -362,9 +362,12 @@ function save_history() {
     let minutes = date.getMinutes();
     let seconds = date.getSeconds();
 
-
+    checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    if (test) console.log("checkboxes = " + checkboxes.length);
     var datevar = monthTxt + "-" + day + "-" + year + " " + hours.toString().padStart(2, '0') + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
-    datevar = datevar + " - " + preferences.Search
+    datevar = datevar + " - " + preferences.Search + " - " + checkboxes.length
+
+
     if (test) console.log("Date and Time plus search term = " + datevar);
 
     result.push([datevar, preferences]);
@@ -396,10 +399,13 @@ $("#histories").on("click", "section", event => {
 
     var history = $(event.currentTarget).val();
     history = JSON.parse(history)
-    console.log(history)
+    if (test) console.log(history)
     loadFilterHTML(history);
-    console.log("click-profile")
+    if (test) console.log("click-profile")
     $("#history-modal").removeClass("is-active");
+    $(".is-in-recipe").addClass("is-hidden");
+    $(".is-in-search").removeClass("is-hidden");
+
 });
 
 $("#save-search").click(event => {
@@ -441,9 +447,9 @@ $("#profiles").on("click", "section", event => {
 
     var profile = $(event.currentTarget).val();
     profile = JSON.parse(profile)
-    console.log(profile)
+    if (test) console.log(profile)
     loadFilterHTML(profile);
-    console.log("click -profile")
+    if (test) console.log("click -profile")
     $("#profile-modal").removeClass("is-active");
 });
 
