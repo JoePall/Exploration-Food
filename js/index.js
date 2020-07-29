@@ -17,7 +17,7 @@ $("#filter").click(event => {
 
 $("#recipes").on("click", "section", event => {
     event.preventDefault();
-    console.log("click")
+
     // Navigates to the recipe source
     window.open($(event.currentTarget).val());
 });
