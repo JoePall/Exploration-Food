@@ -19,6 +19,10 @@ img {
     box-shadow: 0 0 3px 3px #00000033;
 }
 
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+
 h1,
 h2,
 h3,
@@ -28,10 +32,16 @@ h6 {
     color: #fff !important;
 }
 
+/* title positioning */
 h1 {
     margin-bottom: 0px;
     padding-bottom: 15px;
     text-align: center;
+}
+
+/* title size */
+.title.is-1 {
+    font-size: 3.9rem;
 }
 
 hr {
@@ -48,11 +58,18 @@ hr {
     text-transform: capitalize;
 }
 
+/* subtitle positioning */
 .content h3,
 h4 {
     margin-bottom: 2px;
     margin-left: -4px;
     text-align: center;
+}
+
+/* subtitle spacing and size */
+.title.is-4 {
+    font-size: 1.3rem;
+    padding-bottom: 30px;
 }
 
 #recipes {
@@ -73,6 +90,12 @@ margin: auto;
 
 .is-pulled-left {
     padding-right: 1em;
+}
+
+/* filter text and checkboxes */
+.columns:last-child {
+    margin-bottom: -.75rem;
+    padding-top: 30px;
 }
 
 #profiles>section, #histories>section, button {
