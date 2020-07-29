@@ -80,6 +80,8 @@ function searchAPI(preferences) {
         $(".is-in-recipe").removeClass("is-hidden");
         $(".is-in-search").addClass("is-hidden");
         $(".notification").addClass("is-hidden");
+        $("#previous-recipe").attr("disabled", "true");
+        $("#next-recipe").removeAttr("disabled");
 
         recipeArr = result;
         index = 0;
@@ -122,6 +124,15 @@ $("#next-recipe").click(event => {
     var displayedNumber = parseInt($("#display-number").val());
     index += displayedNumber;
     
+    if (recipeArr.length <= displayedNumber) {
+        $("#next-recipe").attr('disabled', true);
+        $("#previous-recipe").attr('disabled', true);
+        $(".notification>p").text("Only " + recipeArr.length + " results found.");
+        $(".notification").removeClass("is-hidden");
+
+        return;
+    }
+
     if (recipeArr.length - index < displayedNumber) {
         $("#next-recipe").attr('disabled', true);
         return;
