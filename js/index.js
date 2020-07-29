@@ -24,6 +24,7 @@ $("#recipes").on("click", "section", event => {
 
 $("#open-search").click(event => {
     event.preventDefault();
+    $(".notification").addClass("is-hidden");
     newSearch();
 });
 
