@@ -476,15 +476,16 @@ function queryAPI(preferences, callback, failed) {
         queryURL += "&includeIngredients=" + preferences.Include_Ingredients;
     }
 
-    queryURL += "&instructionsRequired=" + "true"
-        "&fillIngredients=" + "false"
-        "&addRecipeInformation=" + "false"
-        "&addRecipeNutrition=" + "false"
-        "&number=" + "20"
+    queryURL += "&instructionsRequired=true" +
+        "&fillIngredients=false" +
+        "&addRecipeInformation=false" +
+        "&addRecipeNutrition=false" +
+        "&number=20" +
         "&apiKey=" + preferences.apiKey;
 
     if (test) console.log(queryURL);
     $.getJSON(queryURL, response => {
+        
         if (response.results.length > 0) {
             var result = [];
 
@@ -507,5 +508,7 @@ function queryAPI(preferences, callback, failed) {
         else {
             failed();
         }
-    });
+    }).fail(() => {
+        failed();
+    });;
 }
