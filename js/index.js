@@ -447,6 +447,7 @@ $("#profiles").on("click", "section", event => {
 });
 
 function queryAPI(preferences, callback, failed) {
+    console.log(preferences.Search)
     var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.Search.replace(" ", "%20");
 
     if (preferences.Cuisine && preferences.Cuisine.length > 0) {
