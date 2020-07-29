@@ -318,7 +318,7 @@ function getCheckboxGroupHTML(name, preferences) {
     var items = queryParam[name];
     for (var item in items) {
         if (test) console.log(item);
-        var label = $("<label>").addClass("checkbox " + name);
+        var label = $("<label>").addClass("checkbox is-flex-tablet " + name);
 
         var checkbox = $("<input>").attr("type", "checkbox").addClass("checkbox").val(items[item]);
 

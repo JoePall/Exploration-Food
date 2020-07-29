@@ -177,3 +177,9 @@ margin: auto;
     visibility: visible;
     opacity: 1;
 }
+
+label {
+    margin: auto !important;
+    width: auto !important;
+    text-align: center !important;
+}
