@@ -469,8 +469,8 @@ $("#profiles").on("click", "section", event => {
     if (test) console.log("click -profile")
     $("#profile-modal").removeClass("is-active");
 
-    $(".is-in-recipe").removeClass("is-hidden");
-    $(".is-in-search").addClass("is-hidden");
+    $(".is-in-recipe").addClass("is-hidden");
+    $(".is-in-search").removeClass("is-hidden");
 });
 
 function queryAPI(preferences, callback, failed) {
