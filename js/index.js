@@ -42,9 +42,7 @@ $("#search").click(event => {
 
     // Highlights missing api key and places user back to that input
     if (!preferences.apiKey) {
-        $("#api-key").css("border-color", "#ff0000")
-            .attr("placeholder", "Required Field - API Key")
-            .focus();
+        apiKeyErrorHandler();
         return;
     }
 
@@ -64,6 +62,12 @@ $("#search").click(event => {
     $("#profile-name").focus();
 });
 
+function apiKeyErrorHandler() {
+    $("#api-key").css("border-color", "#ff0000")
+        .attr("placeholder", "Required Field - API Key")
+        .focus();
+}
+
 function searchAPI(preferences) {
     queryAPI(preferences, result => {
         $("#search").removeClass('is-loading');
@@ -75,14 +79,23 @@ function searchAPI(preferences) {
 
         $(".is-in-recipe").removeClass("is-hidden");
         $(".is-in-search").addClass("is-hidden");
+        $(".notification").addClass("is-hidden");
 
         recipeArr = result;
         index = 0;
 
         displayRecipes();
-    }, () => {
+    }, (code) => {
         $("#search").removeClass('is-loading');
-        $("#message").text("Search returned no results");
+        $(".notification").removeClass("is-hidden");
+
+        if (code == 401) {
+            $(".notification>p").text("API Key invalid");
+            apiKeyErrorHandler();
+        }
+        else {
+            $(".notification>p").text("Search returned no results");
+        }
     });
 }
 
@@ -156,6 +169,10 @@ function generateRecipeHTML(recipe) {
 
 $(".close-modal").click(() => {
     $(".modal").removeClass("is-active");
+});
+
+$(".close-message").click(() => {
+    $(".notification").addClass("is-hidden");
 });
 
 function getPreferencesInput() {
@@ -399,6 +416,9 @@ $("#histories").on("click", "section", event => {
 
     $("#history-modal").removeClass("is-active");
     loadFilterHTML(preference);
+
+    $(".is-in-recipe").addClass("is-hidden");
+    $(".is-in-search").removeClass("is-hidden");
 });
 
 $("#save-search").click(event => {
@@ -444,6 +464,9 @@ $("#profiles").on("click", "section", event => {
     loadFilterHTML(profile);
     if (test) console.log("click -profile")
     $("#profile-modal").removeClass("is-active");
+
+    $(".is-in-recipe").removeClass("is-hidden");
+    $(".is-in-search").addClass("is-hidden");
 });
 
 function queryAPI(preferences, callback, failed) {
@@ -485,7 +508,7 @@ function queryAPI(preferences, callback, failed) {
 
     if (test) console.log(queryURL);
     $.getJSON(queryURL, response => {
-        
+
         if (response.results.length > 0) {
             var result = [];
 
@@ -508,7 +531,7 @@ function queryAPI(preferences, callback, failed) {
         else {
             failed();
         }
-    }).fail(() => {
-        failed();
+    }).fail((error) => {
+        failed(error.status);
     });;
 }
