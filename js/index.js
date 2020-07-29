@@ -15,9 +15,9 @@ $("#filter").click(event => {
     }
 });
 
-$("#recipe").click(event => {
+$("#recipes").on("click", "section", event => {
     event.preventDefault();
-
+    console.log("click")
     // Navigates to the recipe source
     window.open($(event.currentTarget).val());
 });
@@ -148,7 +148,7 @@ function displayRecipes() {
 }
 
 function generateRecipeHTML(recipe) {
-    var result = $("<section>").addClass("column recipe has-text-centered tile is-mobile");
+    var result = $("<section>").addClass("column recipe has-text-centered tile is-mobile").val(recipe.source);
 
     var article = $("<article>").addClass("tile is-child notification is-success ");
 
@@ -470,6 +470,7 @@ $("#profiles").on("click", "section", event => {
 });
 
 function queryAPI(preferences, callback, failed) {
+    console.log(preferences.Search)
     var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.Search.replace(" ", "%20");
 
     if (preferences.Cuisine && preferences.Cuisine.length > 0) {
@@ -499,9 +500,9 @@ function queryAPI(preferences, callback, failed) {
         queryURL += "&includeIngredients=" + preferences.Include_Ingredients;
     }
 
-    queryURL += "&instructionsRequired=true" +
+    queryURL += "&instructionsRequired=false" +
         "&fillIngredients=false" +
-        "&addRecipeInformation=false" +
+        "&addRecipeInformation=true" +
         "&addRecipeNutrition=false" +
         "&number=20" +
         "&apiKey=" + preferences.apiKey;
