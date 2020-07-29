@@ -15,9 +15,9 @@ $("#filter").click(event => {
     }
 });
 
-$("#recipe").click(event => {
+$("#recipes").on("click", "section", event => {
     event.preventDefault();
-
+    console.log("click")
     // Navigates to the recipe source
     window.open($(event.currentTarget).val());
 });
@@ -135,7 +135,7 @@ function displayRecipes() {
 }
 
 function generateRecipeHTML(recipe) {
-    var result = $("<section>").addClass("column recipe has-text-centered tile is-mobile");
+    var result = $("<section>").addClass("column recipe has-text-centered tile is-mobile").val(recipe.source);
 
     var article = $("<article>").addClass("tile is-child notification is-success ");
 
@@ -477,15 +477,16 @@ function queryAPI(preferences, callback, failed) {
         queryURL += "&includeIngredients=" + preferences.Include_Ingredients;
     }
 
-    queryURL += "&instructionsRequired=" + "true"
-        "&fillIngredients=" + "false"
-        "&addRecipeInformation=" + "false"
-        "&addRecipeNutrition=" + "false"
-        "&number=" + "20"
+    queryURL += "&instructionsRequired=false" +
+        "&fillIngredients=false" +
+        "&addRecipeInformation=true" +
+        "&addRecipeNutrition=false" +
+        "&number=20" +
         "&apiKey=" + preferences.apiKey;
 
     if (test) console.log(queryURL);
     $.getJSON(queryURL, response => {
+        
         if (response.results.length > 0) {
             var result = [];
 
@@ -508,5 +509,7 @@ function queryAPI(preferences, callback, failed) {
         else {
             failed();
         }
-    });
+    }).fail(() => {
+        failed();
+    });;
 }
