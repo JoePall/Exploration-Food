@@ -117,7 +117,7 @@ margin: auto;
     padding: 12px 18px;
     position: absolute;
     z-index: 4;
-    bottom: 125%;
+    bottom: 100%;
     left: 50%;
     margin-left: -60px;
     opacity: 0;
@@ -155,7 +155,7 @@ margin: auto;
     padding: 12px 18px;
     position: absolute;
     z-index: 4;
-    top: 125%;
+    top: 100%;
     left: 50%;
     margin-left: -60px;
     opacity: 0;
@@ -178,8 +178,9 @@ margin: auto;
     opacity: 1;
 }
 
-label {
-    margin: auto !important;
-    width: auto !important;
-    text-align: center !important;
+.notification {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
 }

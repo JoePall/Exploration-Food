@@ -174,8 +174,6 @@ function generateRecipeHTML(recipe) {
     figure.append($("<img>").attr("src", recipe.image));
     article.append(figure);
 
-    article.append($("<br>"));
-
     article.append($("<p>").addClass("subtitle is-6").html(recipe.summary));
 
     result.append(article);
