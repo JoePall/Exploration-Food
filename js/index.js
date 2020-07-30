@@ -24,6 +24,7 @@ $("#recipes").on("click", "section", event => {
 
 $("#open-search").click(event => {
     event.preventDefault();
+    $(".notification").addClass("is-hidden");
     newSearch();
 });
 
@@ -80,6 +81,8 @@ function searchAPI(preferences) {
         $(".is-in-recipe").removeClass("is-hidden");
         $(".is-in-search").addClass("is-hidden");
         $(".notification").addClass("is-hidden");
+        $("#previous-recipe").attr("disabled", "true");
+        $("#next-recipe").removeAttr("disabled");
 
         recipeArr = result;
         index = 0;
@@ -108,19 +111,32 @@ $("#close-save-option").click(event => {
 });
 
 $("#previous-recipe").click(event => {
-    index--;
+    var displayedNumber = parseInt($("#display-number").val());
+    index -= displayedNumber;
     if (index == 0) {
         $("#previous-recipe").attr('disabled', true);
     }
-
+    
     $("#next-recipe").attr('disabled', false);
     displayRecipes();
 });
 
 $("#next-recipe").click(event => {
-    index++;
-    if (index == recipeArr.length - ($("#display-number").val() + 1)) {
+    var displayedNumber = parseInt($("#display-number").val());
+    index += displayedNumber;
+    
+    if (recipeArr.length <= displayedNumber) {
         $("#next-recipe").attr('disabled', true);
+        $("#previous-recipe").attr('disabled', true);
+        $(".notification>p").text("Only " + recipeArr.length + " results found.");
+        $(".notification").removeClass("is-hidden");
+
+        return;
+    }
+
+    if (recipeArr.length - index < displayedNumber) {
+        $("#next-recipe").attr('disabled', true);
+        return;
     }
 
     $("#previous-recipe").attr('disabled', false);
@@ -139,7 +155,7 @@ function displayRecipes() {
     }
 
     for (let i = 0; i < number; i++) {
-        var position = (i + index);
+        var position = (i + parseInt(index));
 
         if (position < recipeArr.length) {
             $("#recipes").append(generateRecipeHTML(recipeArr[position]));
@@ -302,7 +318,7 @@ function getCheckboxGroupHTML(name, preferences) {
     var items = queryParam[name];
     for (var item in items) {
         if (test) console.log(item);
-        var label = $("<label>").addClass("checkbox " + name);
+        var label = $("<label>").addClass("checkbox is-flex-tablet " + name);
 
         var checkbox = $("<input>").attr("type", "checkbox").addClass("checkbox").val(items[item]);
 
@@ -465,8 +481,8 @@ $("#profiles").on("click", "section", event => {
     if (test) console.log("click -profile")
     $("#profile-modal").removeClass("is-active");
 
-    $(".is-in-recipe").removeClass("is-hidden");
-    $(".is-in-search").addClass("is-hidden");
+    $(".is-in-recipe").addClass("is-hidden");
+    $(".is-in-search").removeClass("is-hidden");
 });
 
 function queryAPI(preferences, callback, failed) {
