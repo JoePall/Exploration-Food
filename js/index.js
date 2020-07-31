@@ -405,21 +405,17 @@ $("#open-history").click(event => {
     $("#history-modal").addClass("is-active");
 
     var histories = JSON.parse(localStorage.getItem("histories"));
+    if (test) console.log("histories = ", histories);
+
     if (histories == null) return;
-
     $("#histories").empty();
-    var previousDay = "";
-    histories.forEach(historyItem => {
-        var today = historyItem[0].format("dddd, MMMM Do YYYY");
-        if (previousDay != today) {
-            previousDay = today;
-            $("#histories").append("<b>" + today + "</b>");
-        }
-
-        var result = $("<section>").addClass("history-item p-3").val(JSON.stringify(historyItem[1]));
-        var text = moment(historyItem[0]).format("h:mm a") + " - " + historyItem[2] + " filters used";
-        result.append($("<h2>").addClass("has-text-black is-size-4").text(text));
+    histories.forEach(history => {
+        var result = $("<section>").addClass("history-item").val(JSON.stringify(history[1]));
+        if (test) console.log("history[1] = ", history[1]);
+        result.append($("<h2>").addClass("has-text-black is-size-4 pt-3").text(history[0]));
+        if (test) console.log("history[0] = " + history[0])
         $("#histories").append(result);
+        if (test) console.log("result = " + JSON.stringify(result));
     });
 });
 
@@ -531,19 +527,6 @@ function queryAPI(preferences, callback, failed) {
             var result = [];
 
             response.results.forEach(item => {
-                // var summary = "";
-
-                // var facts = item.summary.split("Try")[0];
-                // var otherRecipes = item.summary.split("Try")[1];
-
-                // summary += facts.replace("<b>").replace("</b>");
-
-                // summary += "<br><br>Similar<br><br>";
-                // otherRecipes.match("(?i)<a([^>]+)>(.+?)</a>").forEach(match => {
-                //     summary += match + "<br>";
-                // });
-                
-
                 var recipe = {
                     title: item.title,
                     source: item.sourceUrl,
