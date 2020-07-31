@@ -224,9 +224,10 @@ label.checkbox.is-flex-tablet.meal_type {
 }
 
 .recipe-image {
-    width: 50%;
+    width: 50% !important;
     height: auto;
-    margin-left: 35px;
+    margin: auto;
+
 }
 
 label.checkbox.is-flex-tablet.cuisine {
