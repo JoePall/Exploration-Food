@@ -11,7 +11,7 @@ form {
 }
 
 a {
-    color: black !important;
+    color: #025d21 !important;
 }
 
 img {
@@ -234,6 +234,23 @@ label.checkbox.is-flex-tablet.cuisine {
     margin-left: 60px;
 }
 
+    label.checkbox.is-flex-tablet.meal_type {
+        margin-left: 30px;
+    }
+
+    .subtitle{
+        font-family: 'Poppins', sans-serif;
+        color: #ffffff;
+        background-color: #0000002e;
+        word-spacing: 3;
+        line-height: 1.5;
+        font-size: 23;
+        padding: 15px;
+        text-align: left;
+    }
+    b{
+        font-weight:normal;
+    }
 label.checkbox.is-flex-tablet.meal_type {
     margin-left: 30px;
 }

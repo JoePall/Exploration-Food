@@ -17,8 +17,8 @@ $("#filter").click(event => {
 
 $("#recipes").on("click", "section", event => {
     event.preventDefault();
-    console.log("click")
-        // Navigates to the recipe source
+
+    // Navigates to the recipe source
     window.open($(event.currentTarget).val());
 });
 
@@ -166,7 +166,7 @@ function displayRecipes() {
 function generateRecipeHTML(recipe) {
     var result = $("<section>").addClass("recipe has-text-centered tile is-full").val(recipe.source);
 
-    var article = $("<article>").addClass("tile is-child notification is-success ");
+    var article = $("<article>").addClass(" is-mobile tile is-child notification is-success ");
 
     article.append($("<p>").addClass("title").text(recipe.title));
 
