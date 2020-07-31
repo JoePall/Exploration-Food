@@ -187,14 +187,14 @@ margin: auto;
     opacity: 1;
 }
 
-.notification {
+#message-user {
     position: fixed;
     top: 0px;
     left: 0px;
     right: 0px;
 }
 
-/* Each invdividual column is by label name */
+/* Each individual column is by label name */
 label {
     margin-bottom: 15px;
 }
@@ -204,6 +204,28 @@ label.checkbox.is-flex-tablet.intolerances {
 }
 
 label.checkbox.is-flex-tablet.diet {
+    margin-left: 35px;
+}
+
+label.checkbox.is-flex-tablet.cuisine {
+    margin-left: 60px;
+}
+
+label.checkbox.is-flex-tablet.meal_type {
+    margin-left: 30px;
+}
+
+#navigation {
+    position: sticky !important;
+}
+
+.recipe {
+    margin-bottom: 2em;
+}
+
+.recipe-image {
+    width: 50%;
+    height: auto;
     margin-left: 35px;
 }
 

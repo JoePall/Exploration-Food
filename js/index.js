@@ -52,9 +52,9 @@ $("#search").click(event => {
     save_history();
 
     $("#space-shuttle").animate({
-        margin: "0 0 0 150px",
+        margin: "0 0 0 500px",
         opacity: "0"
-    }, 200, () => {
+    }, 400, () => {
         $("#space-shuttle").removeAttr("style");
     });
 
@@ -64,6 +64,7 @@ $("#search").click(event => {
 });
 
 function apiKeyErrorHandler() {
+    $("#search").removeClass('is-loading');
     $("#api-key").css("border-color", "#ff0000")
         .attr("placeholder", "Required Field - API Key")
         .focus();
@@ -164,15 +165,17 @@ function displayRecipes() {
 }
 
 function generateRecipeHTML(recipe) {
-    var result = $("<section>").addClass("column recipe has-text-centered tile is-mobile").val(recipe.source);
+    var result = $("<section>").addClass("recipe has-text-centered tile is-full").val(recipe.source);
 
     var article = $("<article>").addClass("tile is-child notification is-success ");
 
     article.append($("<p>").addClass("title").text(recipe.title));
 
-    var figure = $("<figure>").addClass("image is-4by3");
+    var figure = $("<figure>").addClass("recipe-image image");
     figure.append($("<img>").attr("src", recipe.image));
     article.append(figure);
+
+    article.append($("<br>"));
 
     article.append($("<p>").addClass("subtitle is-6").html(recipe.summary));
 
