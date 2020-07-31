@@ -8,6 +8,7 @@ var index = 0
 
 $("#filter").click(event => {
     event.preventDefault();
+    //shows and hides checkboxes on filter icon click
     if ($("#filter-content").hasClass("is-hidden")) {
         $("#filter-content").removeClass("is-hidden");
     } else {
@@ -18,7 +19,7 @@ $("#filter").click(event => {
 $("#recipes").on("click", "section", event => {
     event.preventDefault();
 
-    // Navigates to the recipe source
+    // Navigates to the recipe URL
     window.open($(event.currentTarget).val());
 });
 
@@ -29,6 +30,7 @@ $("#open-search").click(event => {
 });
 
 function newSearch() {
+    //hides form and shows recipes
     $(".is-in-recipe").addClass("is-hidden");
     $(".is-in-search").removeClass("is-hidden");
 }
@@ -50,7 +52,7 @@ $("#search").click(event => {
     searchAPI(preferences);
 
     save_history();
-
+    //animation in header
     $("#space-shuttle").animate({
         margin: "0 0 0 500px",
         opacity: "0"
@@ -190,7 +192,7 @@ $(".close-modal").click(() => {
 $(".close-message").click(() => {
     $(".notification").addClass("is-hidden");
 });
-
+//retrieves user input and stores is in an object
 function getPreferencesInput() {
     var result = {
         Profilename: "",
@@ -236,7 +238,7 @@ function getPreferencesInput() {
     return result;
 }
 
-//queryParam needs to be in getCheckboxGroupHTML after testing...
+//object inculding data to create checkbox form for user
 var queryParam = {
     Cuisine: {
         african: "african",
@@ -528,7 +530,7 @@ function queryAPI(preferences, callback, failed) {
 
         if (response.results.length > 0) {
             var result = [];
-
+            //creates a smaller object that is more manageable from the API response
             response.results.forEach(item => {
                 var recipe = {
                     title: item.title,
