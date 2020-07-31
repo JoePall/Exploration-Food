@@ -551,7 +551,7 @@ function queryAPI(preferences, callback, failed) {
                 // summary += "<br><br>Similar<br><br>";
                 // otherRecipes.match("(?i)<a([^>]+)>(.+?)</a>").forEach(match => {
                 //     summary += match + "<br>";
-                // })
+                // });
                 
 
                 var recipe = {
