@@ -12,5 +12,9 @@ As a person with allergies or other food restrictions, that gets bored easily wi
 I want to have easy access to new and exciting Recipes that adhere to my allergies and food prefrences,
 So that I can enjoy make new dishes without worrying about how I will have to modify the recipe. 
 
+![img-1](https://user-images.githubusercontent.com/64044377/88989496-65efbf80-d2a1-11ea-8b3a-339f917facae.png)
+![img-2](https://user-images.githubusercontent.com/64044377/88989508-6e47fa80-d2a1-11ea-97cd-98182c5d4e16.png)
+![img-3](https://user-images.githubusercontent.com/64044377/88989440-3e005c00-d2a1-11ea-9892-9d5ec24aab17.png)
+
 
 
