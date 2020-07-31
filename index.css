@@ -97,13 +97,13 @@ hr {
 .checkbox {
     margin-right: 7px;
     margin-left: 7px;
-    margin-top: 5px;
+    margin-top: 9px;
 }
 
 /* text attached to each checkbox */
 .checkbox>span {
     text-transform: capitalize;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 /* subtitle positioning */
