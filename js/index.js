@@ -65,10 +65,16 @@ $("#search").click(event => {
 
 function apiKeyErrorHandler() {
     $("#search").removeClass('is-loading');
-    $("#api-key").css("border-color", "#ff0000")
+    $("#api-key").addClass("is-danger")
         .attr("placeholder", "Required Field - API Key")
         .focus();
 }
+
+
+$("#api-key").focusout(event => {
+    $("#api-key").removeClass("is-danger")
+        .attr("placeholder", "API Key for Spoonacular");
+});
 
 function searchAPI(preferences) {
     queryAPI(preferences, result => {
@@ -112,7 +118,7 @@ $("#close-save-option").click(event => {
 });
 
 $("#previous-recipe").click(event => {
-    var displayedNumber = parseInt($("#display-number").val());
+    var displayedNumber = parseInt($("#display-number>select").val());
     index -= displayedNumber;
     if (index == 0) {
         $("#previous-recipe").attr('disabled', true);
@@ -123,7 +129,7 @@ $("#previous-recipe").click(event => {
 });
 
 $("#next-recipe").click(event => {
-    var displayedNumber = parseInt($("#display-number").val());
+    var displayedNumber = parseInt($("#display-number>select").val());
     index += displayedNumber;
     
     if (recipeArr.length <= displayedNumber) {
@@ -147,7 +153,7 @@ $("#next-recipe").click(event => {
 function displayRecipes() {
     $("#search").removeClass('is-loading');
     $("#recipes").empty();
-    var number = $("#display-number").val();
+    var number = $("#display-number>select").val();
 
     if (number == 1) {
         $("#recipes").append(generateRecipeHTML(recipeArr[0]));
@@ -207,7 +213,7 @@ function getPreferencesInput() {
     };
 
     result.Search = $("#search-text").val();
-    result.displayNumber = $("#display-number").val();
+    result.displayNumber = $("#display-number>select").val();
     result.Include_Ingredients = $("#include-ingredients").val();
     result.Exclude_Ingredients = $("#exclude-ingredients").val();
     result.apiKey = $("#api-key").val();
@@ -486,6 +492,10 @@ $("#profiles").on("click", "section", event => {
     $(".is-in-search").removeClass("is-hidden");
 });
 
+$('#display-number>select').on('change', function () {
+    displayRecipes();
+});
+
 function queryAPI(preferences, callback, failed) {
     console.log(preferences.Search)
     var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query=" + preferences.Search.replace(" ", "%20");
@@ -531,6 +541,19 @@ function queryAPI(preferences, callback, failed) {
             var result = [];
 
             response.results.forEach(item => {
+                // var summary = "";
+
+                // var facts = item.summary.split("Try")[0];
+                // var otherRecipes = item.summary.split("Try")[1];
+
+                // summary += facts.replace("<b>").replace("</b>");
+
+                // summary += "<br><br>Similar<br><br>";
+                // otherRecipes.match("(?i)<a([^>]+)>(.+?)</a>").forEach(match => {
+                //     summary += match + "<br>";
+                // })
+                
+
                 var recipe = {
                     title: item.title,
                     source: item.sourceUrl,
