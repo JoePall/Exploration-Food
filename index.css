@@ -226,4 +226,13 @@ label.checkbox.is-flex-tablet.meal_type {
 .recipe-image {
     width: 50%;
     height: auto;
+    margin-left: 35px;
+}
+
+label.checkbox.is-flex-tablet.cuisine {
+    margin-left: 60px;
+}
+
+label.checkbox.is-flex-tablet.meal_type {
+    margin-left: 30px;
 }
