@@ -18,7 +18,7 @@ $("#filter").click(event => {
 $("#recipes").on("click", "section", event => {
     event.preventDefault();
     console.log("click")
-    // Navigates to the recipe source
+        // Navigates to the recipe source
     window.open($(event.currentTarget).val());
 });
 
@@ -96,8 +96,7 @@ function searchAPI(preferences) {
         if (code == 401) {
             $(".notification>p").text("API Key invalid");
             apiKeyErrorHandler();
-        }
-        else {
+        } else {
             $(".notification>p").text("Search returned no results");
         }
     });
@@ -117,7 +116,7 @@ $("#previous-recipe").click(event => {
     if (index == 0) {
         $("#previous-recipe").attr('disabled', true);
     }
-    
+
     $("#next-recipe").attr('disabled', false);
     displayRecipes();
 });
@@ -125,7 +124,7 @@ $("#previous-recipe").click(event => {
 $("#next-recipe").click(event => {
     var displayedNumber = parseInt($("#display-number").val());
     index += displayedNumber;
-    
+
     if (recipeArr.length <= displayedNumber) {
         $("#next-recipe").attr('disabled', true);
         $("#previous-recipe").attr('disabled', true);
@@ -397,7 +396,7 @@ function save_history() {
     checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
     if (test) console.log("checkboxes = " + checkboxes.length);
     var datevar = monthTxt + "-" + day + "-" + year + " " + hours.toString().padStart(2, '0') + ":" + minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
-    datevar = datevar + " - " + preferences.Search + " - " + checkboxes.length
+    datevar = datevar + " - " + preferences.Search + " - " + checkboxes.length + " Filters used..."
 
 
     if (test) console.log("Date and Time plus search term = " + datevar);
@@ -545,8 +544,7 @@ function queryAPI(preferences, callback, failed) {
             });
 
             callback(result);
-        }
-        else {
+        } else {
             failed();
         }
     }).fail((error) => {
