@@ -126,7 +126,7 @@ margin: auto;
     padding: 12px 18px;
     position: absolute;
     z-index: 4;
-    bottom: 125%;
+    bottom: 100%;
     left: 50%;
     margin-left: -60px;
     opacity: 0;
@@ -164,7 +164,7 @@ margin: auto;
     padding: 12px 18px;
     position: absolute;
     z-index: 4;
-    top: 125%;
+    top: 100%;
     left: 50%;
     margin-left: -60px;
     opacity: 0;
@@ -187,23 +187,30 @@ margin: auto;
     opacity: 1;
 }
 
+.notification {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+}
+
 /* Each invdividual column is by label name */
 label {
     margin-bottom: 15px;
 }
 
-    label.checkbox.is-flex-tablet.intolerances {
-        margin-left: 45px;
-    }
+label.checkbox.is-flex-tablet.intolerances {
+    margin-left: 45px;
+}
 
-    label.checkbox.is-flex-tablet.diet {
-        margin-left: 35px;
-    }
+label.checkbox.is-flex-tablet.diet {
+    margin-left: 35px;
+}
 
-    label.checkbox.is-flex-tablet.cuisine {
-        margin-left: 60px;
-    }
+label.checkbox.is-flex-tablet.cuisine {
+    margin-left: 60px;
+}
 
-    label.checkbox.is-flex-tablet.meal_type {
-        margin-left: 30px;
-    }
+label.checkbox.is-flex-tablet.meal_type {
+    margin-left: 30px;
+}
