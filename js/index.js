@@ -212,6 +212,7 @@ function getPreferencesInput() {
         Meal_Type: []
     };
 
+    
     result.Search = $("#search-text").val();
     result.displayNumber = $("#display-number>select").val();
     result.Include_Ingredients = $("#include-ingredients").val();
