@@ -164,9 +164,9 @@ function displayRecipes() {
 }
 
 function generateRecipeHTML(recipe) {
-    var result = $("<section>").addClass("column recipe has-text-centered tile is-mobile").val(recipe.source);
+    var result = $("<section>").addClass("is-full recipe has-text-centered tile is-mobile").val(recipe.source);
 
-    var article = $("<article>").addClass("tile is-child notification is-success ");
+    var article = $("<article>").addClass(" is-mobile tile is-child notification is-success ");
 
     article.append($("<p>").addClass("title").text(recipe.title));
 
