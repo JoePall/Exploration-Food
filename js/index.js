@@ -154,12 +154,6 @@ function displayRecipes() {
     $("#recipes").empty();
     var number = $("#display-number>select").val();
 
-    if (number == 1) {
-        $("#recipes").append(generateRecipeHTML(recipeArr[0]));
-        $("#recipes>section").removeClass("is-4");
-        return;
-    }
-
     for (let i = 0; i < number; i++) {
         var position = (i + parseInt(index));
 
