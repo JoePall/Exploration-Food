@@ -171,8 +171,8 @@ function generateRecipeHTML(recipe) {
 
     article.append($("<p>").addClass("title").text(recipe.title));
 
-    var figure = $("<figure>").addClass("recipe-image image");
-    figure.append($("<img>").attr("src", recipe.image));
+    var figure = $("<figure>").addClass("image");
+    figure.append($("<img>").addClass("recipe-image is-centered").attr("src", recipe.image));
     article.append(figure);
 
     article.append($("<br>"));
