@@ -64,6 +64,7 @@ $("#search").click(event => {
 });
 
 function apiKeyErrorHandler() {
+    $("#search").removeClass('is-loading');
     $("#api-key").css("border-color", "#ff0000")
         .attr("placeholder", "Required Field - API Key")
         .focus();
