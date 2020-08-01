@@ -11,7 +11,7 @@ $("#filter").click(event => {
     if ($("#filter-content").hasClass("is-hidden")) {
         $("#filter-content").removeClass("is-hidden");
     } else {
-        $("#filter-content").addClass("is-hidden", 550);
+        $("#filter-content").addClass("is-hidden");
     }
 });
 
@@ -47,9 +47,37 @@ $("#search").click(event => {
         return;
     }
 
-    searchAPI(preferences);
+    queryAPI(preferences, result => {
+        $("#search").removeClass('is-loading');
 
-    save_history();
+        if (result == null) {
+            //TODO: Display "no results found" message to user
+            return;
+        }
+
+        $(".is-in-recipe").removeClass("is-hidden");
+        $(".is-in-search").addClass("is-hidden");
+        $(".notification").addClass("is-hidden");
+        $("#previous-recipe").attr("disabled", "true");
+        $("#next-recipe").removeAttr("disabled");
+
+        recipeArr = result;
+        index = 0;
+
+        save_history();
+
+        displayRecipes();
+    }, (code) => {
+        $("#search").removeClass('is-loading');
+        $(".notification").removeClass("is-hidden");
+
+        if (code == 401) {
+            $(".notification>p").text("API Key invalid");
+            apiKeyErrorHandler();
+        } else {
+            $(".notification>p").text("Search returned no results");
+        }
+    });
 
     $("#space-shuttle").animate({
         margin: "0 0 0 500px",
@@ -75,38 +103,6 @@ $("#api-key").focusout(event => {
     $("#api-key").removeClass("is-danger")
         .attr("placeholder", "API Key for Spoonacular");
 });
-
-function searchAPI(preferences) {
-    queryAPI(preferences, result => {
-        $("#search").removeClass('is-loading');
-
-        if (result == null) {
-            //TODO: Display "no results found" message to user
-            return;
-        }
-
-        $(".is-in-recipe").removeClass("is-hidden");
-        $(".is-in-search").addClass("is-hidden");
-        $(".notification").addClass("is-hidden");
-        $("#previous-recipe").attr("disabled", "true");
-        $("#next-recipe").removeAttr("disabled");
-
-        recipeArr = result;
-        index = 0;
-
-        displayRecipes();
-    }, (code) => {
-        $("#search").removeClass('is-loading');
-        $(".notification").removeClass("is-hidden");
-
-        if (code == 401) {
-            $(".notification>p").text("API Key invalid");
-            apiKeyErrorHandler();
-        } else {
-            $(".notification>p").text("Search returned no results");
-        }
-    });
-}
 
 $("#close-save-option").click(event => {
     event.preventDefault();
@@ -205,7 +201,7 @@ function getPreferencesInput() {
         Meal_Type: []
     };
 
-    
+
     result.Search = $("#search-text").val();
     result.displayNumber = $("#display-number>select").val();
     result.Include_Ingredients = $("#include-ingredients").val();
@@ -237,81 +233,79 @@ function getPreferencesInput() {
     return result;
 }
 
-//queryParam needs to be in getCheckboxGroupHTML after testing...
-var queryParam = {
-    Cuisine: {
-        african: "african",
-        american: "American",
-        british: "British",
-        cajun: "Cajun",
-        caribbean: "Caribbean",
-        chinese: "Chinese",
-        eastern_European: "Eastern%20European",
-        european: "European",
-        french: "French",
-        german: "German",
-        greek: "Greek",
-        indian: "Indian",
-        irish: "Irish",
-        italian: "Italian",
-        japanese: "Japanese",
-        jewish: "Jewish",
-        korean: "Korean",
-        latin_american: "Latin%20American",
-        mediterranean: "Mediterranean",
-        mexican: "Mexican",
-        middle_Eastern: "Middle%20Eastern",
-        nordic: "Nordic",
-        southern: "Southern",
-        spanish: "Spanish",
-        thai: "Thai",
-        vietnamese: "Vietnamese",
-    },
-    Intolerances: {
-        dairy: "Dairy",
-        egg: "Egg",
-        gluten: "Gluten",
-        grain: "Grain",
-        peanut: "Peanut",
-        seafood: "Seafood",
-        sesame: "Sesame",
-        shellfish: "Shellfish",
-        soy: "Soy",
-        sulfite: "Sulfite",
-        tree_Nut: "Tree%20Nut",
-        wheat: "Wheat",
-    },
-    Diet: {
-        gluten_Free: "Gluten Free",
-        ketogenic: "Ketogenic",
-        vegetarian: "Vegetarian",
-        lacto_Vegetarian: "Lacto-Vegetarian",
-        ovo_Vegetarian: "Ovo-Vegetarian",
-        vegan: "Vegan",
-        pescetarian: "Pescetarian",
-        paleo: "Paleo",
-        primal: "Primal",
-        whole30: "Whole30",
-    },
-    Meal_Type: {
-        main_Course: "Main Course",
-        side_Dish: "Side Dish",
-        dessert: "Dessert",
-        appetizer: "Appetizer",
-        salad: "Salad",
-        bread: "Bread",
-        breakfast: "Breakfast",
-        soup: "Soup",
-        beverage: "Beverage",
-        sauce: "Sauce",
-        marinade: "Marinade",
-        fingerfood: "Fingerfood",
-        snack: "Snack",
-        drink: "Drink",
-    }
-};
-
 function getCheckboxGroupHTML(name, preferences) {
+    var queryParam = {
+        Cuisine: {
+            african: "african",
+            american: "American",
+            british: "British",
+            cajun: "Cajun",
+            caribbean: "Caribbean",
+            chinese: "Chinese",
+            eastern_European: "Eastern%20European",
+            european: "European",
+            french: "French",
+            german: "German",
+            greek: "Greek",
+            indian: "Indian",
+            irish: "Irish",
+            italian: "Italian",
+            japanese: "Japanese",
+            jewish: "Jewish",
+            korean: "Korean",
+            latin_american: "Latin%20American",
+            mediterranean: "Mediterranean",
+            mexican: "Mexican",
+            middle_Eastern: "Middle%20Eastern",
+            nordic: "Nordic",
+            southern: "Southern",
+            spanish: "Spanish",
+            thai: "Thai",
+            vietnamese: "Vietnamese",
+        },
+        Intolerances: {
+            dairy: "Dairy",
+            egg: "Egg",
+            gluten: "Gluten",
+            grain: "Grain",
+            peanut: "Peanut",
+            seafood: "Seafood",
+            sesame: "Sesame",
+            shellfish: "Shellfish",
+            soy: "Soy",
+            sulfite: "Sulfite",
+            tree_Nut: "Tree%20Nut",
+            wheat: "Wheat",
+        },
+        Diet: {
+            gluten_Free: "Gluten Free",
+            ketogenic: "Ketogenic",
+            vegetarian: "Vegetarian",
+            lacto_Vegetarian: "Lacto-Vegetarian",
+            ovo_Vegetarian: "Ovo-Vegetarian",
+            vegan: "Vegan",
+            pescetarian: "Pescetarian",
+            paleo: "Paleo",
+            primal: "Primal",
+            whole30: "Whole30",
+        },
+        Meal_Type: {
+            main_Course: "Main Course",
+            side_Dish: "Side Dish",
+            dessert: "Dessert",
+            appetizer: "Appetizer",
+            salad: "Salad",
+            bread: "Bread",
+            breakfast: "Breakfast",
+            soup: "Soup",
+            beverage: "Beverage",
+            sauce: "Sauce",
+            marinade: "Marinade",
+            fingerfood: "Fingerfood",
+            snack: "Snack",
+            drink: "Drink",
+        }
+    };
     var result = $("<section>").addClass("control column");
 
     result.append($("<h1>").text(name.replace("_", " ")));
@@ -371,7 +365,6 @@ function init() {
 init();
 
 function save_history() {
-
     var result = JSON.parse(localStorage.getItem("histories"));
 
     if (result == null) {
@@ -405,7 +398,6 @@ function save_history() {
     result.push([datevar, preferences]);
 
     localStorage.setItem("histories", JSON.stringify(result));
-
 }
 
 $("#open-history").click(event => {
@@ -535,19 +527,6 @@ function queryAPI(preferences, callback, failed) {
             var result = [];
 
             response.results.forEach(item => {
-                // var summary = "";
-
-                // var facts = item.summary.split("Try")[0];
-                // var otherRecipes = item.summary.split("Try")[1];
-
-                // summary += facts.replace("<b>").replace("</b>");
-
-                // summary += "<br><br>Similar<br><br>";
-                // otherRecipes.match("(?i)<a([^>]+)>(.+?)</a>").forEach(match => {
-                //     summary += match + "<br>";
-                // });
-                
-
                 var recipe = {
                     title: item.title,
                     source: item.sourceUrl,

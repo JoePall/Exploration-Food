@@ -7,7 +7,7 @@ html {
     overflow-x: hidden;
 }
 
-#profiles>section, #histories>section, button, input {
+button, input, #profiles>section, #histories>section {
     cursor: pointer;
 }
 
@@ -44,9 +44,30 @@ h1 {
     text-align: center;
 }
 
+.title {
+    text-shadow: 2px 2px 10px #00000044;
+}
+
 /* title size */
 .title.is-1 {
     font-size: 7vw;
+}
+
+/* subtitle spacing and size */
+.title.is-4 {
+    font-size: 2.75vw;
+    padding-bottom: 30px;
+}
+
+@media screen and (min-width: 2100px) {
+    .title.is-1 {
+        font-size: 5vw;
+        margin-top: 1em;
+    }
+    .title.is-4 {
+        font-size: 2vw;
+        margin-bottom: 1em;
+    }
 }
 
 /* Checkbox Titles */
@@ -78,12 +99,6 @@ h4 {
     margin-bottom: 2px;
     margin-left: -4px;
     text-align: center;
-}
-
-/* subtitle spacing and size */
-.title.is-4 {
-    font-size: 2.75vw;
-    padding-bottom: 30px;
 }
 
 #recipes {
@@ -119,18 +134,18 @@ margin: auto;
 
 .tooltip>span {
     visibility: hidden;
-    width: auto;
+    opacity: 0;
     background-color: #555;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 12px 18px;
+    padding: .6em;
     position: absolute;
     z-index: 4;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
+    bottom: 135%;
+    width: 250%;
+    margin-left: -200%;
+    left: 125%;
     transition: opacity 0.3s;
 }
 
@@ -139,8 +154,8 @@ margin: auto;
     position: absolute;
     top: 100%;
     left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
+    margin-left: -12px;
+    border-width: 12px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
 }
@@ -157,28 +172,28 @@ margin: auto;
 
 .tooltip-page-top>span {
     visibility: hidden;
-    width: auto;
+    opacity: 0;
     background-color: #555;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 12px 18px;
+    padding: .6em;
     position: absolute;
     z-index: 4;
-    top: 100%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
+    top: 135%;
+    width: 250%;
+    margin-left: -200%;
+    left: 125%;
     transition: opacity 0.3s;
 }
 
 .tooltip-page-top>span::after {
     content: " ";
     position: absolute;
-    bottom: 100%;
+    bottom: 95%;
     left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
+    margin-left: -12px;
+    border-width: 12px;
     border-style: solid;
     border-color: transparent transparent #555 transparent;
 }
@@ -226,6 +241,11 @@ label.checkbox.is-flex-tablet.meal_type {
 
 .recipe {
     margin-bottom: 2em;
+    cursor: pointer;
+}
+
+#navigation>div>span {
+    vertical-align: middle !important;
 }
 
 .recipe-image {

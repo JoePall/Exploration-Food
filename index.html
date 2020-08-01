@@ -166,27 +166,38 @@
 
             </form>
 
-            <section id="navigation" class="field is-in-recipe is-clearfix is-hidden">
-                <button id="previous-recipe" type="button" title="Previous"
-                    class="button is-large is-rounded is-pulled-left is-outlined is-info tooltip">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Previous Recipe</span>
-                </button>
-
-                <div id="display-number" class="select is-large is-rounded tooltip">
-                    <select>
-                        <option>1</option>
-                        <option>3</option>
-                        <option>5</option>
-                    </select>
-                    <span>Displayed Results</span>
+            <section id="navigation" class="field is-in-recipe is-clearfix is-hidden py-5">
+                <div class="is-pulled-left">
+                    <span class="is-size-3 has-text-white">Displaying </span>
+                    <div id="display-number" class="select is-large is-rounded tooltip">
+                        <select>
+                            <option>1</option>
+                            <option>3</option>
+                            <option>5</option>
+                        </select>
+                        <span>Displayed Results</span>
+                    </div>
+                    <span class="is-size-3 has-text-white">&nbsp;result(s)!</span>
                 </div>
 
-                <button id="next-recipe" type="button" title="Next Recipe"
-                    class="button is-large is-rounded is-pulled-right is-outlined is-info tooltip">
-                    <i class="fas fa-arrow-right"></i>
-                    <span>Next Recipe</span>
-                </button>
+                <div id="navigation-section">
+                    <div class="field has-addons is-pulled-right pr-0">
+                        <div class="control">
+                            <button id="previous-recipe" type="button" title="Previous"
+                                class="control button is-large is-rounded tooltip">
+                                <i class="fas fa-arrow-left"></i>
+                                <span>Previous Recipe</span>
+                            </button>
+                        </div>
+                        <div class="control">
+                            <button id="next-recipe" type="button" title="Next Recipe"
+                                class="control button is-large is-rounded tooltip">
+                                <i class="fas fa-arrow-right"></i>
+                                <span>Next Recipe</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <div class="field">
@@ -228,8 +239,8 @@
         </div>
     </div>
 
-
     <script src="./js/index.js"></script>
+    <script src="./js/moment-with-locales.js"></script>
 </body>
 
 </html>
