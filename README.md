@@ -2,6 +2,7 @@
 
 ## Deployed: https://joepall.github.io/Exploration-Food/
 
+## Description
 
 Selective Recipe App designed to match the needs of all diets and food restrictions. 
 Great for those with allergies, religious restrictions, or are simply particular about thier food.
@@ -12,16 +13,32 @@ When a user visits the site they will be presented with a form contain a search,
 and the option to include or exclude any food they put into the associated inputs. 
 Once they search they can save thier preferrences along with thier name.
 
+## Technolodgies 
+
+
+Spoontacular API
+
+Bulma CSS library
+
+Moment.js
+
+jQuery
+
+
 
 ## User Story
 
 
 As a person with allergies or other food restrictions, that gets bored easily with the same recipes,
+
+
 I want to have easy access to new and exciting Recipes that adhere to my allergies and food prefrences,
+
+
 So that I can enjoy make new dishes without worrying about how I will have to modify the recipe. 
 
 
-
+## Screenshots
 ![img-1](https://user-images.githubusercontent.com/64044377/88989496-65efbf80-d2a1-11ea-8b3a-339f917facae.png)
 
 
